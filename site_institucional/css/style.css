@@ -44,19 +44,19 @@ body {
 
 /* INICIO HOME */
 
-#homeMain{
+#homeMain {
     display: flex;
     justify-content: space-around;
     color: #FFFFFF;
-    background: rgb(94,87,193);
-    background: linear-gradient(0deg, rgba(94,87,193,1) 0%, rgba(110,67,185,1) 100%);
+    background: rgb(94, 87, 193);
+    background: linear-gradient(0deg, rgba(94, 87, 193, 1) 0%, rgba(110, 67, 185, 1) 100%);
     height: 65vh;
     position: relative;
     padding: 5vb;
     margin-bottom: 15vh;
 }
 
-.main-texto{
+.main-texto {
     margin: 0;
     position: relative;
     left: 5vw;
@@ -67,7 +67,7 @@ body {
     font-family: 'Bree Serif', serif;
 }
 
-.main-texto p{
+.main-texto p {
     margin: 0;
 }
 
@@ -75,29 +75,129 @@ body {
     margin-left: 15vw;
 }
 
-.ilustracao-home{
+.ilustracao-home {
     position: relative;
     top: -8vh;
     right: -5vw;
     z-index: 99;
 }
 
-#imagemHome{
+#imagemHome {
     width: 800px;
     height: 800px;
 }
 
 /* SERVIÇOS */
-.servicos{
-    background-color: aqua;
-    height: 50vh;
-}
-.servicos-forma{
-    position: relative;
+.servicos {
+    background-color: rgb(255, 255, 255);
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 80vh;
+    width: 100%;
 }
 
-.servicos-divisor{
+.servicosDesc {
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+}
+
+.servicosDesc img {
+
+    position: relative;
+    top: 10px;
+    width: 35%;
+    height: 18vh;
+
+
+}
+
+.servicosCont {
+
+    display: flex;
+    flex-direction: column-reverse;
+
+}
+
+.texto {
+
+    padding: 2em;
+    display: flex;
+    text-align: center;
+    height: 50vh;
+    font-size: x-large;
+    position: relative;
+    bottom: 6vh;
+}
+
+h2 {
+
+    font-size: xx-large;
+    color: #6E43B9;
+
+}
+
+.servico1 {
+    background-color: #78E7E8;
+    height: 80vh;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    left: 20vh;
+    z-index: 1;
+    color: #6E43B9;
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+
+}
+
+.servico2 {
+    background-color: rgb(255, 255, 255);
+    height: 90vh;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    bottom: 1vh;
+    z-index: 2;
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+}
+
+.servico3 {
+
+    background-color: #78E7E8;
+    height: 80vh;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    bottom: 2vh;
+    right: 20vh;
+    z-index: 1;
+    color: #6E43B9;
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+}
+
+.servicos-forma {
+    position: relative;
+    display: flex;
+
+}
+
+.servicos-divisor {
     position: relative;
     margin-top: -2vh;
 }
