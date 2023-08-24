@@ -1,8 +1,9 @@
 @import url('https://fonts.cdnfonts.com/css/metrophobic');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #FAFAFA;
 }
 
@@ -26,15 +27,15 @@ body {
 /* NAV BAR */
 
 .navbar {
-    font-family: 'Inter';
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 3px;
-    font-weight: 900;
+    font-size: 20px;
     display: flex;
     background: #6e43b9;
     justify-content: space-between;
     align-items: center;
     color: #FAFAFA;
-    padding: 5px 20px;
+    padding: 2% 1%;
 }
 
 .navbar-items ul {
@@ -45,12 +46,18 @@ body {
 }
 
 .navbar-items li {
-    margin: 0 10px;
+    margin: 0 20px;
 }
 
 .navbar-items a {
     text-decoration: none;
     color: #FAFAFA;
+}
+
+.navbar li a:hover {
+    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
+    color: #000000;
+    transition: 0.5s;
 }
 
 .navbar-direita a {
@@ -59,8 +66,16 @@ body {
 }
 
 .navbar-direita {
-    font-size: 14px;
+    font-size: 20px;
+    margin-top: -1.6%;
 }
+
+.navbar-direita a:hover {
+    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
+    color: #000000;
+    transition: 0.5s;
+}
+
 
 /* INICIO HOME */
 
@@ -74,6 +89,7 @@ body {
     position: relative;
     padding: 5vb;
     margin-bottom: 15vh;
+    margin-left: 0vw;
 }
 
 .main-texto {
@@ -84,16 +100,50 @@ body {
     display: flex;
     flex-direction: column;
     font-size: 30px;
-    font-family: 'Bree Serif', serif;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 0vw;
 }
 
-.main-texto p {
-    margin: 0;
+#part1 {
+    margin-left: 0vw;
+    margin-top: 2vw;
+    margin-bottom: 0%;
+    font-weight:700;
+    color: #b1e3ed;
 }
 
-#textoGuia {
-    margin-left: 15vw;
+#TrackWare-titulo:hover {
+    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
+    color:#000000;
+    transition: 0.5s;
 }
+
+#TrackWare-subtitulo:hover {
+    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
+    color: #000000;
+    transition: 0.5s;
+}
+
+#part2 {
+    margin-left:0vw;
+    width: 40vw;
+    margin-top: 0vw;
+}
+
+#TrackWare-titulo {
+    font-weight: 300;
+    font-size: 80px; 
+    margin-top: -5vw;
+    margin-left: 0vw;
+}
+
+#TrackWare-subtitulo {
+    font-weight:light; 
+    font-size: 22px;
+    margin-left: 0vw;
+}
+
+
 
 .ilustracao-home {
     position: relative;
@@ -117,6 +167,7 @@ body {
     text-align: center;
     height: 100vh;
     width: 100%;
+    font-family: 'Poppins', sans-serif;
 }
 
 .servicosDesc {
@@ -156,40 +207,43 @@ body {
 
 .texto {
 
-    padding: 1.5em;
+    padding: 2.0em;
     display: flex;
-    text-align: start;
+    text-align: center;
     height: 50vh;
     font-size: x-large;
     position: relative;
     bottom: 6vh;
+    
+
 }
 
 h1 {
 
     width: 300px;
-    font-size: 110px;
-    letter-spacing: 30px;
+    font-size: 80px;
+    letter-spacing: 1px;
     position: relative;
-    right: 16vh;
+    right: 3vh;
     bottom: 100px;
-    font-family: 'Metrophobic', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #2A327A;
+    
 }
 
 h2 {
 
     font-size: xx-large;
     color: #6E43B9;
-    font-family: 'Metrophobic', sans-serif;
+    font-family: 'Poppins', sans-serif;
 
 
 }
 
 .servico1 {
     background-color: #78E7E8;
-    height: 70vh;
-    width: 65%;
+    height: 78vh;
+    width: 80%;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -197,9 +251,9 @@ h2 {
     position: relative;
     left: 23vh;
     z-index: 1;
-    font-family: inria Serif;
     color: #6E43B9;
     box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+    margin-right: 15%;
 
 }
 
@@ -226,8 +280,8 @@ h2 {
 
 .servico2 {
     background-color: #FAFAFA;
-    height: 80vh;
-    width: 75%;
+    height: 82vh;
+    width: 73%;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -235,26 +289,25 @@ h2 {
     position: relative;
     bottom: 1vh;
     z-index: 2;
-    font-family: inria Serif;
     box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
 }
 
 .servico3 {
 
     background-color: #78E7E8;
-    height: 70vh;
-    width: 65%;
+    height: 78vh;
+    width: 80%;
     margin: auto;
     display: flex;
     justify-content: center;
     text-align: center;
     position: relative;
-    bottom: 2vh;
+    bottom: 3vh;
     right: 23vh;
     z-index: 1;
-    font-family: inria Serif;
     color: #6E43B9;
     box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+    margin-left: 15%;
 }
 
 .servicos-forma {
@@ -268,28 +321,98 @@ h2 {
     margin-top: -2vh;
 }
 
-/* PRIMEIRO DIVISOR */
+/* SOBRE NÓS */
+.sobre-nos .section-sobre {
+    height: 110vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #FAFAFA;
+    color: #000000;
+}
+.section-sobre .texto-sobre-nos h1{
+    width: 60%;
+    font-size: 80px;
+    letter-spacing: 1px;
+    display: flex;
+    position: relative;
+    top: 25vh;
+    left: 35vh;
+    bottom: 100px;
+    font-family: 'Poppins', sans-serif;
+    color: #2A327A;
+}
 
-.custom-shape-divider-bottom-1692590550 {
+.section-sobre .texto-sobre-nos p{
+    width: 85%;
+    font-size: 28px;
+    display: flex;
+    position: relative;
+    top: 25vh;
+    left: 12vh;
+    bottom: 100px;
+    font-family: 'Poppins', sans-serif;
+    color: #2A327A;
+    line-height: 55px;
+}
+
+.section-sobre .texto-sobre-nos p1{
+    width: 85%;
+    font-size: 28px;
+    display: flex;
+    position: relative;
+    top: 25vh;
+    left: 12vh;
+    bottom: 100px;
+    font-family: 'Poppins', sans-serif;
+    color: #8566c2;
+    font-weight: 700;
+}
+.ilustracao-sobre-nos {
+    position: relative;
+    top: 30vh;
+    right: 0vw;
+    z-index: 99;
+    left: 5vw;
+}
+
+#imagemSobreNos {
+    width: 800px;
+    height: 800px;
+}
+.section-sobre .texto-sobre-nos {
+    width: 65%;
+    margin: 10px 50px; 
+    font-family: Poppins;
+    color: #3b280a;
+    font-style: normal; 
+    font-weight: 500; 
+    font-size: 18px; 
+    line-height: 50px; 
+    text-align: justify;
+}
+/* PRIMEIRO DIVISOR */
+.custom-shape-divider-bottom-1692823570 {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     overflow: hidden;
     line-height: 0;
+    transform: rotate(180deg);
 }
 
-.custom-shape-divider-bottom-1692590550 svg {
+.custom-shape-divider-bottom-1692823570 svg {
     position: relative;
     display: block;
-    width: calc(100% + 1.3px);
-    height: 226px;
+    width: calc(105% + 1.3px);
+    height: 320px;
 }
 
-.custom-shape-divider-bottom-1692590550 .shape-fill {
-    fill: #FAFAFA;
+.custom-shape-divider-bottom-1692823570 .shape-fill {
+    fill: #FFFFFF;
 }
-
 /* SEGUNDA DIVISAO */
 .custom-shape-divider-bottom-1692676178 {
     position: absolute;
@@ -305,12 +428,12 @@ h2 {
     position: relative;
     display: block;
     width: calc(180% + 1.5px);
-    height: 300px;
+    height: 400px;
     transform: rotateY(180deg);
 }
 
 .custom-shape-divider-bottom-1692676178 .shape-fill {
-    fill: rgb(94, 87, 193);
+    fill:#8A7DCE;
 }
 
 .custom-shape-divider-top-1692676204 {
@@ -331,5 +454,5 @@ h2 {
 }
 
 .custom-shape-divider-top-1692676204 .shape-fill {
-    fill: rgb(94, 87, 193);
+    fill:#8A7DCE;
 }
