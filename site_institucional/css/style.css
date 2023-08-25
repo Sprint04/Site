@@ -108,13 +108,13 @@ body {
     margin-left: 0vw;
     margin-top: 2vw;
     margin-bottom: 0%;
-    font-weight:700;
+    font-weight: 700;
     color: #b1e3ed;
 }
 
 #TrackWare-titulo:hover {
     /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color:#000000;
+    color: #000000;
     transition: 0.5s;
 }
 
@@ -125,20 +125,20 @@ body {
 }
 
 #part2 {
-    margin-left:0vw;
+    margin-left: 0vw;
     width: 40vw;
     margin-top: 0vw;
 }
 
 #TrackWare-titulo {
     font-weight: 300;
-    font-size: 80px; 
+    font-size: 80px;
     margin-top: -5vw;
     margin-left: 0vw;
 }
 
 #TrackWare-subtitulo {
-    font-weight:light; 
+    font-weight: light;
     font-size: 22px;
     margin-left: 0vw;
 }
@@ -214,7 +214,7 @@ body {
     font-size: x-large;
     position: relative;
     bottom: 6vh;
-    
+
 
 }
 
@@ -228,13 +228,13 @@ h1 {
     bottom: 100px;
     font-family: 'Poppins', sans-serif;
     color: #2A327A;
-    
+
 }
 
 h2 {
 
     font-size: xx-large;
-    color: #6E43B9;
+    color: #000000;
     font-family: 'Poppins', sans-serif;
 
 
@@ -257,21 +257,21 @@ h2 {
 
 }
 
-.servico1:hover{
+.servico1:hover {
 
     transform: scale(1.1);
     transition: 0.7s ease-in-out;
 
 }
 
-.servico2:hover{
+.servico2:hover {
 
     transform: scale(1.1);
     transition: 0.7s ease-in-out;
 
 }
 
-.servico3:hover{
+.servico3:hover {
 
     transform: scale(1.1);
     transition: 0.7s ease-in-out;
@@ -331,7 +331,8 @@ h2 {
     background-color: #FAFAFA;
     color: #000000;
 }
-.section-sobre .texto-sobre-nos h1{
+
+.section-sobre .texto-sobre-nos h1 {
     width: 60%;
     font-size: 80px;
     letter-spacing: 1px;
@@ -344,7 +345,7 @@ h2 {
     color: #2A327A;
 }
 
-.section-sobre .texto-sobre-nos p{
+.section-sobre .texto-sobre-nos p {
     width: 85%;
     font-size: 28px;
     display: flex;
@@ -357,7 +358,7 @@ h2 {
     line-height: 55px;
 }
 
-.section-sobre .texto-sobre-nos p1{
+.section-sobre .texto-sobre-nos p1 {
     width: 85%;
     font-size: 28px;
     display: flex;
@@ -369,6 +370,7 @@ h2 {
     color: #8566c2;
     font-weight: 700;
 }
+
 .ilustracao-sobre-nos {
     position: relative;
     top: 30vh;
@@ -381,17 +383,19 @@ h2 {
     width: 800px;
     height: 800px;
 }
+
 .section-sobre .texto-sobre-nos {
     width: 65%;
-    margin: 10px 50px; 
+    margin: 10px 50px;
     font-family: Poppins;
     color: #3b280a;
-    font-style: normal; 
-    font-weight: 500; 
-    font-size: 18px; 
-    line-height: 50px; 
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 50px;
     text-align: justify;
 }
+
 /* PRIMEIRO DIVISOR */
 .custom-shape-divider-bottom-1692823570 {
     position: absolute;
@@ -413,6 +417,7 @@ h2 {
 .custom-shape-divider-bottom-1692823570 .shape-fill {
     fill: #FFFFFF;
 }
+
 /* SEGUNDA DIVISAO */
 .custom-shape-divider-bottom-1692676178 {
     position: absolute;
@@ -433,7 +438,7 @@ h2 {
 }
 
 .custom-shape-divider-bottom-1692676178 .shape-fill {
-    fill:#8A7DCE;
+    fill: #8A7DCE;
 }
 
 .custom-shape-divider-top-1692676204 {
@@ -454,5 +459,145 @@ h2 {
 }
 
 .custom-shape-divider-top-1692676204 .shape-fill {
-    fill:#8A7DCE;
+    fill: #8A7DCE;
+}
+
+.card {
+
+    background-color: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cardDesc {
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #FAFAFA;
+    color: #000000;
+}
+
+.cardDesc img {
+
+    position: relative;
+    bottom: 4vh;
+    width: 42%;
+    height: 15vh;
+    border-radius: 50%;
+    background-color: #143ab6;
+    z-index: 2;
+
+}
+
+
+.cardDesc .servico2 img {
+
+    position: relative;
+    top: 10px;
+    width: 35%;
+    height: 18vh;
+
+}
+
+.cardCont {
+
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 30%;
+
+}
+
+.texto2 {
+
+    padding: 1.0em;
+    
+    text-align: center;
+    height: 20vh;
+    font-size: medium;
+    position: relative;
+    bottom: 6vh;
+
+
+}
+
+.card1 {
+
+    background-color: #f6ffff;
+    height: 50vh;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+
+    z-index: 1;
+    /* color: #6E43B9; */
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+    margin-right: 5%;
+
+}
+
+/* .card1:hover{
+
+    transform: scale(1.1);
+    transition: 0.7s ease-in-out;
+
+}
+
+.card2:hover{
+
+    transform: scale(1.1);
+    transition: 0.7s ease-in-out;
+
+}
+
+.card3:hover{
+
+    transform: scale(1.1);
+    transition: 0.7s ease-in-out;
+
+} */
+
+.card2 {
+
+    background-color: #f6ffff;
+    height: 50vh;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+
+    z-index: 1;
+    /* color: #6E43B9; */
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+
+}
+
+.card3 {
+
+
+    background-color: #f6ffff;
+    height: 50vh;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+
+    z-index: 1;
+    /* color: #6E43B9; */
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+    margin-right: 50%;
 }
