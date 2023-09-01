@@ -998,9 +998,12 @@ footer {
         overflow-x: hidden;
     }
 
+    .principal{
+        overflow-x: hidden;
+    }
     .navbar {
         
-        width: 180%;
+        width: 236vw;
         height: 70px;
     }
 
@@ -1045,7 +1048,7 @@ footer {
 
     #homeMain {
         height: 55vh;
-        width: 180%;
+        width: 220vw;
         
     }
 
