@@ -203,7 +203,7 @@ body {
     }
 }
 
-/* Sobre Nós */
+/* SOBRE NÓS */
 
 .sobre-nos .section-sobre {
     height: 110vh;
@@ -236,6 +236,12 @@ body {
     left: 71vh;
 }
 
+ span{
+
+color: #7f37c9;
+
+}
+
 .p1 {
 
     width: 75%;
@@ -253,15 +259,16 @@ body {
 
 .p2 {
 
-    width: 45%;
+    width: 36.5%;
     font-size: 28px;
     display: flex;
     position: relative;
+    text-align: justify;
     bottom: 80vh;
     left: 100vh;
     font-family: 'Poppins', sans-serif;
     color: #000000;
-    line-height: 10vh;
+    line-height: 6vh;
 
 }
 
@@ -379,7 +386,7 @@ body {
 /* SERVIÇOS */
 
 .servicos {
-    background-color: #FAFAFA;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -394,12 +401,11 @@ body {
 
 
 .servicosDesc {
-    height: 120vh;
+    height: 130vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #FAFAFA;
     color: #000000;
     position: relative;
     left: 7vh;
@@ -417,7 +423,7 @@ body {
 
 }
 
-.servicos .lineS {
+.servicos .line3 {
 
     background-color: #8800ff;
     height: 5px;
@@ -463,7 +469,7 @@ body {
     text-align: start;
     font-size: x-large;
     position: relative;
-    bottom: 10vh;
+    bottom: 12vh;
 
 }
 
@@ -487,6 +493,124 @@ body {
 
 }
 
+/* AVALIAÇÕES */
+
+.avaliacoes {
+
+    background-color: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 60vh;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+#avaliacoes {
+    width: 60%;
+    font-size: 55px;
+    letter-spacing: 1px;
+    display: flex;
+    position: relative;
+    bottom: 6vh;
+    left: 58vh;
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    
+}
+
+.line4 {
+    height: 5px;
+    width: 40vh;
+    background-color: #8800ff;
+    position: relative;
+    bottom: 2vh;
+    right: 65vh;
+}
+
+.avaliacaoDesc {
+    height: 70vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #FAFAFA;
+    color: #000000;
+}
+
+
+.avaliacaoCont {
+
+    display: flex;
+    flex-direction: column-reverse;
+
+}
+
+.texto3 {
+    padding: 1.0em;
+    text-align: center;
+    height: 20vh;
+    font-size: 25px;
+    position: relative;
+    bottom: 6vh;
+
+}
+
+.texto3 h2 {
+    color: #000000;
+}
+
+.texto3 h2:hover {
+    color: #6E43B9;
+    transition-duration: 0.6s;
+}
+
+.avaliacao1 {
+
+    height: 70vh;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+    border-radius: 8px;
+
+}
+
+.avaliacao2 {
+
+    height: 70vh;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    right: 2vh;
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+    border-radius: 8px;
+
+}
+
+.avaliacao3 {
+
+    height: 70vh;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    right: 2vh;
+    box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
+    border-radius: 8px;
+
+}
+
 /* NOSSA EQUIPE */
 
 .nossa-equipe {
@@ -504,6 +628,8 @@ body {
 
 }
 
+
+
 #nossa-equipe {
     width: 60%;
     font-size: 55px;
@@ -512,14 +638,13 @@ body {
     margin-left: 39%;
     top: 0vh;
     left: 8vh;
-    bottom: 500px;
     font-family: 'Poppins', sans-serif;
     color: #000000;
     margin-top: -5%;
     margin-bottom: 5%;
 }
 
-.lineE {
+.line5 {
     height: 5px;
     width: 430px;
     background-color: #8800ff;
@@ -549,6 +674,13 @@ body {
     border-radius: 1%;
 }
 
+.nossa-equipe img{
+
+    position: relative;
+    top: 2.5vh;
+
+}
+
 .card-desc {
     background-color: #FAFAFA;
     height: 170px;
@@ -565,7 +697,8 @@ body {
     font-size: x-large;
     color: #2A327A;
     font-family: 'Poppins', sans-serif;
-    top: 5vh;
+    position: relative;
+    top: 1vh;
 }
 
 .texto3 {
@@ -574,8 +707,8 @@ body {
     height: 20vh;
     font-size: large;
     position: relative;
-    bottom: 2vh;
-    opacity: 0.3;
+    bottom: 1vh;
+    opacity: 0.8;
 }
 
 /* RODAPÉ */
@@ -833,20 +966,41 @@ footer {
     fill: #FAFAFA;
 }
 
+/* Terceira DIVISÃO */
+
+.custom-shape-divider-top-1693402030 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1693402030 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 170px;
+}
+
+.custom-shape-divider-top-1693402030 .shape-fill {
+    fill: #FAFAFA;
+}
+
 /* Parte Mobile */
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
+
+    /* NAVBAR */
+
+    body{
+        overflow-x: hidden;
+    }
 
     .navbar {
-        font-family: 'Poppins', sans-serif;
-        letter-spacing: 0px;
-        font-size: 10px;
-        display: flex;
-        background: #000000;
-        justify-content: space-around;
-        align-items: start;
-        color: #FAFAFA;
-        width: 98%;
+        
+        width: 180%;
         height: 70px;
     }
 
@@ -862,51 +1016,43 @@ footer {
 
     }
 
-    .navbar-items li {
-        margin: 0 20px;
-    }
-
     .navbar-items a {
         text-decoration: none;
         color: #FAFAFA;
+        font-size: 2vh;
     }
 
     .navbar-direita a {
         text-decoration: none;
         color: #FAFAFA;
+        font-size: 1.7vh;
     }
 
     .navbar-direita {
-        font-size: 20px;
-        margin-top: -1.6%;
+        font-size: 0rem;
+        
     }
 
+    /* HOME */
+
     #imagemHome {
-        width: 250px;
-        height: 250px;
+        width: 90%;
+        height: 50vh;
         position: relative;
         top: 80px;
         right: 30px;
     }
 
     #homeMain {
-        display: flex;
-        justify-content: space-around;
-        color: white;
-        background: #FAFAFA;
-        background: linear-gradient(0deg, rgb(160, 160, 160) 0%, rgb(0, 0, 0) 100%);
-        height: 45vh;
-        position: relative;
-        padding: 5vb;
-        margin-bottom: 15vh;
-        margin-left: 0vw;
+        height: 55vh;
+        width: 180%;
+        
     }
 
     #TrackWare-titulo {
-        font-weight: 300;
-        font-size: 17px;
-        margin-top: -5vw;
-        margin-left: 0vw;
+        
+        font-size: 6vh;
+        
     }
 
     #TrackWare-subtitulo {
@@ -916,7 +1062,6 @@ footer {
     }
 
     .main-texto {
-        margin: 0;
         position: relative;
         left: 5vw;
         top: 10vh;
@@ -933,44 +1078,15 @@ footer {
         border: #8800ff;
         border-radius: 20px;
         margin-right: 10px;
-        width: 100px;
-        height: 25px;
+        width: 50%;
+        height: 5vh;
         font-family: 'Poppins', sans-serif;
         font-size: 13px;
         margin-left: -6px;
     }
 
-    .section-sobre .texto-sobre-nos h1 {
-        width: 50%;
-        font-size: 25px;
-        letter-spacing: 1px;
-        display: flex;
-        position: relative;
-        top: -25vh;
-        left: 8vh;
-        bottom: 100px;
-        font-family: 'Poppins', sans-serif;
-        color: #000000;
-    }
+    /* DIVISAO */
 
-    .section-sobre .texto-sobre-nos p {
-        width: 45%;
-        font-size: 14px;
-        display: flex;
-        position: relative;
-        left: 8vh;
-        bottom: 20px;
-        font-family: 'Poppins', sans-serif;
-        color: #000000;
-        line-height: 55px;
-    }
-
-    .cards-sobre-nos {
-        width: 35%;
-
-    }
-
-    /* PRIMEIRO DIVISOR */
     .custom-shape-divider-bottom-1692823570 {
         position: absolute;
         bottom: 0;
@@ -978,58 +1094,19 @@ footer {
         width: 100%;
         overflow: hidden;
         line-height: 0;
-        transform: rotate(180deg);
+        transform: rotate(120deg);
     }
-
+    
     .custom-shape-divider-bottom-1692823570 svg {
         position: relative;
         display: block;
-        width: calc(105% + 1.3px);
-        height: 320px;
-    }
-
-    .custom-shape-divider-bottom-1692823570 .shape-fill {
-        fill: #FFFFFF;
-    }
-
-    /* Segunda divisao */
-
-    .custom-shape-divider-bottom-1692676178 {
-        width: 100%;
-        transform: rotate(180deg);
-    }
-
-    .custom-shape-divider-bottom-1692676178 svg {
-        position: relative;
-        display: block;
-        width: calc(200px + 1.5px);
-        height: 400px;
-        transform: rotateY(180deg);
-    }
-
-    .custom-shape-divider-bottom-1692676178 .shape-fill {
-        fill: #8A7DCE;
-    }
-
-    .custom-shape-divider-top-1692676204 {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        line-height: 0;
-    }
-
-    .custom-shape-divider-top-1692676204 svg {
-        position: relative;
-        display: block;
-        width: calc(200px + 1.5px);
+        width: calc(100% + 1.3px);
         height: 300px;
-        transform: rotateY(180deg);
     }
-
-    .custom-shape-divider-top-1692676204 .shape-fill {
-        fill: #8A7DCE;
+    
+    .custom-shape-divider-bottom-1692823570 .shape-fill {
+        fill: #FAFAFA;
     }
+  
 
 }
