@@ -15,32 +15,6 @@ body {
       transition-delay: 0 !important;
     }
   }
-
-  .back-to-top {
-    position: fixed;
-  
-    
-    right: 15px;
-    bottom: 15px;
-    z-index: 999;
-    background: #6E43B9;
-    width: 3vw;
-    height: 6vh;
-    border-radius: 4px;
-    transition: all 0.4s;
-  }
-  
-  .back-to-top:hover {
-    background: #550e63;
-    color: #fff;
-  }
-  
-  .back-to-top i {
-    font-size: 28px;
-    color: #fff;
-    line-height: 0;
-  }
-  
   
 
 ::-webkit-scrollbar {
@@ -970,4 +944,29 @@ footer {
 .custom-shape-divider-bottom-1692911528 .shape-fill {
     fill: #FAFAFA;
 }
+
+/* Botao que joga pra cima */
+
+.back-to-top {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 999;
+    background: #6E43B9;
+    width: 3vw;
+    height: 6vh;
+    border-radius: 4px;
+    transition: all 0.4s;
+  }
+  
+  .back-to-top:hover {
+    background: #550e63;
+    color: #fff;
+  }
+  
+  .back-to-top i {
+    font-size: 3vh;
+    color: #fff;
+    line-height: 0;
+  }
 
