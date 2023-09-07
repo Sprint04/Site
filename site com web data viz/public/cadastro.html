@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Cadastro e Login | TrackWare</title>
+
+  <script src="./js/sessao.js"></script>
+
+  <link rel="icon" href="assets/icon/favicon.png">
+  <link rel="stylesheet" href="css/Cadastro_Login.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="shortcut icon" href="assets/logo-icon.png" type="image/x-icon">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body onload="listar()">
+
+ 
+    <!-- Cadastro e Login -->
+
+    <div class="container" id="container">
+      <div class="form-container sign-up-container">
+          <div class="form">
+              <h1>Cadastre-se</h1>
+              <input type="text" placeholder="Nome" id="nome_input" />
+              <input placeholder="Email" id="email_input" />
+              <input type="password" placeholder="Senha" id="senha_input" />
+              <input type="password" placeholder="Confirmação de senha" id="confirmacao_senha_input" />
+              <div id="aguardar"></div>
+              <div id="cardErro">
+                  <p id="mensagem_erro"></p>
+              </div>
+              <div id="div_aguardar"></div>
+              <button class="botao" onclick="cadastrar()">Cadastrar</button>
+          </div>
+      </div>
+      <div class="form-container sign-in-container" id="entraraq">
+          <div class="form">
+              <div class="inps">
+                  <h1>Login</h1>
+              </div>
+              <input type="email" placeholder="Email" id="email_input_login" />
+              <input type="password" placeholder="Senha" id="senha_input_login" />
+              <a href="#">Esqueceu sua senha?</a>
+              <div id="aguardar"></div>
+              <div id="cardErro">
+                  <p id="mensagem_erro"></p>
+              </div>
+              <div id="div_aguardar"></div>
+              <button class="botao" onclick="login()" type="button">Entrar</button>
+
+
+          </div>
+      </div>
+
+      <!-- Animação rpo deslize e a aparacição da outra Div -->
+
+      <div class="overlay-container">
+          <div class="overlay">
+              <div class="overlay-panel overlay-left">
+                  <h1>É novo por aqui?</h1>
+                  <p>Bem-vindo(a)! Crie uma conta para acessar nossas conteúdos.</p>
+                  <button class="botao ghost" id="signIn" onclick="signInLogin()">Login</button>
+              </div>
+              <div class="overlay-panel overlay-right">
+                  <h1>Bem Vindo(a) de volta!</h1>
+                  <p>Faça o login para continuar navegando!</p>
+                  <button class="botao ghost" id="signUp" onclick="signUpCadastrar()">Cadastrar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+  function signInLogin() {
+    container.classList.remove("right-panel-active");
+  }
+
+  // id container criado lá em cima 
+
+  function signUpCadastrar() {
+    container.classList.add("right-panel-active");
+  }
+
+  // Area Cadastro -------------------------------------------------------------------------------------
+
+  function cadastrar() {
+    aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value
+    //    ; var empresaVar = listaEmpresas.value
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == ""
+      //    || empresaVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar
+        //      , empresaServer: empresaVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+  /*
+    function listar() {
+      fetch("/empresas/listar", {
+        method: "GET",
+      })
+        .then(function (resposta) {
+          resposta.json().then((empresas) => {
+            empresas.forEach((empresa) => {
+              listaEmpresas.innerHTML += `<option value='${empresa.id}'>${empresa.cnpj}</option>`;
+            });
+          });
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+    }
+  */
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+
+  // Area Login ----------------------------------------------------------------------------------------
+
+  function entrar() {
+    aguardar();
+
+    var emailVar = email_input_login.value;
+    var senhaVar = senha_input_login.value;
+
+    if (emailVar == "" || senhaVar == "") {
+      cardErro.style.display = "block"
+      mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+      finalizarAguardar();
+      return false;
+    }
+    else {
+      setInterval(sumirMensagem, 5000)
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+          sessionStorage.EMAIL_USUARIO = json.email;
+          sessionStorage.NOME_USUARIO = json.nome;
+          sessionStorage.CPF_USUARIO = json.cpf;
+          //                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+          setTimeout(function () {
+            window.location = "./dashboard/cards.html";
+          }, 1000); // apenas para exibir o loading
+
+        });
+
+      } else {
+
+        console.log("Houve um erro ao tentar realizar o login!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+          finalizarAguardar(texto);
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+
+
+
+</script>
