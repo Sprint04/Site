@@ -1,6 +1,6 @@
 /* Parte Mobile */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
 
     /* NAVBAR */
 
@@ -14,7 +14,7 @@
 
     .navbar {
 
-        width: 98vw;
+        width: 216vw;
         height: 12vh;
     }
 
@@ -47,11 +47,11 @@
 
     #imagemHome {
 
-        width: 170%;
-        height: 30vh;
+        width: 70vh;
+        height: 70vh;
         position: relative;
-        top: 48vh;
-        right: 15vh;
+        top: 20vh;
+        right: 4vh;
 
     }
 
@@ -59,19 +59,21 @@
     #homeMain {
 
         height: 80vh;
-        width: 82.3vw;
+        width: 200vw;
 
     }
 
     #TrackWare-titulo {
 
-        font-size: 5vh;
+        font-size: 8vh;
+        width: 20vh;
 
     }
 
     #TrackWare-subtitulo {
 
-        font-size: 4vh;
+        font-size: 3vh;
+        width: 35vh;
 
     }
 
@@ -86,7 +88,7 @@
 
     .button-home {
        
-        width: 50%;
+        width: 60%;
         height: 5vh;
         font-size: 13px;
       
@@ -96,9 +98,10 @@
 
     .sobre-nos .section-sobre {
 
-        width: 100vw;
+        width: 200vw;
         height: 280vh;
         flex-direction: column;
+        margin-bottom: -120vw;
 
     }
 
@@ -107,7 +110,7 @@
         font-size: 5vh;
         letter-spacing: 1px;
         position: relative;
-        left: 6vh;
+        left: 38vh;
 
 
     }
@@ -116,39 +119,40 @@
         height: 4px;
         width: 50vh;
         position: relative;
-        left: 5vh;
+        left: 37vh;
         
     }
 
     .p1 {
 
-        width: 75%;
+        width: 80%;
         font-size: 4vh;
         position: relative;
-        left: 8vh;
+        left: 16vh;
         line-height: 5vh;
+        text-align: center;
 
     }
 
     .p2 {
 
-        width: 35%;
+        width: 86%;
         height: 10vh;
         font-size: 4vh;
         position: relative;
-        text-align: center;
+        text-align: justify;
         bottom: 20vh;
-        left: 12vh;
+        left: 13vh;
 
 
     }
 
     .section-sobre .texto-sobre-nos img {
 
-        width: 60vw;
-        height: 40vh;
+        width: 150vw;
+        height: 90vh;
         position: relative;
-        left: 10vh;
+        left: 22vh;
         bottom: 16vh;
 
     }
@@ -156,9 +160,10 @@
     /* Missao, valores e visao */
 
     .cardDesc {
-        height: 230vh;
-        width: 100%;
+        height: 130vh;
+        width: 218vw;
         flex-direction: column;
+        background-color: #FAFAFA;
         
     }
     
@@ -185,43 +190,43 @@
     
     .card1 {
     
-        height: 70vh;
+        height: 40vh;
         width: 100%;
-        
+        background-color: black;
     
     }
     
     .card2 {
     
-        height: 70vh;
+        height: 40vh;
         width: 100%;
         position: relative;
         right: 0vh;
+        background-color: rgb(80, 80, 80);
         
     
     }
     
     .card3 {
     
-        height: 70vh;
+        height: 40vh;
         width: 100%;
         position: relative;
         right: 0vh;
+        background-color: rgb(126, 126, 126);
     
     }
 
     /* SERVIÇOS */
 
     .servicos {
-    
-        
+
         flex-direction: row;
         height: 100vh;
-        width: 100vw;
+        width: 200vw;
         
     }
-    
-    
+
     
     .servicosDesc {
         height: 60vh;
@@ -232,41 +237,43 @@
     
     .servicos .servicosDesc h1 {
     
-        width: 60%;
+        width: 100vw;
         font-size: 5vh;
+        letter-spacing: 1px;
         position: relative;
-        left: 15vh;
+        left: 35vh;
         bottom: 28vh;
         
     
     }
     
     .servicos .line3 {
-    
-        height: 10vh;
+        height: 4px;
         width: 55vh;
         position: relative;
-        left: 15vh;
-        bottom: 5vh;
+        left: 35vh;
+        background-color: #6E43B9;
+        top: -57vw;
+        color: #FAFAFA;
     
     }
     
     .subtitulo {
     
-        width: 100%;
+        width: 120vw;
         font-size: 3vh;
         position: relative;
-        left: 15vh;
+        left: 35vh;
         bottom: 34vh;
+        top: -60vw;
     
     }
     
     .servicos img {
     
-        width: 80%;
-        height: 50vh;
-        position: relative;
-        right: 28vh;
+        width: 300vh;
+        height: 70vh;
+        right: 39vh;
         top: -10vh;
     
     }
@@ -288,10 +295,11 @@
     
     .servicoBox {
     
-        height: 30vh;
-        width: 90vw;
+        height: 24vh;
+        width: 160vw;
         position: relative;
-        left: 15.5vh;
+        left: 33vh;
+        top: 40vw;
         
     }
 
