@@ -70,6 +70,17 @@
 
     }
 
+    #part1{
+        font-size: 3vh;
+        width: 120%;
+
+    }
+
+    #part2{
+        font-size: 3vh;
+        width: 100%;
+
+    }
     #TrackWare-subtitulo {
 
         font-size: 3vh;
@@ -89,8 +100,8 @@
     .button-home {
        
         width: 60%;
-        height: 5vh;
-        font-size: 13px;
+        height: 6vh;
+        font-size: 16px;
       
     }
 
@@ -298,17 +309,17 @@
         height: 24vh;
         width: 160vw;
         position: relative;
-        left: 33vh;
+        left: 34vh;
         top: 40vw;
         
     }
 
     /* AVALIAÇÕES */
-
+/* 
 .avaliacoes {
    
     height: 200vh;
-    width: 100vw;
+    width: 200vw;
    
 }
 
@@ -354,21 +365,21 @@
     height: 50vh;
     width: 80%;
    
-}
+} */
 
 /* NOSSA EQUIPE */
 
 .nossa-equipe {
 
     background-color: #FAFAFA;
-    justify-content: center;
+    justify-content:center;
     align-items: center;
     flex-wrap: wrap;
     position: relative;
     top: 60vh;
     text-align: center;
     height: 90vh;
-    width: 100%;
+    width: 200vw;
     font-family: 'Poppins', sans-serif;
 
 }
@@ -376,13 +387,13 @@
 
 
 #nossa-equipe {
-    width: 10vw;
+    width: 80vw;
     font-size: 5vh;
     letter-spacing: 1px;
     flex-direction: column;
     position: relative;
     top: 0vh;
-    right: 17vh;
+    left: -10vw;
    
 }
 
@@ -390,68 +401,90 @@
     height: 5px;
     width: 40vh;
     position: relative;
-    right: 10vh;
+    left: -4vw;
+    bottom: 0vw;
 }
 
 .caixa-equipe {
     display: flex;
     padding-left: 3.5%;
     padding-right: 3.5%;
+    height: 1700vw;
+    margin-left: 12vw;
 }
 
 .cards-equipe {
     display: flex;
-    width: 100%;
-    height: 100vh;
+    width: 200vw;
+    height: 500vw;
     flex-direction: column;
+    margin-top: 10vw;
 }
 
 .card-foto {
-    height: 500px;
-    width: 14.7%;
+    height: 900px;
+    width: 180vw;
     display: flex;
     flex-direction: column;
     box-shadow: 3px 10px 10px 5px rgba(0, 0, 0, 0.384);
     border-radius: 1%;
+    margin-bottom: 20vw;
+    top: 5vw;
+    left: 200vw;
 }
 
 .nossa-equipe img{
 
     position: relative;
-    top: 2.5vh;
+    top: 2vh;
+    height: 190vw;
+    width: 145vw;
+    border-radius: 10px;
 
 }
 
 .card-desc {
     background-color: #FAFAFA;
-    height: 170px;
-    width: 100%;
+    height: 50px;
+    width: 120vw;
+    margin-top: 5vw;
+    margin-bottom: 30vw;
     flex-direction: column;
+    font-size: 3vh;
 }
 
 .card-desc2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 770px;
+    width: 100vw;
+    margin-top: 10vw;
+    margin-bottom: 0vw;
+    margin-left: 17vw;
 }
 
 
 #nome-equipe {
-    font-size: x-large;
+    font-size: 5vh;
     color: #2A327A;
     font-family: 'Poppins', sans-serif;
     position: relative;
-    top: 1vh;
+    top: -1vh;
+    margin-left: 18vh;
+    width: 100%;
 }
 
 .texto3 {
-    padding: 1.0em;
+   top: -10vh;
     text-align: center;
     height: 20vh;
-    font-size: large;
+    font-size: 4vh;
     position: relative;
     bottom: 1vh;
     opacity: 0.8;
+    margin-left: 25vw;
+    width: 100%;
 }
 
 
