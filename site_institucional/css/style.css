@@ -69,6 +69,7 @@ body {
     /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
     color: #8800ff;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .navbar-direita a {
@@ -85,6 +86,7 @@ body {
     /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
     color: #8800ff;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 
@@ -724,20 +726,31 @@ footer {
     background-color: var(--color-neutral-10);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 3rem 3.5rem;
+    padding: 8rem 5rem;
     justify-content: space-around;
+    position: relative;
 }
 
 #footer_contacts h3 {
     margin-bottom: 0.75rem;
     font-size: xx-large;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
 }
+
+#footer_contacts h3 span {
+    font-weight: 750;
+}
+
+/*
+LINK CODIGO REDES
+https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
+*/
 
 #footer_social_media {
     display: flex;
     gap: 2rem;
-    margin-top: 1.5rem;
+    margin-top: 1.5rem;    
 }
 
 #footer_social_media .link {
@@ -746,29 +759,52 @@ footer {
     justify-content: center;
     height: 2.5rem;
     width: 2.5rem;
-    color: var(--color-neutral-40);
-    border-radius: 50%;
-    transition: all 0.4s;
+    color: #fff;
+	border-radius: 50%;
+	outline: 2px solid #fff;
+	transition-property: outline-offset, outline-color, background-color;
+	transition-duration: 0.25s;
 }
 
 #footer_social_media .link i {
     font-size: 1.25rem;
+    margin: auto;
+}
+
+#footer_social_media .link i:hover{
+    animation: shake 0.25s;
 }
 
 #footer_social_media .link:hover {
     opacity: 0.8;
+    outline-offset: 4px;
 }
 
-#instagram {
-    background: linear-gradient(#7f37c9, #ff2992, #ff9807);
+#instagram :hover{
+    /* background: linear-gradient(#7f37c9, #ff2992, #ff9807); */
+    /* background-color: #6E43B9; */
+    background-image: radial-gradient(
+		circle at 30% 107%,
+		#fdf497 0%,
+		#fdf497 5%,
+		#fd5949 45%,
+		#d6249f 60%,
+		#285aeb 90%
+	);
+	outline-color: #a02d76;
 }
 
-#facebook {
-    background-color: #4267b3;
+#linkedin :hover{
+    /* background-color: #4267b3; */
+    /* background-color: #6E43B9; */
+    background-color: #0077b5;
+	outline-color: #0077b5;
 }
 
-#whatsapp {
+#whatsapp :hover {
+    /* background-color: #6E43B9; */
     background-color: #25d366;
+    outline-color: #25d366;
 }
 
 
@@ -796,7 +832,7 @@ footer {
 }
 
 #input_group button {
-    background-color: #7f37c9;
+    background-color: #6E43B9;
     border: none;
     color: var(--color-neutral-40);
     padding: 0px 1.25rem;
@@ -943,6 +979,28 @@ footer {
 
 .custom-shape-divider-bottom-1692911528 .shape-fill {
     fill: #FAFAFA;
+}
+
+/* DIVISOR FOOTER */
+
+.custom-shape-divider-top-1694045992 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1694045992 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 131px;
+}
+
+.custom-shape-divider-top-1694045992 .shape-fill {
+    fill: #FFFFFF;
 }
 
 /* Botao que joga pra cima */
