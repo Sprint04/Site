@@ -330,20 +330,20 @@
     }
     
     .saiba h1{
-        width: 100vw;
+        width: 170vw;
         font-size: 5vh;
         letter-spacing: 1px;
         flex-direction: column;
         position: relative;
         top: 0vh;
-        left: -12vw;
+        left: -24vw;
     }
     
     .line-cadastro {
         height: 5px;
-        width: 370px;
+        width: 620px;
         background-color: #8800ff;
-        margin-left: 31.5%;
+        margin-left: 13.5%;
         margin-top: -5%;
         margin-bottom: 7%;
         color: #FAFAFA;

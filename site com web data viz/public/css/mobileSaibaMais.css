@@ -1,0 +1,397 @@
+
+
+
+@media screen and (max-width: 768px) {
+    
+    body {
+        overflow-x: hidden;
+        width: 300vw;
+        height: 2700vw;
+    }
+
+   
+    /* NAV BAR */
+    .navbar {
+        width: 311.8vw;
+        height: 12vh;
+    }
+
+    .navbar-items ul {
+        list-style: none;
+        margin-left:70vw;
+        margin-top: 6vh;
+    }
+
+
+
+    /* HOME */
+    #homeMain {
+        height: 85vh;
+        width: 300vw;
+    }
+
+    /* bem-vindo(a) */
+    #part1 {
+        font-size: 27px;
+    }
+    
+    /* sublinhado */
+    .line-saiba-mais {
+        width: 34vh;
+    }
+    
+    /* texto home */
+    #part2 {
+        width: 118vw;
+        font-size: 20px;
+    }
+    
+    /* titulo- saiba mais */
+    #TrackWare-titulo {
+        font-weight:500;
+        font-size: 40px;
+        margin-top: -5vw;
+        margin-left: 0vw;
+    }
+  
+    /* imagem home */
+    #imagemHome {
+        width: 70vh;
+        height: 70vh;
+        position: relative;
+        top: 8vh;
+        right: -4vh;
+    }
+    
+
+
+    /* SECTION: O QUE MONITORAMOS? */
+
+    /* texto */
+    .p1 {
+        font-size: 4vh;
+        width: 90%;
+        margin-left: -14vh;
+        text-align: justify;
+    }
+
+    .p2 {
+        width: 90%;
+        font-size: 4vh;
+        margin-left: -14vh;
+        text-align: justify;
+    }
+    
+    /* sublinhado */
+    .section-sobre .texto-sobre-nos .line {
+        width: 73vh;
+        left: 55vh;
+    }
+    
+    
+    /* SECTION: PORQUE A ÁNALISE DE DADOS É IMPORTANTE? */
+    .section-analise{
+        width: 179vh;
+    }
+
+    /* titulo */
+    .analise-dados .texto-analise h1 {
+        width: 95%;
+        left: 6vh;
+    }
+
+    /* sublinhado */
+    .analise-dados .texto-analise .line {
+        left: 18vh;
+    }
+
+    /* texto */
+    .analise-dados .texto-analise .p1 {
+        width: 79%;
+        left: 33vh;
+        text-align: justify;
+    }
+
+    .texto-analise{
+        height: 80vh;
+        margin-top: -10vh;
+    }
+     
+
+    
+    /* SECTION: PORQUE EMPRESAS DE LOGÍSTICA?*/
+    .section-logistica{
+        width: 179vh;
+    }
+
+    #porque-logistica{
+        height: 90vh;
+    }
+
+    /* titulo */
+    .section-logistica h1 {
+        left: 24vh;
+        margin-top: 8vh;
+    }
+    
+    /* sublinhado */
+    .section-logistica .texto-porque-logistica .line {
+        left: 38vh;
+    }
+    
+    /* texto */
+    .texto-porque-logistica .p1 {
+        margin-top: -66vh;
+        width: 35%;
+        left: 200vw;
+    }
+    
+    /* imagem logistica */
+    .ilustracao-logistica{
+        top: -10vh;
+        left: -10vw;
+    }
+    
+
+
+    /* SECTION: FRASE DO QUE A TRACKWARE DESEJA OFERECER */
+    .frase-trackware{
+        width: 179vh;
+    }
+
+    /* titulo */
+    .frase-trackware .texto-frase .h1 {
+        font-size: 5vh;
+    }
+    
+
+
+    /* SECTION: INFORMAÇÕES RELEVANTES SOBRE NOSSOS SERVIÇOS */
+    .servicos {
+        height: 179vh;
+    }
+
+    /* texto dentro das caixas */
+    .texto {
+        width: 90%;
+    }
+    
+    /* caixas */
+    .servicoBox {
+        height: 50vh;
+        width: 150vh;
+        margin-left: 8vh;
+    }
+    
+    
+    /* RODAPÉ */
+    #rodape {
+        width: 275vw;
+        margin-top: 80vh;
+        height: 300vw;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #copyright {
+        width: 304.8vw;
+    }
+
+    .footer-list-contato {
+        margin-left: -4%;
+    }
+    
+    #footer_contacts h3 span {
+        font-weight: 750;
+    }
+
+    
+    #footer_social_media {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1.5rem;    
+    }
+    
+    #footer_social_media .link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.5rem;
+        width: 2.5rem;
+        color: #fff;
+        border-radius: 50%;
+        outline: 2px solid #fff;
+        transition-property: outline-offset, outline-color, background-color;
+        transition-duration: 0.25s;
+    }
+    
+    #footer_social_media .link i {
+        font-size: 1.25rem;
+        margin: auto;
+    }
+    
+    #footer_social_media .link i:hover{
+        animation: shake 0.25s;
+    }
+    
+    #footer_social_media .link:hover {
+        opacity: 0.8;
+        outline-offset: 4px;
+    }
+    
+    #instagram :hover{
+        /* background: linear-gradient(#7f37c9, #ff2992, #ff9807); */
+        /* background-color: #6E43B9; */
+        background-image: radial-gradient(
+            circle at 30% 107%,
+            #fdf497 0%,
+            #fdf497 5%,
+            #fd5949 45%,
+            #d6249f 60%,
+            #285aeb 90%
+        );
+        outline-color: #a02d76;
+    }
+    
+    #linkedin :hover{
+        /* background-color: #4267b3; */
+        /* background-color: #6E43B9; */
+        background-color: #0077b5;
+        outline-color: #0077b5;
+    }
+    
+    #whatsapp :hover {
+        /* background-color: #6E43B9; */
+        background-color: #25d366;
+        outline-color: #25d366;
+    }
+    
+    
+    #email {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    #email p {
+        color: var(--color-neutral-30);
+    }
+    
+    #input_group {
+        display: flex;
+        align-items: center;
+        background-color: var(--color-neutral-0);
+        border-radius: 4px;
+    }
+    
+    #input_group input {
+        all: unset;
+        padding: 0.75rem;
+        width: 100%;
+    }
+    
+    #input_group button {
+        background-color: #6E43B9;
+        border: none;
+        color: var(--color-neutral-40);
+        padding: 0px 1.25rem;
+        font-size: 1.125rem;
+        height: 100%;
+        border-radius: 0px 4px 4px 0px;
+        cursor: pointer;
+        transition: all 0.4s;
+    }
+    
+    #input_group button:hover {
+        opacity: 0.8;
+    }
+    
+    #copyright {
+        display: flex;
+        justify-content: center;
+        background-color: var(--color-neutral-0);
+        font-size: 0.9rem;
+        padding: 1.5rem;
+        font-weight: 100;
+    }
+    
+    .footer-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        list-style: none;
+    }
+    
+    .footer-list .footer-link {
+        color: var(--color-neutral-30);
+        transition: all 0.4s;
+        text-decoration: none;
+    }
+    
+    .footer-list .footer-link:hover {
+        color: #7f37c9;
+    
+    }
+    
+    .notes {
+    
+        position: relative;
+        width: auto;
+        max-width: 500px;
+        min-height: 150px;
+        background: #141414;
+        color: #ffffff;
+        padding: 20px;
+        margin: 20px 0;
+        outline: none;
+        border-radius: 5px;
+    
+    }
+    
+    
+    
+    
+    .custom-shape-divider-bottom-1692911528 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+    }
+    
+    .custom-shape-divider-bottom-1692911528 svg {
+        position: relative;
+        display: block;
+        width: calc(108% + 1.3px);
+        height: 158px;
+    }
+    
+    .custom-shape-divider-bottom-1692911528 .shape-fill {
+        fill: #FAFAFA;
+    }
+    
+    
+    .custom-shape-divider-top-1694045992 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+    }
+    
+    .custom-shape-divider-top-1694045992 svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 131px;
+    }
+    
+    .custom-shape-divider-top-1694045992 .shape-fill {
+        fill: #FFFFFF;
+    }
+    
+
+}

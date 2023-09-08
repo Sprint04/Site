@@ -1,20 +1,30 @@
 @import url('https://fonts.cdnfonts.com/css/metrophobic');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #6E43B9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #2A327A;
+}
+
+
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background-color: #FAFAFA;
 }
-  
-  /*--------------------------------------------------------------
-  # Disable aos animation delay on mobile devices
-  --------------------------------------------------------------*/
-  @media screen and (max-width: 768px) {
-    [data-aos-delay] {
-      transition-delay: 0 !important;
-    }
-  }
   
 
 ::-webkit-scrollbar {
@@ -94,19 +104,18 @@ body {
     cursor: pointer;
 }
 
-
 /* INICIO HOME */
 
 #homeMain {
     display: flex;
     justify-content: space-around;
     color: white;
-    background: #FAFAFA;
+    background: rgb(0, 0, 0);
     background: linear-gradient(0deg, rgb(160, 160, 160) 0%, rgb(0, 0, 0) 100%);
-    height: 65vh;
+    height: 70vh;
     position: relative;
     padding: 5vb;
-    margin-bottom: 15vh;
+    margin-bottom: 5vh;
     margin-left: 0vw;
 }
 
@@ -132,8 +141,18 @@ body {
 
 #TrackWare-titulo:hover {
     /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color: #8800ff;
+    color: #c98aff;
     transition: 0.5s;
+}
+
+.line-saiba-mais {
+    background-color: #c788ff;
+    height: 0.8vh;
+    width: 50vh;
+    position: relative;
+    left: 0vh;
+    bottom: 0vh;
+
 }
 
 #TrackWare-subtitulo:hover {
@@ -144,12 +163,13 @@ body {
 
 #part2 {
     margin-left: 0vw;
-    width: 40vw;
+    width: 38vw;
     margin-top: 0vw;
+    text-align: justify;
 }
 
 #TrackWare-titulo {
-    font-weight: 300;
+    font-weight:500;
     font-size: 80px;
     margin-top: -5vw;
     margin-left: 0vw;
@@ -163,15 +183,20 @@ body {
 
 .button-home {
     background: #8800ff;
-    color: #fff;
+    color: #ffffff;
     border: #8800ff;
     border-radius: 20px;
     margin-right: 10px;
-    width: 200px;
+    width: 300px;
     height: 50px;
     font-family: 'Poppins', sans-serif;
     font-size: 23px;
     margin-left: -6px;
+    text-decoration: none;
+}
+
+.button-home a{
+    color: white;
 }
 
 .button-home:hover {
@@ -194,94 +219,75 @@ body {
 
 
 #imagemHome {
-    width: 750px;
-    height: 750px;
+    width: 650px;
+    height:650px;
     margin-top: 8%;
-    animation: floating 2s ease-in-out infinite;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
     margin-left: 30px;
     margin-top: 5px;
 
 }
 
-
-@keyframes floating {
-    0% {
-        transform: translate(0, 0px);
-    }
-
-    50% {
-        transform: translate(0, 15px);
-    }
-
-    100% {
-        transform: translate(0, -0px);
-    }
-}
-
-/* SOBRE NÓS */
-
-.sobre-nos .section-sobre {
-    height: 110vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #FAFAFA;
-    color: #000000;
-}
-
-.section-sobre .texto-sobre-nos h1 {
-    width: 60%;
-    font-size: 55px;
-    letter-spacing: 1px;
-    display: flex;
-    position: relative;
-    top: -5vh;
-    left: 73vh;
-    font-family: 'Poppins', sans-serif;
-    color: #000000;
-}
-
+/* PRIMEIRA PERGUNTA */
 .section-sobre .texto-sobre-nos .line {
     height: 5px;
-    width: 62vh;
+    width: 73vh;
     background-color: #8800ff;
     position: relative;
     bottom: 10vh;
     left: 71vh;
+    top: -10vh;
 }
 
-
-.p1 {
+.h1 {
 
     width: 75%;
-    font-size: 28px;
+    font-size: 6vh;
     display: flex;
     position: relative;
-    left: 25vh;
-    bottom: 10vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    left: 28vh;
+    
     text-align: center;
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 5vh;
+    margin-top: 8vh;
 
 }
 
-.p2 {
+.p1 {
 
-    width: 39.3%;
+    width: 75%;
+    font-size: 3vh;
+    display: flex;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    left: 28vh;
+    bottom: 8vh;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    line-height: 5vh;
+    margin-top: 5vh;
+
+}
+
+
+.p2 {
+    width: 70%;
     font-size: 28px;
     display: flex;
     position: relative;
-    text-align: justify;
-    bottom: 80vh;
-    left: 100vh;
+    margin-bottom: 10vh;
+    left: 30vh;
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 6vh;
+    top: -5vh;
 
 }
 
@@ -295,9 +301,87 @@ body {
 
 }
 
-/* Missão, Visão, Valores */
+.texto-sobre-nos{
+    height: 80vh;
+}
 
-.card {
+.sobre-nos{
+    background-color: #FAFAFA;
+    margin-top: 15vh;
+}
+
+.section-sobre{
+    margin-top: -15vh;
+
+}
+
+/* SEGUNDA PERGUNTA */
+.analise-dados .texto-analise .line {
+    height: 5px;
+    width: 143vh;
+    background-color: #8800ff;
+    position: relative;
+    bottom: 10vh;
+    left: 36vh;
+}
+
+.analise-dados .texto-analise h1 {
+
+    width: 75%;
+    font-size: 6vh;
+    display: flex;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    left: 28vh;
+    bottom: 8vh;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    line-height: 5vh;
+    margin-top: 20vh;
+
+}
+
+.analise-dados .texto-analise .p1 {
+
+    width: 75%;
+    font-size: 3vh;
+    display: flex;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    left: 28vh;
+    bottom: 8vh;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    line-height: 5vh;
+    margin-top: 5vh;
+
+}
+
+
+
+.texto-analise{
+    height: 80vh;
+    margin-top: -10vh;
+}
+
+.importantica-analise-dados{
+    margin-top: 15vh;
+}
+
+.section-analise{
+    margin-top: 20vh;
+    background-color: #000000;
+    height: 90vh;
+}
+
+
+.cards {
 
     background-color: #444343;
     display: flex;
@@ -305,107 +389,191 @@ body {
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
-    height: 40vh;
+    height: 20vh;
     width: 100%;
     font-family: 'Poppins', sans-serif;
+    margin-top: -20vh;
 }
 
-.cardDesc {
-    height: 40vh;
-    width: 100%;
+.card1-analise{
+    background-color: #4f0081;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    background-color: #444343;
-    color: #ffffff;
-}
-
-
-.cardCont {
-
-    display: flex;
-    flex-direction: column-reverse;
-    margin-top: 0%;
-
-}
-
-.texto2 {
-    padding: 1.0em;
-    text-align: center;
+    flex-wrap: wrap;
+    width: 25%;
     height: 20vh;
-    font-size: 25px;
-    position: relative;
-    bottom: 6vh;
-
+    font-size: 4vh;
+    color: #ffffff;
 }
-
-.texto2 h2 {
+.card2-analise{
+    background-color: #6700a6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 20vh;
+    font-size: 4vh;
+    color: #ffffff;
+}
+.card3-analise{
+    background-color: #7c00c9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 20vh;
+    font-size: 4vh;
+    color: #ffffff;
+}
+.card4-analise{
+    background-color: #9d00ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 20vh;
+    font-size: 4vh;
     color: #ffffff;
 }
 
-.texto2 h2:hover {
-    color: #6E43B9;
-    transition-duration: 0.6s;
-}
-
-.line2 {
-
-    height: 30vh;
-    width: 30px;
-    background-color: #ffffff;
+/* TERCEIRA PERGUNTA */
+.section-logistica .texto-porque-logistica .line {
+    height: 5px;
+    width: 105vh;
+    background-color: #8800ff;
     position: relative;
-    right: 1vh;
-
+    bottom: 10vh;
+    left: 55vh;
 }
 
-.card1 {
+.h1 {
 
-    height: 30vh;
-    width: 100%;
-    margin: auto;
+    width: 75%;
+    font-size: 6vh;
+    display: flex;
+    position: relative;
+    align-items: center;
     display: flex;
     justify-content: center;
+    left: 28vh;
+    bottom: 8vh;
     text-align: center;
-    position: relative;
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    line-height: 5vh;
+    margin-top: 18vh;
 
 }
 
-.card2 {
+.texto-porque-logistica .p1 {
 
-    height: 30vh;
-    width: 100%;
-    margin: auto;
+    width: 30%;
+    font-size: 3vh;
+    display: flex;
+    position: relative;
+    align-items: center;
     display: flex;
     justify-content: center;
-    text-align: center;
-    position: relative;
-    right: 2vh;
+    left: 113vh;
+    bottom: 8vh;
+    text-align: justify;
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    line-height: 5vh;
+    margin-top: -76vh;
 
 }
 
-.card3 {
+.ilustracao-logistica{
+    position: relative;
+    top: 8vh;
+    left: 2vw;
+    width: 30%;
+}
 
-    height: 30vh;
-    width: 100%;
-    margin: auto;
+
+
+.section-logistica .texto-porque-logistica img {
+
+    width: 35%;
+    height: 70vh;
+    position: relative;
+    left: 20vh;
+    bottom: 16vh;
+
+}
+
+.texto-porque-logistica{
+    height: 80vh;
+}
+
+.porque-logistica{
+    background-color: #FAFAFA;
+    margin-top: 15vh;
+    height: 120vh;
+}
+
+.section-logistica{
+    margin-top: 10vh;
+
+}
+
+
+/*  FRASE TRACKWARE */
+
+
+.frase-trackware .texto-frase .h1 {
+
+    width: 85%;
+    font-size: 6vh;
+    display: flex;
+    position: relative;
+    align-items: center;
     display: flex;
     justify-content: center;
+    left: 15vh;
+    bottom: 8vh;
     text-align: center;
-    position: relative;
-    right: 2vh;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    line-height: 10vh;
+    margin-top: 10vh;
 
 }
+
+
+
+
+.texto-frase{
+    height: 20vh;
+}
+
+.frase-trackware{
+    margin-top: 15vh;
+    background-color: #000000;
+    height: 40vh;
+}
+
+.section-frase{
+    margin-top: 15vh;
+
+}
+
 
 /* SERVIÇOS */
 
 .servicos {
-    
+    background-color: #FAFAFA;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     flex-direction: row;
-    height: 100vh;
+    height: 190vh;
     width: 100%;
     font-family: 'Poppins', sans-serif;
     margin-top: 10%;
@@ -414,59 +582,46 @@ body {
 
 
 .servicosDesc {
-    height: 130vh;
-    width: 100%;
+    height: 40vh;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #FAFAFA;
     color: #000000;
     position: relative;
-    left: 7vh;
+    left: -42vh;
+    margin-top:-200vh;
+    margin-bottom: -100vh;
 }
-
-.servicos .servicosDesc h1 {
-
-    width: 60%;
-    font-size: 55px;
-    letter-spacing: 1px;
-    position: relative;
-    left: 36vh;
-    font-family: 'Poppins', sans-serif;
-    color: #000000;
-
-}
-
-.servicos .line3 {
-
-    background-color: #8800ff;
+.servicos .texto-infos .line {
     height: 5px;
-    width: 63vh;
+    width: 88vh;
+    background-color: #8800ff;
     position: relative;
-    left: 36vh;
-    bottom: 5vh;
-    color: #FAFAFA;
-
+    bottom: 10vh;
+    left: 85vh;
 }
 
-.subtitulo {
+.servicos .texto-infos .h1 {
 
     width: 100%;
-    font-size: 38px;
+    font-size: 6vh;
+    display: flex;
     position: relative;
-    left: 36vh;
-    bottom: 3vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    left: 85vh;
+    bottom: 8vh;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    line-height: 5vh;
+    margin-top: -80vh;
 
 }
 
-.servicos img {
-
-    width: 70%;
-    height: 80vh;
-    position: relative;
-    right: 10vh;
-    top: 5vh;
-
-}
 
 .servicos .servicosDesc h2 {
     font-size: xx-large;
@@ -480,226 +635,26 @@ body {
 
     padding: 2.0em;
     display: flex;
-    text-align: start;
+    text-align: justify;
     font-size: x-large;
     position: relative;
-    bottom: 12vh;
-    margin-top: -1vw;
+    top: -12vh;
+    bottom: 20vh;
+    width: 93%;
 
 }
 
 .servicoBox {
-
-    background-color: #000000;
-    height: 20vh;
-    width: 80%;
+    background-color: #47006c;
+    height: 27vh;
+    width: 170vh;
     display: flex;
     justify-content: center;
     text-align: start;
     color: #ffffff;
     box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
-    border-radius: 8px;
+    border-radius: 0px 0px 0px 0px;
 }
-
-.servicoBox:hover {
-
-    transform: scale(1.1);
-    transition: 0.7s ease-in-out;
-
-}
-
-
-
-
-/* NOSSA EQUIPE */
-
-.nossa-equipe {
-
-    background-color: #FAFAFA;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    position: relative;
-    top: 10vh;
-    text-align: center;
-    height: 90vh;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-
-}
-
-
-
-#nossa-equipe {
-    width: 60%;
-    font-size: 55px;
-    letter-spacing: 1px;
-    display: flex;
-    margin-left: 39%;
-    top: 0vh;
-    left: 8vh;
-    font-family: 'Poppins', sans-serif;
-    color: #000000;
-    margin-top: -5%;
-    margin-bottom: 5%;
-}
-
-.line5 {
-    height: 5px;
-    width: 430px;
-    background-color: #8800ff;
-    margin-left: 38.5%;
-    margin-top: -5%;
-    margin-bottom: 3%;
-}
-
-.caixa-equipe {
-    display: flex;
-    padding-left: 3.5%;
-    padding-right: 3.5%;
-}
-
-.cards-equipe {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.card-foto {
-    height: 500px;
-    width: 14.7%;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 3px 10px 10px 5px rgba(0, 0, 0, 0.384);
-    border-radius: 1%;
-}
-
-.nossa-equipe img{
-
-    position: relative;
-    top: 2.5vh;
-
-}
-
-.card-desc {
-    background-color: #FAFAFA;
-    height: 170px;
-    width: 100%;
-}
-
-.card-desc2 {
-    display: flex;
-    justify-content: center;
-}
-
-
-#nome-equipe {
-    font-size: x-large;
-    color: #2A327A;
-    font-family: 'Poppins', sans-serif;
-    position: relative;
-    top: 1vh;
-}
-
-.texto3 {
-    padding: 1.0em;
-    text-align: center;
-    height: 20vh;
-    font-size: large;
-    position: relative;
-    bottom: 1vh;
-    opacity: 0.8;
-}
-
-/* QUER SABER MAIS? */
-.sabermais {
-    background-color: #FAFAFA;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    position: relative;
-    top: 8vh;
-    text-align: center;
-    height: 10vh;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: 0;
-}
-
-.saiba h1{
-    width: 60%;
-    font-size: 55px;
-    letter-spacing: 1px;
-    display: flex;
-    margin-left: 25%;
-    top: 0vh;
-    left: 8vh;
-    font-family: 'Poppins', sans-serif;
-    color: #000000;
-    margin-top: 5%;
-    margin-bottom: 5%;
-}
-
-.line-cadastro {
-    height: 5px;
-    width: 1040px;
-    background-color: #8800ff;
-    margin-left: 23.8%;
-    margin-top: -5%;
-    margin-bottom: 3%;
-    color: #FAFAFA;
-}
-
-.subtitulo-saiba{
-
-    width: 83%;
-    font-size: 28px;
-    position: relative;
-    left: 20vh;
-    bottom: 3vh;
-}
-
-.button-cadastro {
-    background: #a940ff;
-    color: #fff;
-    border: #aa49ff;
-    border-radius: 300px 30px 300px 30px;
-    margin-right: 10px;
-    width: 300px;
-    height: 100px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
-    margin-left: 41vw;
-   
-}
-
-.button-cadastro a{
-     text-decoration: none;
-     color: white;
-}
-
-.button-cadastro:hover {
-    background: #ba7eff;
-    color: #050801;
-    box-shadow: 0 0 5px #d5b1ff,
-    0 0 25px #d0a7ff, 
-    0 0 50px #d8b6ff, 
-    0 0 200px #dbbbff;
-
-    -webkit-box-reflect :below 1px linear-gradient (transparent, #0005);
-    }
-
-.button-cadastro:nth-child(1) {
-    filter: hue-rotate (270deg) ;}
-
-    .button-cadastro:nth-child(2){
-    filter: hue-rotate (110deg) ;
-    }
-    .button-cadastro{
-    position: absolute;
-    display: block
-}
-
 
 
 /* RODAPÉ */
@@ -741,6 +696,7 @@ footer {
     padding: 8rem 5rem;
     justify-content: space-around;
     position: relative;
+    background-color: #000000;
     background: linear-gradient(0deg, rgb(0, 0, 0) 20%, rgb(160, 160, 160) 100%);
 }
 
@@ -893,8 +849,8 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     width: auto;
     max-width: 500px;
     min-height: 150px;
-    background: #0e0c0c;
-    color: #333;
+    background: #141414;
+    color: #ffffff;
     padding: 20px;
     margin: 20px 0;
     outline: none;
@@ -902,75 +858,7 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 
 }
 
-/* DIVISORES */
 
-/* PRIMEIRO DIVISOR */
-
-.custom-shape-divider-bottom-1692823570 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom-1692823570 svg {
-    position: relative;
-    display: block;
-    width: calc(105% + 1.3px);
-    height: 320px;
-}
-
-.custom-shape-divider-bottom-1692823570 .shape-fill {
-    fill: #FFFFFF;
-}
-
-/* SEGUNDA DIVISAO */
-
-.custom-shape-divider-bottom-1692676178 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom-1692676178 svg {
-    position: relative;
-    display: block;
-    width: calc(180% + 1.5px);
-    height: 400px;
-    transform: rotateY(180deg);
-}
-
-.custom-shape-divider-bottom-1692676178 .shape-fill {
-    fill: #8A7DCE;
-}
-
-.custom-shape-divider-top-1692676204 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-}
-
-.custom-shape-divider-top-1692676204 svg {
-    position: relative;
-    display: block;
-    width: calc(180% + 1.5px);
-    height: 300px;
-    transform: rotateY(180deg);
-}
-
-.custom-shape-divider-top-1692676204 .shape-fill {
-    fill: #8A7DCE;
-}
 
 
 .custom-shape-divider-bottom-1692911528 {
@@ -994,7 +882,6 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     fill: #FAFAFA;
 }
 
-/* DIVISOR FOOTER */
 
 .custom-shape-divider-top-1694045992 {
     position: absolute;
@@ -1015,29 +902,3 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 .custom-shape-divider-top-1694045992 .shape-fill {
     fill: #FFFFFF;
 }
-
-/* Botao que joga pra cima */
-
-.back-to-top {
-    position: fixed;
-    right: 15px;
-    bottom: 15px;
-    z-index: 999;
-    background: #6E43B9;
-    width: 3vw;
-    height: 6vh;
-    border-radius: 4px;
-    transition: all 0.4s;
-  }
-  
-  .back-to-top:hover {
-    background: #550e63;
-    color: #fff;
-  }
-  
-  .back-to-top i {
-    font-size: 3vh;
-    color: #fff;
-    line-height: 0;
-  }
-
