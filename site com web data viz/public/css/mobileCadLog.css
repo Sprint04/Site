@@ -1,28 +1,47 @@
-@import url('https://fonts.cdnfonts.com/css/metrophobic');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-* {
-    box-sizing: border-box;
-}
-
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 98.5vw;
-    height: 95.5vh;
-    background-color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-  }
-
+@media screen and (max-width: 768px) {
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 98.5vw;
+        height: 95.5vh;
+        background-color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        
+      }
+    
 h1 {
     font-weight: bold;
     margin: 0;
-    font-size: 190%;
+    font-size: 120%;
     color: #aa00ff;
     font-family: 'Poppins', sans-serif;
-    width: 100%;
+    width: 70%;
+
 }
+
+.formCadastroEmpresa h1 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 120%;
+    color: #aa00ff;
+    font-family: 'Poppins', sans-serif;
+    width: 70%;
+    margin-left: 2vh;
+}
+.formCadastroUsuario h1 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 120%;
+    color: #aa00ff;
+    font-family: 'Poppins', sans-serif;
+    width: 70%;
+    margin-left: 4vh;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+}
+
 
 h2 {
     text-align: center;
@@ -94,11 +113,13 @@ a {
         0 10px 10px rgba(17, 17, 17, 0.22);
     position: relative;
     overflow: hidden;
-    width: 73vw;
-    height: 93vh;
-    display: flex;
+    width: 100vw;
+    height: 100vh;
+    display:flex;
     align-items: center;
    justify-content: center;
+   z-index: 2;
+   
 }
 
 .container2 {
@@ -150,6 +171,7 @@ a {
     height: 100%;
     text-align: center;
     margin-top: 10vh;
+
 }
 
 .formCadastroUsuario {
@@ -158,11 +180,13 @@ a {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0 50px;
+    padding: 0 5px;
     height: 100%;
     text-align: center;
     margin-top: 18vh;
+    margin-left: 0vh;
 }
+
 
 .frase-cadastro-usuario{
     margin-top: 3vh;
@@ -189,10 +213,11 @@ a {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0 50px;
+    padding: 0 5px;
     height: 100%;
     text-align: center;
     margin-top: 8vh;
+
 }
 
 .frase-cadastro-empresa{
@@ -336,4 +361,6 @@ input {
 .overlay p{
     font-weight: 500;
     width: 80%;
+}
+
 }
