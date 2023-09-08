@@ -235,21 +235,6 @@ body {
     margin-top: 5vh;
 }
 
-/* texto 2 */
-.p2 {
-    width: 68%;
-    font-size: 28px;
-    display: flex;
-    position: relative;
-    margin-bottom: 10vh;
-    left: 40vh;
-    font-family: 'Poppins', sans-serif;
-    color: #000000;
-    line-height: 6vh;
-    top: -7vh;
-}
-
-
 
 /* SECTION: PORQUE A ÁNALISE DE DADOS É IMPORTANTE?  */
 .section-analise{
@@ -627,6 +612,8 @@ footer {
     position: relative;
     background-color: #000000;
     background: linear-gradient(0deg, rgb(0, 0, 0) 20%, rgb(160, 160, 160) 100%);
+    margin-top: -20vw;
+    height: 75vh;
 }
 
 #footer_contacts h3 {
