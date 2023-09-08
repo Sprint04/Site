@@ -25,29 +25,11 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #FAFAFA;
 }
-  
 
-::-webkit-scrollbar {
-    width: 20px;
-}
-
-::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #6E43B9;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: #2A327A;
-}
 
 
 /* NAV BAR */
-
 .navbar {
-
     font-family: 'Poppins', sans-serif;
     letter-spacing: 3px;
     font-size: 20px;
@@ -59,6 +41,7 @@ body {
     padding: 2% 1%;
 }
 
+/* área da lista da navbar */
 .navbar-items ul {
     list-style: none;
     margin-left: 30vw;
@@ -66,46 +49,25 @@ body {
     display: flex;
 }
 
+/* lista da navbar */
 .navbar-items li {
     margin: 0 20px;
 }
-
 .navbar-items a {
     text-decoration: none;
     color: #FAFAFA;
 }
 
+/*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
 .navbar li a:hover {
-    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
     color: #8800ff;
     transition: 0.5s;
     cursor: pointer;
 }
 
-.navbar-direita a {
-    text-decoration: none;
-    color: #FAFAFA;
-}
 
-.navbar-direita {
-    font-size: 20px;
-    margin-top: -1.6%;
-    border: solid 2px; 
-    width: 10%; 
-    border-radius: 30px 0px 30px 0px; 
-    margin-left: 5px; 
-    padding-left: 20px;
-}
 
-.navbar-direita a:hover {
-    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color: #8800ff;
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-/* INICIO HOME */
-
+/* INICIO HOME (SAIBA MAIS) */
 #homeMain {
     display: flex;
     justify-content: space-around;
@@ -119,6 +81,7 @@ body {
     margin-left: 0vw;
 }
 
+/* área onde fica todos os textos da home (saiba mais) */
 .main-texto {
     margin: 0;
     position: relative;
@@ -131,6 +94,15 @@ body {
     margin-left: 0vw;
 }
 
+/* título: saiba mais */
+#TrackWare-titulo {
+    font-weight:500;
+    font-size: 80px;
+    margin-top: -5vw;
+    margin-left: 0vw;
+}
+
+/* texto: bem-vindo */
 #part1 {
     margin-left: 0vw;
     margin-top: 2vw;
@@ -139,28 +111,7 @@ body {
     color: #fdfdfd;
 }
 
-#TrackWare-titulo:hover {
-    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color: #c98aff;
-    transition: 0.5s;
-}
-
-.line-saiba-mais {
-    background-color: #c788ff;
-    height: 0.8vh;
-    width: 50vh;
-    position: relative;
-    left: 0vh;
-    bottom: 0vh;
-
-}
-
-#TrackWare-subtitulo:hover {
-    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color: #8800ff;
-    transition: 0.5s;
-}
-
+/* texto: sobre a área de saiba mais*/
 #part2 {
     margin-left: 0vw;
     width: 38vw;
@@ -168,19 +119,23 @@ body {
     text-align: justify;
 }
 
-#TrackWare-titulo {
-    font-weight:500;
-    font-size: 80px;
-    margin-top: -5vw;
-    margin-left: 0vw;
+/*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
+#TrackWare-titulo:hover {
+    color: #c98aff;
+    transition: 0.5s;
 }
 
-#TrackWare-subtitulo {
-    font-weight: light;
-    font-size: 22px;
-    margin-left: 0vw;
+/* sublinhado */
+.line-saiba-mais {
+    background-color: #c788ff;
+    height: 0.8vh;
+    width: 50vh;
+    position: relative;
+    left: 0vh;
+    bottom: 0vh;
 }
 
+/* botão da área da home (saiba mais) e animação do botão */
 .button-home {
     background: #8800ff;
     color: #ffffff;
@@ -207,9 +162,9 @@ body {
     box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
     background-color: #50008a;
     transition-duration: 0.3s;
-    /*duração da transição da animação*/
 }
 
+/* imagem home (saiba mais): gráficos e métricas*/
 .ilustracao-home {
     position: relative;
     top: -8vh;
@@ -217,17 +172,41 @@ body {
     z-index: 99;
 }
 
-
 #imagemHome {
     width: 650px;
     height:650px;
     margin-top: 8%;
     margin-left: 30px;
     margin-top: 5px;
-
 }
 
-/* PRIMEIRA PERGUNTA */
+
+
+/* SECTION: O QUE MONITORAMOS? */
+.section-sobre{
+    margin-top: 10vh;
+    height: 80vh;
+    margin-left: -6vh;
+}
+
+/* titulo */
+.h1 {
+    width: 75%;
+    font-size: 6vh;
+    display: flex;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    left: 28vh;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    line-height: 5vh;
+    margin-top: 8vh;
+}
+
+/* sublinhado */
 .section-sobre .texto-sobre-nos .line {
     height: 5px;
     width: 73vh;
@@ -238,29 +217,57 @@ body {
     top: -10vh;
 }
 
-.h1 {
-
-    width: 75%;
-    font-size: 6vh;
+/* texto 1 */
+.p1 {
+    width: 65%;
+    font-size: 3vh;
     display: flex;
     position: relative;
     align-items: center;
     display: flex;
     justify-content: center;
-    left: 28vh;
-    
+    left: 39vh;
+    bottom: 8vh;
     text-align: center;
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 5vh;
-    margin-top: 8vh;
-
+    margin-top: 5vh;
 }
 
-.p1 {
+/* texto 2 */
+.p2 {
+    width: 68%;
+    font-size: 28px;
+    display: flex;
+    position: relative;
+    margin-bottom: 10vh;
+    left: 40vh;
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    line-height: 6vh;
+    top: -7vh;
+}
 
+
+
+/* SECTION: PORQUE A ÁNALISE DE DADOS É IMPORTANTE?  */
+.section-analise{
+    margin-top: 20vh;
+    background-color: #000000;
+    height: 90vh;
+}
+
+/* área que engloba todo o texto de análise */
+.texto-analise{
+    height: 80vh;
+    margin-top: -10vh;
+}
+
+/* titulo */
+.analise-dados .texto-analise h1 {
     width: 75%;
-    font-size: 3vh;
+    font-size: 6vh;
     display: flex;
     position: relative;
     align-items: center;
@@ -270,52 +277,12 @@ body {
     bottom: 8vh;
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    color: #000000;
+    color: #ffffff;
     line-height: 5vh;
-    margin-top: 5vh;
-
+    margin-top: 20vh;
 }
 
-
-.p2 {
-    width: 70%;
-    font-size: 28px;
-    display: flex;
-    position: relative;
-    margin-bottom: 10vh;
-    left: 30vh;
-    font-family: 'Poppins', sans-serif;
-    color: #000000;
-    line-height: 6vh;
-    top: -5vh;
-
-}
-
-.section-sobre .texto-sobre-nos img {
-
-    width: 35%;
-    height: 70vh;
-    position: relative;
-    left: 20vh;
-    bottom: 16vh;
-
-}
-
-.texto-sobre-nos{
-    height: 80vh;
-}
-
-.sobre-nos{
-    background-color: #FAFAFA;
-    margin-top: 15vh;
-}
-
-.section-sobre{
-    margin-top: -15vh;
-
-}
-
-/* SEGUNDA PERGUNTA */
+/* sublinhado */
 .analise-dados .texto-analise .line {
     height: 5px;
     width: 143vh;
@@ -325,27 +292,8 @@ body {
     left: 36vh;
 }
 
-.analise-dados .texto-analise h1 {
-
-    width: 75%;
-    font-size: 6vh;
-    display: flex;
-    position: relative;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    left: 28vh;
-    bottom: 8vh;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    color: #ffffff;
-    line-height: 5vh;
-    margin-top: 20vh;
-
-}
-
+/* texto */
 .analise-dados .texto-analise .p1 {
-
     width: 75%;
     font-size: 3vh;
     display: flex;
@@ -360,29 +308,10 @@ body {
     color: #ffffff;
     line-height: 5vh;
     margin-top: 5vh;
-
 }
 
-
-
-.texto-analise{
-    height: 80vh;
-    margin-top: -10vh;
-}
-
-.importantica-analise-dados{
-    margin-top: 15vh;
-}
-
-.section-analise{
-    margin-top: 20vh;
-    background-color: #000000;
-    height: 90vh;
-}
-
-
+/* o retângulo interio ocupando toda a largura da página */
 .cards {
-
     background-color: #444343;
     display: flex;
     justify-content: center;
@@ -395,6 +324,7 @@ body {
     margin-top: -20vh;
 }
 
+/* cada retângulo dentro do retângulo maior */
 .card1-analise{
     background-color: #4f0081;
     display: flex;
@@ -406,6 +336,7 @@ body {
     font-size: 4vh;
     color: #ffffff;
 }
+
 .card2-analise{
     background-color: #6700a6;
     display: flex;
@@ -417,6 +348,7 @@ body {
     font-size: 4vh;
     color: #ffffff;
 }
+
 .card3-analise{
     background-color: #7c00c9;
     display: flex;
@@ -428,6 +360,7 @@ body {
     font-size: 4vh;
     color: #ffffff;
 }
+
 .card4-analise{
     background-color: #9d00ff;
     display: flex;
@@ -440,18 +373,22 @@ body {
     color: #ffffff;
 }
 
-/* TERCEIRA PERGUNTA */
-.section-logistica .texto-porque-logistica .line {
-    height: 5px;
-    width: 105vh;
-    background-color: #8800ff;
-    position: relative;
-    bottom: 10vh;
-    left: 55vh;
+
+
+/* SECTION: PORQUE EMPRESAS DE LOGÍSTICA?*/
+.section-logistica{
+    margin-top: 10vh;
 }
 
-.h1 {
+/* área que engloba a section */
+.porque-logistica{
+    background-color: #FAFAFA;
+    margin-top: 15vh;
+    height: 120vh;
+}
 
+/* título */
+.h1 {
     width: 75%;
     font-size: 6vh;
     display: flex;
@@ -466,11 +403,25 @@ body {
     color: #000000;
     line-height: 5vh;
     margin-top: 18vh;
-
 }
 
-.texto-porque-logistica .p1 {
+/* sublinhado */
+.section-logistica .texto-porque-logistica .line {
+    height: 5px;
+    width: 105vh;
+    background-color: #8800ff;
+    position: relative;
+    bottom: 10vh;
+    left: 55vh;
+}
 
+/* área do texto */
+.texto-porque-logistica{
+    height: 80vh;
+}
+
+/* texto */
+.texto-porque-logistica .p1 {
     width: 30%;
     font-size: 3vh;
     display: flex;
@@ -484,10 +435,10 @@ body {
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 5vh;
-    margin-top: -76vh;
-
+    margin-top: -70vh;
 }
 
+/* imagem: homem levando caixas */
 .ilustracao-logistica{
     position: relative;
     top: 8vh;
@@ -495,39 +446,35 @@ body {
     width: 30%;
 }
 
-
-
 .section-logistica .texto-porque-logistica img {
-
     width: 35%;
     height: 70vh;
     position: relative;
     left: 20vh;
     bottom: 16vh;
-
 }
 
-.texto-porque-logistica{
-    height: 80vh;
-}
 
-.porque-logistica{
-    background-color: #FAFAFA;
+
+/* SECTION: FRASE DO QUE A TRACKWARE DESEJA OFERECER */
+.section-frase{
     margin-top: 15vh;
-    height: 120vh;
 }
 
-.section-logistica{
-    margin-top: 10vh;
-
+/* área que engloba a section */
+.frase-trackware{
+    margin-top: 15vh;
+    background-color: #000000;
+    height: 40vh;
 }
 
+/* área que engloba a frase (altura) */
+.texto-frase{
+    height: 20vh;
+}
 
-/*  FRASE TRACKWARE */
-
-
+/* frase */
 .frase-trackware .texto-frase .h1 {
-
     width: 85%;
     font-size: 6vh;
     display: flex;
@@ -542,30 +489,11 @@ body {
     color: #ffffff;
     line-height: 10vh;
     margin-top: 10vh;
-
 }
 
 
 
-
-.texto-frase{
-    height: 20vh;
-}
-
-.frase-trackware{
-    margin-top: 15vh;
-    background-color: #000000;
-    height: 40vh;
-}
-
-.section-frase{
-    margin-top: 15vh;
-
-}
-
-
-/* SERVIÇOS */
-
+ /* SECTION: INFORMAÇÕES RELEVANTES SOBRE NOSSOS SERVIÇOS */
 .servicos {
     background-color: #FAFAFA;
     display: flex;
@@ -579,32 +507,8 @@ body {
     margin-top: 10%;
 }
 
-
-
-.servicosDesc {
-    height: 40vh;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #FAFAFA;
-    color: #000000;
-    position: relative;
-    left: -42vh;
-    margin-top:-200vh;
-    margin-bottom: -100vh;
-}
-.servicos .texto-infos .line {
-    height: 5px;
-    width: 88vh;
-    background-color: #8800ff;
-    position: relative;
-    bottom: 10vh;
-    left: 85vh;
-}
-
+/* titulo */
 .servicos .texto-infos .h1 {
-
     width: 100%;
     font-size: 6vh;
     display: flex;
@@ -619,31 +523,34 @@ body {
     color: #000000;
     line-height: 5vh;
     margin-top: -80vh;
-
 }
 
-
-.servicos .servicosDesc h2 {
-    font-size: xx-large;
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
+/* sublinhado */
+.servicos .texto-infos .line {
+    height: 5px;
+    width: 88vh;
+    background-color: #8800ff;
     position: relative;
-    left: 5vh;
+    bottom: 10vh;
+    left: 85vh;
 }
 
-.texto {
-
-    padding: 2.0em;
+/* área que engloba todas as caixas */
+.servicosDesc {
+    height: 40vh;
+    width: 90%;
     display: flex;
-    text-align: justify;
-    font-size: x-large;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FAFAFA;
+    color: #000000;
     position: relative;
-    top: -12vh;
-    bottom: 20vh;
-    width: 93%;
-
+    left: -42vh;
+    margin-top:-200vh;
+    margin-bottom: -100vh;
 }
 
+/* área das caixas */
 .servicoBox {
     background-color: #47006c;
     height: 27vh;
@@ -655,6 +562,30 @@ body {
     box-shadow: 1px 10px 10px 5px rgba(0, 0, 0, 0.384);
     border-radius: 0px 0px 0px 0px;
 }
+
+
+/* subtitulos em cada uma das caixas */
+.servicos .servicosDesc h2 {
+    font-size: xx-large;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    left: 5vh;
+}
+
+/* texto dentro das caixas */
+.texto {
+    padding: 2.0em;
+    display: flex;
+    text-align: justify;
+    font-size: x-large;
+    position: relative;
+    top: -12vh;
+    bottom: 20vh;
+    width: 93%;
+}
+
+
 
 
 /* RODAPÉ */
@@ -671,7 +602,6 @@ body {
     --color-neutral-10: #171717;
     --color-neutral-30: #a8a29e;
     --color-neutral-40: #f5f5f5;
-
 }
 
 main {
@@ -681,7 +611,6 @@ main {
 footer {
     width: 100%;
     color: var(--color-neutral-40);
-
     margin-bottom: -100vh;
 }
 
@@ -844,23 +773,20 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 }
 
 .notes {
-
     position: relative;
     width: auto;
     max-width: 500px;
     min-height: 150px;
-    background: #141414;
+    background: #626262;
     color: #ffffff;
     padding: 20px;
     margin: 20px 0;
     outline: none;
     border-radius: 5px;
-
 }
 
 
-
-
+/* DIVISOR DA HOME */
 .custom-shape-divider-bottom-1692911528 {
     position: absolute;
     bottom: 0;
@@ -882,7 +808,7 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     fill: #FAFAFA;
 }
 
-
+/* DIVISOR DO RODAPÉ */
 .custom-shape-divider-top-1694045992 {
     position: absolute;
     top: 0;
