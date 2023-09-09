@@ -22,107 +22,90 @@
 
 <body onload="listar()">
 
- 
-    <!-- Cadastro e Login -->
 
-    <div class="container" id="container">
-      <div class="form-container sign-up-container" id="texto">
-          <div class="formCadastroUsuario" id="formCadastroUsuario"  display="block">
-              <h1>Cadastro Colaborativo</h1>
-              <input type="text" placeholder="Nome de Usuário" id="nome_input" />
-              <input placeholder="Email" id="email_input" />
-              <input type="password" placeholder="Senha" id="senha_input" />
-              <input type="password" placeholder="Token da TrackWare" id="confirmacao_senha_input" />
-              <div id="aguardar"></div>
-              <div id="cardErro">
-                  <p id="mensagem_erro"></p>
-              </div>
-              <div id="div_aguardar"></div>
-              <button class="botao" onclick="cadastrar()">Cadastrar Usuário</button>
-              <div class="frase-cadastro-usuario">
-              <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario" onclick="cadastroEmpresa()">Clique aqui</button></span>
-          </div>
-          <button class="botao-voltar-colaborativo"><a href="../public/index.html">Voltar para Home »</a></button>
+  <!-- Cadastro e Login -->
+
+  <div class="container" id="container">
+    <div class="form-container sign-up-container" id="texto">
+      <div class="formCadastroUsuario" id="formCadastroUsuario" display="block">
+        <h1>Cadastro Colaborativo</h1>
+        <input type="text" placeholder="Nome de Usuário" id="nome_input" />
+        <input placeholder="Email" id="email_input" />
+        <input type="password" placeholder="Senha" id="senha_input" />
+        <input type="password" placeholder="Token da TrackWare" id="confirmacao_senha_input" />
+        <div id="aguardar"></div>
+        <div id="cardErro">
+          <p id="mensagem_erro"></p>
         </div>
-          <div class="formCadastroEmpresa" id="formCadastroEmpresa" display="none">
-            <h1>Cadastro Empresarial</h1>
-            <input type="text" placeholder="Nome da empresa" id="nome_input" />
-            <input type="number" placeholder="CNPJ" id="cnpj_input" />
-            <input type="text" placeholder="Rua" id="rua_input" />
-            <input type="number" placeholder="Número" id="numero_input" />
-            <input type="text" placeholder="Bairro" id="bairro_input" />
-            <input type="text" placeholder="Cidade" id="cidade_input" />
-            <input type="password" placeholder="Senha" id="senha_input" />
+        <div id="div_aguardar"></div>
+        <button class="botao" onclick="cadastrar()">Cadastrar Usuário</button>
+        <div class="frase-cadastro-usuario">
+          <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
+              onclick="cadastroEmpresa()">Clique aqui</button></span>
+        </div>
+        <button class="botao-voltar-colaborativo"><a href="../public/index.html">Voltar para Home »</a></button>
+      </div>
+      <div class="formCadastroEmpresa" id="formCadastroEmpresa" display="none">
+        <h1>Cadastro Empresarial</h1>
+        <input type="text" placeholder="Nome da empresa" id="nome_input" />
+        <input type="number" placeholder="CNPJ" id="cnpj_input" />
+        <input type="text" placeholder="Rua" id="rua_input" />
+        <input type="number" placeholder="Número" id="numero_input" />
+        <input type="text" placeholder="Bairro" id="bairro_input" />
+        <input type="text" placeholder="Cidade" id="cidade_input" />
+        <input type="password" placeholder="Senha" id="senha_input" />
 
-            <div id="aguardar"></div>
-            <div id="cardErro">
-                <p id="mensagem_erro"></p>
-            </div>
-            <div id="div_aguardar"></div>
-            <button class="botao" onclick="cadastrar()">Cadastrar Empresa</button>
-            <div class="frase-cadastro-empresa">
-            <span>Precisa cadastrar um colaborador? <button class="botao-cadastrar-usuario" onclick="cadastroUsuario()">Clique aqui</button></span>
+        <div id="aguardar"></div>
+        <div id="cardErro">
+          <p id="mensagem_erro"></p>
+        </div>
+        <div id="div_aguardar"></div>
+        <button class="botao" onclick="cadastrar()">Cadastrar Empresa</button>
+        <div class="frase-cadastro-empresa">
+          <span>Precisa cadastrar um colaborador? <button class="botao-cadastrar-usuario"
+              onclick="cadastroUsuario()">Clique aqui</button></span>
         </div>
         <button class="botao-voltar-empresarial"><a href="../public/index.html">Voltar para Home »</a></button>
-</div>
-
-      </div>
-      <div class="form-container sign-in-container" id="entraraq">
-          <div class="form">
-              <div class="inps">
-                  <h1>Login</h1>
-              </div>
-              <input type="email" placeholder="Email" id="email_input_login" />
-              <input type="password" placeholder="Senha" id="senha_input_login" />
-              <a href="#">Esqueceu sua senha?</a>
-              <div id="aguardar"></div>
-              <div id="cardErro">
-                  <p id="mensagem_erro"></p>
-              </div>
-              <div id="div_aguardar"></div>
-              <button class="botao" onclick="login()" type="button">Entrar</button>
-              <button class="botao-voltar-login"><a href="../public/index.html"> « Voltar para Home</a></button>
-             
-
-          </div>
       </div>
 
-
-      <!-- <div class="formLogin" id="formLogin" style="display: none;">
-        <div class="containerlogin">
-            <div class="texto-login">
-                <h1>Login</h1>
-                <p>E-mail:</p>
-                <input id="email_input_login" class="input_number" type="text" placeholder="ex: hardware@universe.com">
-                <p>Senha:</p>
-                <input id="senha_input_login" class="input_number" type="password" placeholder="Insira sua senha">
-                <div class="texto1">
-                    <span>Não tem uma conta? <button class="botaoH" onclick="cadastro()">Cadastre-se</button></span>
-                    <div class="bot">
-                        <button class="botao-banner" onclick="entrar()">Entrar</button>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <div class="form-container sign-in-container" id="entraraq">
+      <div class="form">
+        <div class="inps">
+          <h1>Login</h1>
         </div>
-    </div> -->
+        <input type="email" placeholder="Email" id="email_input_login" />
+        <input type="password" placeholder="Senha" id="senha_input_login" />
+        <a href="#">Esqueceu sua senha?</a>
+        <div id="aguardar"></div>
+        <div id="cardErro">
+          <p id="mensagem_erro"></p>
+        </div>
+        <div id="div_aguardar"></div>
+        <button class="botao" onclick="login()" type="button">Entrar</button>
+        <button class="botao-voltar-login"><a href="../public/index.html"> « Voltar para Home</a></button>
 
 
-      <!-- Animação rpo deslize e a aparacição da outra Div -->
-
-      <div class="overlay-container">
-          <div class="overlay">
-              <div class="overlay-panel overlay-left">
-                  <h1>É novo por aqui?</h1>
-                  <p>Bem-vindo(a)! Crie uma conta para obter uma ampla visão sobre os hardwares do seu negócio, ou, clique no botão abaixo para a realização de login.</p>
-                  <button class="botao ghost" id="signIn" onclick="signInLogin()">Login</button>
-              </div>
-              <div class="overlay-panel overlay-right">
-                  <h1>Bem Vindo(a) de volta!</h1>
-                  <p>Faça o login para continuar navegando, ou, clique no botão abaixo para a realização de cadastro!</p>
-                  <button class="botao ghost" id="signUp" onclick="signUpCadastrar()">Cadastrar</button>
-              </div>
-          </div>
       </div>
+    </div>
+
+    <!-- Animação rpo deslize e a aparacição da outra Div -->
+
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>É novo por aqui?</h1>
+          <p>Bem-vindo(a)! Crie uma conta para obter uma ampla visão sobre os hardwares do seu negócio, ou, clique no
+            botão abaixo para a realização de login.</p>
+          <button class="botao ghost" id="signIn" onclick="signInLogin()">Login</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Bem Vindo(a) de volta!</h1>
+          <p>Faça o login para continuar navegando, ou, clique no botão abaixo para a realização de cadastro!</p>
+          <button class="botao ghost" id="signUp" onclick="signUpCadastrar()">Cadastrar</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -132,14 +115,14 @@
 
 <script>
 
-function cadastroUsuario() {
-        formCadastroEmpresa.style.display = "none";
-        formCadastroUsuario.style.display = "block";
-    }
-    function cadastroEmpresa() {
-        formCadastroEmpresa.style.display = "block";
-        formCadastroUsuario.style.display = "none";
-    }
+  function cadastroUsuario() {
+    formCadastroEmpresa.style.display = "none";
+    formCadastroUsuario.style.display = "block";
+  }
+  function cadastroEmpresa() {
+    formCadastroEmpresa.style.display = "block";
+    formCadastroUsuario.style.display = "none";
+  }
 
   function signInLogin() {
     container.classList.remove("right-panel-active");

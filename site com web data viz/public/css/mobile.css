@@ -1,8 +1,7 @@
-/* Parte Mobile */
+/* CSS DA HOME RESPONSIVO */
 
 @media screen and (max-width: 768px) {
-
-    /* NAVBAR */
+    
 
     body {
         overflow-x: hidden;
@@ -12,8 +11,8 @@
         overflow-x: hidden;
     }
 
+    /* NAVBAR */
     .navbar {
-
         width: 216vw;
         height: 12vh;
     }
@@ -25,10 +24,8 @@
     }
 
     .navbar-logo img {
-
         width: 40px;
         height: 40px;
-
     }
 
     .navbar-items a {
@@ -523,7 +520,7 @@
 .back-footer {
     margin-top: 1700vw;
     width: 218vw;
-    height: 455vw;
+    height: 555vw;
 }
 
 :root {

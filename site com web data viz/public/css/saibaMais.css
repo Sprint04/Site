@@ -86,7 +86,7 @@ body {
     margin: 0;
     position: relative;
     left: 5vw;
-    top: 10vh;
+    top: 6vh;
     display: flex;
     flex-direction: column;
     font-size: 30px;
@@ -407,37 +407,38 @@ body {
 
 /* texto */
 .texto-porque-logistica .p1 {
-    width: 30%;
+    width: 34%;
     font-size: 3vh;
     display: flex;
     position: relative;
     align-items: center;
     display: flex;
     justify-content: center;
-    left: 113vh;
+    left: 103vh;
     bottom: 8vh;
     text-align: justify;
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 5vh;
-    margin-top: -70vh;
+    margin-top: -50vh;
 }
 
 /* imagem: homem levando caixas */
 .ilustracao-logistica{
     position: relative;
-    top: 8vh;
-    left: 2vw;
+    top: 20vh;
+    left: 3vw;
     width: 30%;
 }
 
 .section-logistica .texto-porque-logistica img {
-    width: 35%;
-    height: 70vh;
+    width: 60vh;
+    height: 60vh;
     position: relative;
-    left: 20vh;
+    left: 30vh;
     bottom: 16vh;
 }
+
 
 
 
