@@ -6,16 +6,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #FAFAFA;
 }
-  
-  /*--------------------------------------------------------------
-  # Disable aos animation delay on mobile devices
-  --------------------------------------------------------------*/
-  @media screen and (max-width: 768px) {
-    [data-aos-delay] {
-      transition-delay: 0 !important;
-    }
-  }
-  
 
 ::-webkit-scrollbar {
     width: 20px;
@@ -37,7 +27,6 @@ body {
 /* NAV BAR */
 
 .navbar {
-
     font-family: 'Poppins', sans-serif;
     letter-spacing: 3px;
     font-size: 20px;
@@ -72,30 +61,7 @@ body {
     cursor: pointer;
 }
 
-.navbar-direita a {
-    text-decoration: none;
-    color: #FAFAFA;
-}
-
-.navbar-direita {
-    font-size: 20px;
-    margin-top: -1.6%;
-    border: solid 2px; 
-    width: 10%; 
-    border-radius: 30px 0px 30px 0px; 
-    margin-left: 5px; 
-    padding-left: 20px;
-}
-
-.navbar-direita a:hover {
-    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color: #8800ff;
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-
-/* INICIO HOME */
+/* SECTION: HOME */
 
 #homeMain {
     display: flex;
@@ -110,6 +76,7 @@ body {
     margin-left: 0vw;
 }
 
+/* caixa que engloba todos os textos da home */
 .main-texto {
     margin: 0;
     position: relative;
@@ -122,6 +89,7 @@ body {
     margin-left: 0vw;
 }
 
+/* frase: "Potencializando a logística com tecnologia." */
 #part1 {
     margin-left: 0vw;
     margin-top: 2vw;
@@ -130,29 +98,25 @@ body {
     color: #fdfdfd;
 }
 
-#TrackWare-titulo:hover {
-    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color: #8800ff;
-    transition: 0.5s;
-}
-
-#TrackWare-subtitulo:hover {
-    /*'animação' dos links, quando passar o mouse troca a cor em 0.5 segundos*/
-    color: #8800ff;
-    transition: 0.5s;
-}
-
+/* slogan */
 #part2 {
     margin-left: 0vw;
     width: 40vw;
     margin-top: 0vw;
 }
 
+/* titulo */
 #TrackWare-titulo {
     font-weight: 300;
     font-size: 80px;
     margin-top: -5vw;
     margin-left: 0vw;
+}
+
+/* animação do titulo */
+#TrackWare-titulo:hover {
+    color: #8800ff;
+    transition: 0.5s;
 }
 
 #TrackWare-subtitulo {
@@ -161,6 +125,13 @@ body {
     margin-left: 0vw;
 }
 
+/* animação do subtitulo (logistics systems)*/
+#TrackWare-subtitulo:hover {
+    color: #8800ff;
+    transition: 0.5s;
+}
+
+/* botão home que direciona para o saiba mais */
 .button-home {
     background: #8800ff;
     color: #fff;
@@ -185,13 +156,13 @@ body {
     /*duração da transição da animação*/
 }
 
+/* imagem da home: hardware */
 .ilustracao-home {
     position: relative;
     top: -8vh;
     right: -5vw;
     z-index: 99;
 }
-
 
 #imagemHome {
     width: 750px;
@@ -203,10 +174,9 @@ body {
     animation-timing-function: ease-in-out;
     margin-left: 30px;
     margin-top: 5px;
-
 }
 
-
+/* animação da imagem flutuando */
 @keyframes floating {
     0% {
         transform: translate(0, 0px);
@@ -221,8 +191,8 @@ body {
     }
 }
 
-/* SOBRE NÓS */
 
+/* SECTION: SOBRE NÓS */
 .sobre-nos .section-sobre {
     height: 110vh;
     width: 100%;
@@ -233,6 +203,7 @@ body {
     color: #000000;
 }
 
+/* titulo */
 .section-sobre .texto-sobre-nos h1 {
     width: 60%;
     font-size: 55px;
@@ -245,6 +216,7 @@ body {
     color: #000000;
 }
 
+/* sublinhado */
 .section-sobre .texto-sobre-nos .line {
     height: 5px;
     width: 62vh;
@@ -254,9 +226,8 @@ body {
     left: 71vh;
 }
 
-
+/* texto de explicação sobre a empresa  */
 .p1 {
-
     width: 75%;
     font-size: 28px;
     display: flex;
@@ -267,11 +238,10 @@ body {
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 5vh;
-
 }
 
+/* tópicos de explicação sobre a empresa  */
 .p2 {
-
     width: 39.3%;
     font-size: 28px;
     display: flex;
@@ -282,53 +252,49 @@ body {
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 6vh;
-
 }
 
+/* imagem */
 .section-sobre .texto-sobre-nos img {
-
     width: 35%;
     height: 70vh;
     position: relative;
     left: 20vh;
     bottom: 16vh;
-
 }
 
-/* Missão, Visão, Valores */
 
-.card {
+/* SECTION: MISSÃO, VISÃO E VALORES */
 
-    background-color: #444343;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    text-align: center;
-    height: 40vh;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-}
-
+/* retângulo maior que engloba todos os cards */
 .cardDesc {
     height: 40vh;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #444343;
+    background-color: #787878;
     color: #ffffff;
 }
 
-
 .cardCont {
-
     display: flex;
     flex-direction: column-reverse;
     margin-top: 0%;
-
 }
 
+/* título dentro de cada card */
+.texto2 h2 {
+    color: #ffffff;
+}
+
+/* animação do titulo */
+.texto2 h2:hover {
+    color: #6E43B9;
+    transition-duration: 0.6s;
+}
+
+/* texto dentro de cada card */
 .texto2 {
     padding: 1.0em;
     text-align: center;
@@ -336,30 +302,19 @@ body {
     font-size: 25px;
     position: relative;
     bottom: 6vh;
-
 }
 
-.texto2 h2 {
-    color: #ffffff;
-}
-
-.texto2 h2:hover {
-    color: #6E43B9;
-    transition-duration: 0.6s;
-}
-
+/* divisão entre os cards */
 .line2 {
-
     height: 30vh;
     width: 30px;
     background-color: #ffffff;
     position: relative;
     right: 1vh;
-
 }
 
+/* card missão */
 .card1 {
-
     height: 30vh;
     width: 100%;
     margin: auto;
@@ -367,11 +322,10 @@ body {
     justify-content: center;
     text-align: center;
     position: relative;
-
 }
 
+/* card visão */
 .card2 {
-
     height: 30vh;
     width: 100%;
     margin: auto;
@@ -380,11 +334,10 @@ body {
     text-align: center;
     position: relative;
     right: 2vh;
-
 }
 
+/* card valores */
 .card3 {
-
     height: 30vh;
     width: 100%;
     margin: auto;
@@ -393,13 +346,12 @@ body {
     text-align: center;
     position: relative;
     right: 2vh;
-
 }
 
-/* SERVIÇOS */
+
+/* SECTION: SERVIÇOS */
 
 .servicos {
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -410,8 +362,6 @@ body {
     font-family: 'Poppins', sans-serif;
     margin-top: 10%;
 }
-
-
 
 .servicosDesc {
     height: 130vh;
@@ -424,8 +374,8 @@ body {
     left: 7vh;
 }
 
+/* titulo: nossos serviços */
 .servicos .servicosDesc h1 {
-
     width: 60%;
     font-size: 55px;
     letter-spacing: 1px;
@@ -433,11 +383,10 @@ body {
     left: 36vh;
     font-family: 'Poppins', sans-serif;
     color: #000000;
-
 }
 
+/* sublinhado */
 .servicos .line3 {
-
     background-color: #8800ff;
     height: 5px;
     width: 63vh;
@@ -445,29 +394,27 @@ body {
     left: 36vh;
     bottom: 5vh;
     color: #FAFAFA;
-
 }
 
+/* texto: "Nós oferecemos o melhor atendimento!" */
 .subtitulo {
-
     width: 100%;
     font-size: 38px;
     position: relative;
     left: 36vh;
     bottom: 3vh;
-
 }
 
+/* imagem de serviços */
 .servicos img {
-
     width: 70%;
     height: 80vh;
     position: relative;
     right: 10vh;
     top: 5vh;
-
 }
 
+/* titulos em cada caixa */
 .servicos .servicosDesc h2 {
     font-size: xx-large;
     color: #ffffff;
@@ -476,8 +423,8 @@ body {
     left: 5vh;
 }
 
+/* texto em cada caixa */
 .texto {
-
     padding: 2.0em;
     display: flex;
     text-align: start;
@@ -485,11 +432,10 @@ body {
     position: relative;
     bottom: 12vh;
     margin-top: -1vw;
-
 }
 
+/* caixas de apresentações de serviços */
 .servicoBox {
-
     background-color: #000000;
     height: 20vh;
     width: 80%;
@@ -501,20 +447,16 @@ body {
     border-radius: 8px;
 }
 
+/* animação das caixas */
 .servicoBox:hover {
-
     transform: scale(1.1);
     transition: 0.7s ease-in-out;
-
 }
 
 
-
-
-/* NOSSA EQUIPE */
+/* SECTION: NOSSA EQUIPE */
 
 .nossa-equipe {
-
     background-color: #FAFAFA;
     justify-content: center;
     align-items: center;
@@ -525,11 +467,9 @@ body {
     height: 90vh;
     width: 100%;
     font-family: 'Poppins', sans-serif;
-
 }
 
-
-
+/* titulo: nossa equipe */
 #nossa-equipe {
     width: 60%;
     font-size: 55px;
@@ -544,6 +484,7 @@ body {
     margin-bottom: 5%;
 }
 
+/* sublinhado */
 .line5 {
     height: 5px;
     width: 430px;
@@ -553,6 +494,7 @@ body {
     margin-bottom: 3%;
 }
 
+/* área que engloba todos os cards */
 .caixa-equipe {
     display: flex;
     padding-left: 3.5%;
@@ -565,6 +507,8 @@ body {
     justify-content: space-between;
 }
 
+
+/* área com as fotos dos integrantes */
 .card-foto {
     height: 500px;
     width: 14.7%;
@@ -574,25 +518,26 @@ body {
     border-radius: 1%;
 }
 
-.nossa-equipe img{
-
-    position: relative;
-    top: 2.5vh;
-
+/* div das imagens */
+.card-desc2 {
+    display: flex;
+    justify-content: center;
 }
 
+/* imagens */
+.nossa-equipe img {
+    position: relative;
+    top: 2.5vh;
+}
+
+/* área para ficar o nome e a função de cada integrante */
 .card-desc {
     background-color: #FAFAFA;
     height: 170px;
     width: 100%;
 }
 
-.card-desc2 {
-    display: flex;
-    justify-content: center;
-}
-
-
+/* nome dos integrantes */
 #nome-equipe {
     font-size: x-large;
     color: #2A327A;
@@ -601,6 +546,7 @@ body {
     top: 1vh;
 }
 
+/* função dos integrantes */
 .texto3 {
     padding: 1.0em;
     text-align: center;
@@ -611,7 +557,8 @@ body {
     opacity: 0.8;
 }
 
-/* QUER SABER MAIS? */
+/* SECTION: QUER FAZER PARTE DO NOSSO TIME? */
+
 .sabermais {
     background-color: #FAFAFA;
     justify-content: center;
@@ -626,7 +573,8 @@ body {
     margin-bottom: 0;
 }
 
-.saiba h1{
+/* titulo */
+.saiba h1 {
     width: 60%;
     font-size: 55px;
     letter-spacing: 1px;
@@ -640,6 +588,7 @@ body {
     margin-bottom: 5%;
 }
 
+/* sublinhado */
 .line-cadastro {
     height: 5px;
     width: 1040px;
@@ -650,8 +599,8 @@ body {
     color: #FAFAFA;
 }
 
-.subtitulo-saiba{
-
+/* texto para chamar o usuário para se cadastrar ou efetuar login */
+.subtitulo-saiba {
     width: 83%;
     font-size: 28px;
     position: relative;
@@ -659,6 +608,7 @@ body {
     bottom: 3vh;
 }
 
+/* botão que leva o usuário para a área de cadastro e login */
 .button-cadastro {
     background: #a940ff;
     color: #fff;
@@ -670,39 +620,40 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 28px;
     margin-left: 41vw;
-   
 }
 
-.button-cadastro a{
-     text-decoration: none;
-     color: white;
+.button-cadastro a {
+    text-decoration: none;
+    color: white;
 }
 
+/* animação do botão (neon) */
 .button-cadastro:hover {
     background: #ba7eff;
     color: #050801;
     box-shadow: 0 0 5px #d5b1ff,
-    0 0 25px #d0a7ff, 
-    0 0 50px #d8b6ff, 
-    0 0 200px #dbbbff;
-
-    -webkit-box-reflect :below 1px linear-gradient (transparent, #0005);
-    }
+        0 0 25px #d0a7ff,
+        0 0 50px #d8b6ff,
+        0 0 200px #dbbbff;
+    -webkit-box-reflect: below 1px linear-gradient (transparent, #0005);
+}
 
 .button-cadastro:nth-child(1) {
-    filter: hue-rotate (270deg) ;}
+    filter: hue-rotate (270deg);
+}
 
-    .button-cadastro:nth-child(2){
-    filter: hue-rotate (110deg) ;
-    }
-    .button-cadastro{
+.button-cadastro:nth-child(2) {
+    filter: hue-rotate (110deg);
+}
+
+.button-cadastro {
     position: absolute;
     display: block
 }
 
 
 
-/* RODAPÉ */
+/* SECTION: RODAPÉ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
 
@@ -763,7 +714,7 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 #footer_social_media {
     display: flex;
     gap: 2rem;
-    margin-top: 1.5rem;    
+    margin-top: 1.5rem;
 }
 
 #footer_social_media .link {
@@ -773,10 +724,10 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     height: 2.5rem;
     width: 2.5rem;
     color: #fff;
-	border-radius: 50%;
-	outline: 2px solid #fff;
-	transition-property: outline-offset, outline-color, background-color;
-	transition-duration: 0.25s;
+    border-radius: 50%;
+    outline: 2px solid #fff;
+    transition-property: outline-offset, outline-color, background-color;
+    transition-duration: 0.25s;
 }
 
 #footer_social_media .link i {
@@ -784,7 +735,7 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     margin: auto;
 }
 
-#footer_social_media .link i:hover{
+#footer_social_media .link i:hover {
     animation: shake 0.25s;
 }
 
@@ -793,25 +744,23 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     outline-offset: 4px;
 }
 
-#instagram :hover{
+#instagram :hover {
     /* background: linear-gradient(#7f37c9, #ff2992, #ff9807); */
     /* background-color: #6E43B9; */
-    background-image: radial-gradient(
-		circle at 30% 107%,
-		#fdf497 0%,
-		#fdf497 5%,
-		#fd5949 45%,
-		#d6249f 60%,
-		#285aeb 90%
-	);
-	outline-color: #a02d76;
+    background-image: radial-gradient(circle at 30% 107%,
+            #fdf497 0%,
+            #fdf497 5%,
+            #fd5949 45%,
+            #d6249f 60%,
+            #285aeb 90%);
+    outline-color: #a02d76;
 }
 
-#linkedin :hover{
+#linkedin :hover {
     /* background-color: #4267b3; */
     /* background-color: #6E43B9; */
     background-color: #0077b5;
-	outline-color: #0077b5;
+    outline-color: #0077b5;
 }
 
 #whatsapp :hover {
@@ -902,77 +851,8 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 
 }
 
-/* DIVISORES */
 
-/* PRIMEIRO DIVISOR */
-
-.custom-shape-divider-bottom-1692823570 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom-1692823570 svg {
-    position: relative;
-    display: block;
-    width: calc(105% + 1.3px);
-    height: 320px;
-}
-
-.custom-shape-divider-bottom-1692823570 .shape-fill {
-    fill: #FFFFFF;
-}
-
-/* SEGUNDA DIVISAO */
-
-.custom-shape-divider-bottom-1692676178 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom-1692676178 svg {
-    position: relative;
-    display: block;
-    width: calc(180% + 1.5px);
-    height: 400px;
-    transform: rotateY(180deg);
-}
-
-.custom-shape-divider-bottom-1692676178 .shape-fill {
-    fill: #8A7DCE;
-}
-
-.custom-shape-divider-top-1692676204 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-}
-
-.custom-shape-divider-top-1692676204 svg {
-    position: relative;
-    display: block;
-    width: calc(180% + 1.5px);
-    height: 300px;
-    transform: rotateY(180deg);
-}
-
-.custom-shape-divider-top-1692676204 .shape-fill {
-    fill: #8A7DCE;
-}
-
-
+/* DIVISOR DA HOME */
 .custom-shape-divider-bottom-1692911528 {
     position: absolute;
     bottom: 0;
@@ -994,8 +874,7 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     fill: #FAFAFA;
 }
 
-/* DIVISOR FOOTER */
-
+/* DIVISOR DO RODAPÉ */
 .custom-shape-divider-top-1694045992 {
     position: absolute;
     top: 0;
@@ -1016,6 +895,7 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     fill: #FFFFFF;
 }
 
+
 /* Botao que joga pra cima */
 
 .back-to-top {
@@ -1028,16 +908,15 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
     height: 6vh;
     border-radius: 4px;
     transition: all 0.4s;
-  }
-  
-  .back-to-top:hover {
+}
+
+.back-to-top:hover {
     background: #550e63;
     color: #fff;
-  }
-  
-  .back-to-top i {
+}
+
+.back-to-top i {
     font-size: 3vh;
     color: #fff;
     line-height: 0;
-  }
-
+}
