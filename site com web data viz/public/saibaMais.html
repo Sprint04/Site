@@ -400,6 +400,8 @@
     </div>
 
 
+    <button id="scrollTopButton" class="back-to-top"><i class="fas fa-arrow-up"></i> </button>
+
 </body>
 
 </html>
@@ -413,3 +415,57 @@
     SITE PARA FAZER GRADIENT
     https://cssgradient.io/
  -->
+
+<script>
+    
+    // Rolamento para cada sessão do site e depois para o topo do site
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const scrollTopButton = document.getElementById("scrollTopButton");
+        const sobre = document.getElementById("sobre");
+        const servicos = document.getElementById("servicos");
+        const equipe = document.getElementById("equipe");
+        const roda = document.getElementById("roda");
+
+        scrollTopButton.addEventListener("click", function () {
+            // Role suavemente para o topo da página
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        sobre.addEventListener("click", function () {
+            // Role suavemente para o topo da página
+            window.scrollTo({
+                top: 1000,
+                behavior: "smooth"
+            });
+        });
+
+        servicos.addEventListener("click", function () {
+            // Role suavemente para o topo da página
+            window.scrollTo({
+                top: 2600,
+                behavior: "smooth"
+            });
+        });
+
+        equipe.addEventListener("click", function () {
+            // Role suavemente para o topo da página
+            window.scrollTo({
+                top: 4600,
+                behavior: "smooth"
+            });
+        });
+
+        roda.addEventListener("click", function () {
+            // Role suavemente para o topo da página
+            window.scrollTo({
+                top: 6000,
+                behavior: "smooth"
+            });
+        });
+    });
+
+</script>

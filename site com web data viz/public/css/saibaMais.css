@@ -414,7 +414,7 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
-    left: 103vh;
+    left: 99vh;
     bottom: 8vh;
     text-align: justify;
     font-family: 'Poppins', sans-serif;
@@ -426,7 +426,7 @@ body {
 /* imagem: homem levando caixas */
 .ilustracao-logistica{
     position: relative;
-    top: 20vh;
+    top: 18vh;
     left: 3vw;
     width: 30%;
 }
@@ -435,7 +435,7 @@ body {
     width: 60vh;
     height: 60vh;
     position: relative;
-    left: 30vh;
+    left: 31vh;
     bottom: 16vh;
 }
 
@@ -816,3 +816,29 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 .custom-shape-divider-top-1694045992 .shape-fill {
     fill: #FFFFFF;
 }
+
+
+    /* BOTÃO PARA VOLTAR PARA CIMA */
+
+    .back-to-top {
+        position: fixed;
+        right: 1vh;
+        bottom: 1vh;
+        z-index: 999;
+        background: #6E43B9;
+        width: 11vw;
+        height: 7vh;
+        border-radius: 4px;
+        transition: all 0.4s;
+    }
+
+    .back-to-top:hover {
+        background: #550e63;
+        color: #fff;
+    }
+
+    .back-to-top i {
+        font-size: 28px;
+        color: #fff;
+        line-height: 0;
+    }

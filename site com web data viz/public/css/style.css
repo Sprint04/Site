@@ -233,8 +233,8 @@ body {
     display: flex;
     position: relative;
     left: 25vh;
-    bottom: 10vh;
-    text-align: center;
+    bottom: 6vh;
+    text-align: justify;
     font-family: 'Poppins', sans-serif;
     color: #000000;
     line-height: 5vh;
@@ -251,8 +251,10 @@ body {
     left: 100vh;
     font-family: 'Poppins', sans-serif;
     color: #000000;
-    line-height: 6vh;
+    line-height: 5vh;
+    top: -74vh
 }
+
 
 /* imagem */
 .section-sobre .texto-sobre-nos img {
