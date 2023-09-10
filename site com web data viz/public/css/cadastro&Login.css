@@ -204,19 +204,59 @@ a {
 }
 
 /* estilização das inputs */
-input {
-    margin-top: 20px;
-    margin-bottom: 2px;
-    padding: 12px 15px;
-    margin: 10px 0;
-    width: 100%;
-    outline: none;
-    height: 20px;
-    border: 0;
-    border-bottom: 1px solid rgb(33, 32, 32);
-    text-align: start;
-    font-size: medium;
-}
+
+.input-group {
+
+    position: relative;
+    
+    }
+    
+    .input-group__input{
+    
+        margin-top: 20px;
+        margin-bottom: 2px;
+        padding: 12px 15px;
+        margin: 10px 0;
+        width: 100%;
+        outline: none;
+        height: 20px;
+        border: 0;
+        border-bottom: 1px solid rgb(33, 32, 32);
+        text-align: start;
+        font-size: medium;
+        background-color: transparent;
+        transition: border-bottom 500ms;
+        
+    
+    }
+    
+    .input-group__input:is(:focus, :valid){
+    
+        border-bottom: 1px solid rgb(0, 0, 0);
+    
+    }
+    
+    .input-group__label{
+    
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(10px, 10px);
+        transform-origin: left;
+        transition: transform 0.25s;
+    
+    }
+    
+    .input-group__input:focus + 
+    .input-group__label,
+    .input-group__input:valid +
+    .input-group__label{
+    
+        transform: translate(0, -10px) scale(0.8);
+        color: #000000;
+    
+    
+    }
 
 /* titulo Login */
 .inps {

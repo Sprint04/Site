@@ -679,11 +679,10 @@ main {
 footer {
     width: 100%;
     color: var(--color-neutral-40);
-
     margin-bottom: -100vh;
 }
 
-.link {
+#link {
     text-decoration: none;
 }
 
@@ -694,7 +693,7 @@ footer {
     padding: 8rem 5rem;
     justify-content: space-around;
     position: relative;
-    background: linear-gradient(0deg, rgb(0, 0, 0) 20%, rgb(160, 160, 160) 100%);
+    background: linear-gradient(0deg, rgb(0, 0, 0) 20%, rgb(48, 48, 48) 100%);
 }
 
 #footer_contacts h3 {
@@ -708,69 +707,97 @@ footer {
     font-weight: 750;
 }
 
+.footer-link  {
+
+    text-decoration: none;
+    color: var(--color-neutral-30);
+     
+}
+
 /*
 LINK CODIGO REDES
 https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 */
 
-#footer_social_media {
-    display: flex;
-    gap: 2rem;
-    margin-top: 1.5rem;
+.icons {
+	display: flex;
+	column-gap: 5rem;
 }
 
-#footer_social_media .link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.5rem;
-    width: 2.5rem;
-    color: #fff;
-    border-radius: 50%;
-    outline: 2px solid #fff;
-    transition-property: outline-offset, outline-color, background-color;
-    transition-duration: 0.25s;
+.icon {
+	display: inline-flex;
+	width: 3rem;
+	height: 3rem;
+	text-decoration: none;
+	font-size: 1.4rem;
+	color: #fff;
+	border-radius: 50%;
+	outline: 2px solid #fff;
+	transition-property: outline-offset, outline-color, background-color;
+	transition-duration: 0.5s;
 }
 
-#footer_social_media .link i {
-    font-size: 1.25rem;
-    margin: auto;
+.icon:hover {
+	outline-offset: 4px;
 }
 
-#footer_social_media .link i:hover {
-    animation: shake 0.25s;
+.icon i {
+	margin: auto;
 }
 
-#footer_social_media .link:hover {
-    opacity: 0.8;
-    outline-offset: 4px;
+.icon:hover i {
+	animation: shake 0.25s;
 }
 
-#instagram :hover {
-    /* background: linear-gradient(#7f37c9, #ff2992, #ff9807); */
-    /* background-color: #6E43B9; */
-    background-image: radial-gradient(circle at 30% 107%,
-            #fdf497 0%,
-            #fdf497 5%,
-            #fd5949 45%,
-            #d6249f 60%,
-            #285aeb 90%);
-    outline-color: #a02d76;
+.icon--instagram:hover {
+	background-image: radial-gradient(
+		circle at 30% 107%,
+		#fdf497 0%,
+		#fdf497 5%,
+		#fd5949 45%,
+		#d6249f 60%,
+		#285aeb 90%
+	);
+	outline-color: #a02d76;
 }
 
-#linkedin :hover {
-    /* background-color: #4267b3; */
-    /* background-color: #6E43B9; */
-    background-color: #0077b5;
-    outline-color: #0077b5;
+.icon--linkedin:hover {
+	background-color: #0077b5;
+	outline-color: #0077b5;
 }
 
-#whatsapp :hover {
-    /* background-color: #6E43B9; */
-    background-color: #25d366;
-    outline-color: #25d366;
+.icon--whatsapp:hover {
+	background-color: #2ea44f;
+	outline-color: #2ea44f;
 }
 
+@keyframes shake{
+
+10% {
+
+    transform: rotate(15deg);
+
+}
+
+20% {
+
+    transform: rotate(-15deg);
+
+}
+
+30% {
+
+    transform: rotate(15deg);
+
+}
+
+40% {
+
+    transform: rotate(-15deg);
+
+}
+
+}
 
 #email {
     display: flex;
@@ -821,6 +848,13 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 }
 
 .footer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    list-style: none;
+}
+
+.footer-list-contato {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -894,22 +928,25 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 }
 
 .custom-shape-divider-top-1694045992 .shape-fill {
-    fill: #FFFFFF;
+    fill: #FAFAFA;
 }
 
 
 /* Botao que joga pra cima */
 
 .back-to-top {
-    position: fixed;
+    display: inline-block;
     right: 15px;
     bottom: 15px;
-    z-index: 999;
+    text-align: center;
+    position: fixed;
+    transition: background-color .3s, opacity .5s, visibility.5s;
+    z-index: 1000;
     background: #6E43B9;
     width: 3vw;
     height: 6vh;
     border-radius: 4px;
-    transition: all 0.4s;
+    
 }
 
 .back-to-top:hover {
@@ -920,5 +957,5 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 .back-to-top i {
     font-size: 3vh;
     color: #fff;
-    line-height: 0;
+    
 }

@@ -29,38 +29,94 @@
     <div class="form-container sign-up-container" id="texto">
       <div class="formCadastroUsuario" id="formCadastroUsuario" display="block">
         <h1>Cadastro Colaborativo</h1>
-        <input type="text" placeholder="Nome de Usuário" id="nome_input" />
-        <input placeholder="Email" id="email_input" />
-        <input type="password" placeholder="Senha" id="senha_input" />
-        <input type="password" placeholder="Token da TrackWare" id="confirmacao_senha_input" />
+        
+        <div class="input-group">
+          <input type="text" id="nome_input" class="input-group__input" required/>
+          <label for="nome_input" class="input-group__label">Nome de Usuário</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="text" id="email_input" class="input-group__input" required/>
+          <label for="email_input" class="input-group__label">Email</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="password" id="senha_input" class="input-group__input" required/>
+          <label for="senha_input" class="input-group__label">Senha</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="password" id="confirmacao_senha_input" class="input-group__input" required/>
+          <label for="confirmacao_senha_input" class="input-group__label">Token da TrackWare</label>
+          </div>
+
         <div id="aguardar"></div>
+
         <div id="cardErro">
           <p id="mensagem_erro"></p>
         </div>
+
         <div id="div_aguardar"></div>
+
         <button class="botao" onclick="cadastrar()">Cadastrar Usuário</button>
+
         <div class="frase-cadastro-usuario">
           <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
               onclick="cadastroEmpresa()">Clique aqui</button></span>
         </div>
+
         <button class="botao-voltar-colaborativo"><a href="../public/index.html">Voltar para Home »</a></button>
+
       </div>
+      
       <div class="formCadastroEmpresa" id="formCadastroEmpresa" display="none">
         <h1>Cadastro Empresarial</h1>
-        <input type="text" placeholder="Nome da empresa" id="nome_input" />
-        <input type="number" placeholder="CNPJ" id="cnpj_input" />
-        <input type="text" placeholder="Rua" id="rua_input" />
-        <input type="number" placeholder="Número" id="numero_input" />
-        <input type="text" placeholder="Bairro" id="bairro_input" />
-        <input type="text" placeholder="Cidade" id="cidade_input" />
-        <input type="password" placeholder="Senha" id="senha_input" />
+        
+        <div class="input-group">
+          <input type="text" id="nome_input" class="input-group__input" required/>
+          <label for="nome_input" class="input-group__label">Nome da empresa</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="number" id="cnpj_input" class="input-group__input" required/>
+          <label for="cnpj_input" class="input-group__label">CNPJ</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="text" id="rua_input" class="input-group__input" required/>
+          <label for="rua_input" class="input-group__label">Rua</label>
+          </div>
+       
+        <div class="input-group">
+          <input type="number" id="numero_input" class="input-group__input" required/>
+          <label for="numero_input" class="input-group__label">Número</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="text" id="bairro_input" class="input-group__input" required/>
+          <label for="bairro_input" class="input-group__label">Bairro</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="text" id="cidade_input" class="input-group__input" required/>
+          <label for="cidade_input" class="input-group__label">Cidade</label>
+          </div>
+        
+        <div class="input-group">
+          <input type="password" id="senha_input" class="input-group__input" required/>
+          <label for="senha_input" class="input-group__label">Senha</label>
+          </div>
 
         <div id="aguardar"></div>
+
         <div id="cardErro">
           <p id="mensagem_erro"></p>
         </div>
+
         <div id="div_aguardar"></div>
+
         <button class="botao" onclick="cadastrar()">Cadastrar Empresa</button>
+
         <div class="frase-cadastro-empresa">
           <span>Precisa cadastrar um colaborador? <button class="botao-cadastrar-usuario"
               onclick="cadastroUsuario()">Clique aqui</button></span>
@@ -74,8 +130,15 @@
         <div class="inps">
           <h1>Login</h1>
         </div>
-        <input type="email" placeholder="Email" id="email_input_login" />
-        <input type="password" placeholder="Senha" id="senha_input_login" />
+        <div class="input-group">
+        <input type="email" id="email_input_login" class="input-group__input" required/>
+        <label for="email_input_login" class="input-group__label">Email</label>
+        </div>
+        <div class="input-group">
+        <input type="password" id="senha_input_login" class="input-group__input" required/>
+        <label for="senha_input_login" class="input-group__label">Senha</label>
+       </div>
+      
         <a href="#">Esqueceu sua senha?</a>
         <div id="aguardar"></div>
         <div id="cardErro">
