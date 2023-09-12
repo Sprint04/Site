@@ -639,8 +639,14 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 */
 
 .icons {
-	display: flex;
-	column-gap: 5rem;
+	
+        display: flex;
+        width: 10vw;
+        justify-content: space-evenly;
+        position: relative;
+        top: 1rem;
+        
+    
 }
 
 .icon {

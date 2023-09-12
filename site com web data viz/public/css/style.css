@@ -581,7 +581,7 @@ body {
     font-size: 55px;
     letter-spacing: 1px;
     display: flex;
-    margin-left: 25%;
+    margin-left: 22%;
     top: 0vh;
     left: 8vh;
     font-family: 'Poppins', sans-serif;
@@ -593,11 +593,11 @@ body {
 /* sublinhado */
 .line-cadastro {
     height: 5px;
-    width: 1040px;
+    width: 58VW;
     background-color: #8800ff;
-    margin-left: 23.8%;
-    margin-top: -5%;
-    margin-bottom: 3%;
+    position: relative;
+    left: 25rem;
+    bottom: 6rem;
     color: #FAFAFA;
 }
 
@@ -721,7 +721,11 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 
 .icons {
 	display: flex;
-	column-gap: 5rem;
+    width: 10vw;
+    justify-content: space-evenly;
+    position: relative;
+    top: 1rem;
+    
 }
 
 .icon {

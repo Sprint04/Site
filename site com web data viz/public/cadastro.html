@@ -58,7 +58,7 @@
 
         <div id="div_aguardar"></div>
 
-        <button class="botao" onclick="cadastrar()">Cadastrar Usuário</button>
+        <button class="botao" onclick="signInLogin()">Cadastrar Usuário</button>
 
         <div class="frase-cadastro-usuario">
           <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
@@ -115,7 +115,7 @@
 
         <div id="div_aguardar"></div>
 
-        <button class="botao" onclick="cadastrar()">Cadastrar Empresa</button>
+        <button class="botao" onclick="signInLogin()">Cadastrar Empresa</button>
 
         <div class="frase-cadastro-empresa">
           <span>Precisa cadastrar um colaborador? <button class="botao-cadastrar-usuario"
@@ -131,7 +131,7 @@
           <h1>Login</h1>
         </div>
         <div class="input-group">
-        <input type="email" id="email_input_login" class="input-group__input" required/>
+        <input type="text" id="email_input_login" class="input-group__input" required/>
         <label for="email_input_login" class="input-group__label">Email</label>
         </div>
         <div class="input-group">
@@ -189,12 +189,19 @@
 
   function signInLogin() {
     container.classList.remove("right-panel-active");
+    alert("Cadastro realizado com sucesso!! Agora faça o seu login.")
   }
 
   // id container criado lá em cima 
 
   function signUpCadastrar() {
     container.classList.add("right-panel-active");
+  }
+
+  function login(){
+
+    alert("Login realizado com sucesso!!")
+
   }
 
   // Area Cadastro -------------------------------------------------------------------------------------
@@ -292,7 +299,7 @@
 
   function entrar() {
     aguardar();
-
+    
     var emailVar = email_input_login.value;
     var senhaVar = senha_input_login.value;
 
