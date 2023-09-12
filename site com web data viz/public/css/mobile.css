@@ -375,15 +375,15 @@
         flex-direction: column;
         position: relative;
         top: 0vh;
-        left: -24vw;
+        left: -21vw;
     }
 
     .line-cadastro {
         height: 5px;
-        width: 620px;
-        margin-left: 13.5%;
-        margin-top: -5%;
-        margin-bottom: 7%;
+        width: 140VW;
+        position: relative;
+        left: 9rem;
+        bottom: 2rem;
     }
 
     .subtitulo-saiba {

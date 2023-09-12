@@ -19,8 +19,9 @@
 
     /* área da lista da navbar */
     .navbar-items ul {
+        font-size: 1rem;
         list-style: none;
-        margin-left: 25vw;
+        margin-left: 8vw;
         margin-top: 6vh;
     }
 
@@ -103,6 +104,8 @@
 
     /* texto 1 */
     .p1 {
+        width: 65%;
+        margin: 0;
         left: 28vh;
         text-align: justify;
     }
@@ -379,31 +382,16 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
         outline-offset: 4px;
     }
 
-    #instagram :hover {
-        /* background: linear-gradient(#7f37c9, #ff2992, #ff9807); */
-        /* background-color: #6E43B9; */
-        background-image: radial-gradient(circle at 30% 107%,
-                #fdf497 0%,
-                #fdf497 5%,
-                #fd5949 45%,
-                #d6249f 60%,
-                #285aeb 90%);
-        outline-color: #a02d76;
-    }
-
-    #linkedin :hover {
-        /* background-color: #4267b3; */
-        /* background-color: #6E43B9; */
-        background-color: #0077b5;
-        outline-color: #0077b5;
-    }
-
-    #whatsapp :hover {
-        /* background-color: #6E43B9; */
-        background-color: #25d366;
-        outline-color: #25d366;
-    }
-
+    .icons {
+	
+        display: flex;
+        width: 16vw;
+        justify-content: space-evenly;
+        position: relative;
+        top: 1rem;
+        
+    
+}
 
     #email {
         display: flex;

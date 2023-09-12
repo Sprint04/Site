@@ -39,14 +39,14 @@
         <nav class="navbar">
             <div class="navbar-items">
                 <ul>
-                    <li><a id="sobre">Empresa</a></li>
-                    <li><a id="servicos">Serviços</a></li>
+                    <li><a href="#sobre-nos">Empresa</a></li>
+                    <li><a href="#nossos-servicos">Serviços</a></li>
                     <li>
                         <div class="navbar-logo"><img src="assets/logo-icon.png" alt="Logo ícone"
                                     width="50" height="50" style="position: relative; top: -15px;"></div>
                     </li>
-                    <li><a id="equipe">Equipe</a></li>
-                    <li><a id="roda">Contato</a></li>
+                    <li><a href="#nossa-equipe">Equipe</a></li>
+                    <li><a href="#rodape">Contato</a></li>
                 </ul>
             </div>
             <!-- <div class="navbar-direita">
@@ -443,7 +443,7 @@
 <script>
     //!!!! ESSE CÓDIGO PEGA TODOS OS ELEMENTOS QUE TEM O ATRIBUTO HREF E FAZ ESSA TRANSIÇÃO SUAVE, VE SE NÃO É MAIS INTERESSANTE QUE FAZER UMA CONST PARA CADA ELEMENTO QUE PRECISA DO HREF
     // SE NÃO FOR, ARRUMAR AS TRANSIÇÕES DO RODAPÉ (ABA DE SERVIÇOS) POR FAVOR!!!!
-    /* 
+    
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -453,53 +453,17 @@
                 });
             });
         });
-     */
+     
 
     // Rolamento para cada sessão do site e depois para o topo do site
 
     document.addEventListener("DOMContentLoaded", function () {
         const scrollTopButton = document.getElementById("scrollTopButton");
-        const sobre = document.getElementById("sobre");
-        const servicos = document.getElementById("servicos");
-        const equipe = document.getElementById("equipe");
-        const roda = document.getElementById("roda");
 
         scrollTopButton.addEventListener("click", function () {
             // Role suavemente para o topo da página
             window.scrollTo({
                 top: 0,
-                behavior: "smooth"
-            });
-        });
-
-        sobre.addEventListener("click", function () {
-            // Role suavemente para o topo da página
-            window.scrollTo({
-                top: 1000,
-                behavior: "smooth"
-            });
-        });
-
-        servicos.addEventListener("click", function () {
-            // Role suavemente para o topo da página
-            window.scrollTo({
-                top: 2600,
-                behavior: "smooth"
-            });
-        });
-
-        equipe.addEventListener("click", function () {
-            // Role suavemente para o topo da página
-            window.scrollTo({
-                top: 3700,
-                behavior: "smooth"
-            });
-        });
-
-        roda.addEventListener("click", function () {
-            // Role suavemente para o topo da página
-            window.scrollTo({
-                top: 6000,
                 behavior: "smooth"
             });
         });

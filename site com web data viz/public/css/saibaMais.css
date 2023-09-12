@@ -44,7 +44,7 @@ body {
 /* área da lista da navbar */
 .navbar-items ul {
     list-style: none;
-    margin-left: 30vw;
+    margin-left: 28vw;
     padding: 0;
     display: flex;
 }
@@ -578,10 +578,7 @@ body {
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
 
-.back-footer {
-    height: 600px;
-    padding-top: 30%;
-}
+
 
 :root {
     --color-neutral-0: #0e0c0c;
