@@ -9,15 +9,15 @@
   <title>Cadastro e Login | TrackWare</title>
 
   <script src="./js/sessao.js"></script>
-
   <link rel="icon" href="assets/icon/favicon.png">
-  <link rel="stylesheet" href="css/cadastro&login.css">
+  <link rel="stylesheet" href="css/cadastro&Login.css">
   <link rel="stylesheet" href="css/mobileCadLog.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="assets/logo-icon.png" type="image/x-icon">
   <link
-    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet" />
+  href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+  rel="stylesheet" />
+  <script src="js/viaCep.js"></script>
 </head>
 
 <body onload="listar()">
@@ -28,27 +28,86 @@
   <div class="container" id="container">
     <div class="form-container sign-up-container" id="texto">
       <div class="formCadastroUsuario" id="formCadastroUsuario" display="block">
-        <h1>Cadastro Colaborativo</h1>
+        <h1>Cadastro Empresarial</h1>
+        <h3>Dados da Empresa</h3>
         
         <div class="input-group">
-          <input type="text" id="nome_input" class="input-group__input" required/>
-          <label for="nome_input" class="input-group__label">Nome de Usuário</label>
-          </div>
+          <input type="text" id="nome_input" class="input-group__input" required />
+          <label for="nome_input" class="input-group__label">Nome da empresa</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="email_input" class="input-group__input" required />
+          <label for="email_input" class="input-group__label">CNPJ</label>
+        </div>
         
         <div class="input-group">
-          <input type="text" id="email_input" class="input-group__input" required/>
-          <label for="email_input" class="input-group__label">Email</label>
-          </div>
+          <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()" required />
+          <label for="cep_input" class="input-group__label">CEP</label>
+        </div>
         
         <div class="input-group">
-          <input type="password" id="senha_input" class="input-group__input" required/>
+          <input type="text" id="rua_input" class="input-group__input" required  />
+          <label for="rua_input" class="input-group__label">Rua</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="bairro_input" class="input-group__input" required  />
+          <label for="bairro_input" class="input-group__label">Bairro</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="cidade_input" class="input-group__input" required  />
+          <label for="bairro_input" class="input-group__label">Cidade</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="estado_input" class="input-group__input" required  />
+          <label for="bairro_input" class="input-group__label">Estado</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="numero_input" class="input-group__input" required />
+          <label for="numero_input" class="input-group__label">Numero</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="complemeto_input" class="input-group__input" required />
+          <label for="complemeto_input" class="input-group__label">Complemento</label>
+        </div>
+        
+        <h3>Dados do Representante Legal</h3>
+
+        <div class="input-group">
+          <input type="text" id="nomeRep_input" class="input-group__input" required />
+          <label for="nomeRep_input" class="input-group__label">Nome Complemento</label>
+        </div>
+
+        <div class="input-group">
+          <input type="number" id="cpf_input" class="input-group__input" required />
+          <label for="cpf_input" class="input-group__label">CPF</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="email_input" class="input-group__input" required />
+          <label for="email_input" class="input-group__label">Email Corporativo</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="telFixo_input" class="input-group__input" required />
+          <label for="telFixo_input" class="input-group__label">Telefone Fixo</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="telCel_input" class="input-group__input" required />
+          <label for="telCel_input" class="input-group__label">Celular</label>
+        </div>
+
+        <div class="input-group">
+          <input type="password" id="senha_input" class="input-group__input" required />
           <label for="senha_input" class="input-group__label">Senha</label>
-          </div>
-        
-        <div class="input-group">
-          <input type="password" id="confirmacao_senha_input" class="input-group__input" required/>
-          <label for="confirmacao_senha_input" class="input-group__label">Token da TrackWare</label>
-          </div>
+        </div>
+
 
         <div id="aguardar"></div>
 
@@ -61,51 +120,52 @@
         <button class="botao" onclick="signInLogin()">Cadastrar Usuário</button>
 
         <div class="frase-cadastro-usuario">
-          <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
-              onclick="cadastroEmpresa()">Clique aqui</button></span>
-        </div>
+        <!--   <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
+              onclick="cadastroEmpresa()">Clique aqui</button></span>-->
+        </div> 
 
-        <button class="botao-voltar-colaborativo"><a href="../public/index.html">Voltar para Home »</a></button>
+        <button class="botao-voltar-colaborativo"><a href="index.html">Voltar para Home »</a></button>
+
 
       </div>
-      
+
       <div class="formCadastroEmpresa" id="formCadastroEmpresa" display="none">
         <h1>Cadastro Empresarial</h1>
-        
+
         <div class="input-group">
-          <input type="text" id="nome_input" class="input-group__input" required/>
-          <label for="nome_input" class="input-group__label">Nome da empresa</label>
-          </div>
-        
+          <input type="text" id="" class="input-group__input" required />
+          <label for="" class="input-group__label">Nome da empresa</label>
+        </div>
+
         <div class="input-group">
-          <input type="number" id="cnpj_input" class="input-group__input" required/>
-          <label for="cnpj_input" class="input-group__label">CNPJ</label>
-          </div>
-        
+          <input type="number" id="" class="input-group__input" required />
+          <label for="" class="input-group__label">CNPJ</label>
+        </div>
+
         <div class="input-group">
-          <input type="text" id="rua_input" class="input-group__input" required/>
-          <label for="rua_input" class="input-group__label">Rua</label>
-          </div>
-       
+          <input type="text" id="" class="input-group__input" required />
+          <label for="" class="input-group__label">Rua</label>
+        </div>
+
         <div class="input-group">
-          <input type="number" id="numero_input" class="input-group__input" required/>
-          <label for="numero_input" class="input-group__label">Número</label>
-          </div>
-        
+          <input type="number" id="" class="input-group__input" required />
+          <label for="" class="input-group__label">Número</label>
+        </div>
+
         <div class="input-group">
-          <input type="text" id="bairro_input" class="input-group__input" required/>
-          <label for="bairro_input" class="input-group__label">Bairro</label>
-          </div>
-        
+          <input type="text" id="" class="input-group__input" required />
+          <label for="" class="input-group__label">Bairro</label>
+        </div>
+
         <div class="input-group">
-          <input type="text" id="cidade_input" class="input-group__input" required/>
-          <label for="cidade_input" class="input-group__label">Cidade</label>
-          </div>
-        
+          <input type="text" id="" class="input-group__input" required />
+          <label for="" class="input-group__label">Cidade</label>
+        </div>
+
         <div class="input-group">
-          <input type="password" id="senha_input" class="input-group__input" required/>
-          <label for="senha_input" class="input-group__label">Senha</label>
-          </div>
+          <input type="password" id="" class="input-group__input" required />
+          <label for="" class="input-group__label">Senha</label>
+        </div>
 
         <div id="aguardar"></div>
 
@@ -121,7 +181,7 @@
           <span>Precisa cadastrar um colaborador? <button class="botao-cadastrar-usuario"
               onclick="cadastroUsuario()">Clique aqui</button></span>
         </div>
-        <button class="botao-voltar-empresarial"><a href="../public/index.html">Voltar para Home »</a></button>
+        <button class="botao-voltar-empresarial"><a href="index.html">Voltar para Home »</a></button>
       </div>
 
     </div>
@@ -131,14 +191,14 @@
           <h1>Login</h1>
         </div>
         <div class="input-group">
-        <input type="text" id="email_input_login" class="input-group__input" required/>
-        <label for="email_input_login" class="input-group__label">Email</label>
+          <input type="text" id="email_input_login" class="input-group__input" required />
+          <label for="email_input_login" class="input-group__label">Email</label>
         </div>
         <div class="input-group">
-        <input type="password" id="senha_input_login" class="input-group__input" required/>
-        <label for="senha_input_login" class="input-group__label">Senha</label>
-       </div>
-      
+          <input type="password" id="senha_input_login" class="input-group__input" required />
+          <label for="senha_input_login" class="input-group__label">Senha</label>
+        </div>
+
         <a href="#">Esqueceu sua senha?</a>
         <div id="aguardar"></div>
         <div id="cardErro">
@@ -146,7 +206,7 @@
         </div>
         <div id="div_aguardar"></div>
         <button class="botao" onclick="login()" type="button">Entrar</button>
-        <button class="botao-voltar-login"><a href="../public/index.html"> « Voltar para Home</a></button>
+        <button class="botao-voltar-login"><a href="index.html"> « Voltar para Home</a></button>
 
 
       </div>
@@ -158,12 +218,12 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h1>É novo por aqui?</h1>
-          <p>Bem-vindo(a)! Crie uma conta para obter uma ampla visão sobre os hardwares do seu negócio, ou, clique no
+          <p>Boas-Vindas! Crie uma conta para obter uma ampla visão sobre os hardwares do seu negócio, ou, clique no
             botão abaixo para a realização de login.</p>
           <button class="botao ghost" id="signIn" onclick="signInLogin()">Login</button>
         </div>
         <div class="overlay-panel overlay-right">
-          <h1>Bem Vindo(a) de volta!</h1>
+          <h1>É um prazer vê-lo novamente!</h1>
           <p>Faça o login para continuar navegando, ou, clique no botão abaixo para a realização de cadastro!</p>
           <button class="botao ghost" id="signUp" onclick="signUpCadastrar()">Cadastrar</button>
         </div>
@@ -198,7 +258,7 @@
     container.classList.add("right-panel-active");
   }
 
-  function login(){
+  function login() {
 
     alert("Login realizado com sucesso!!")
 
@@ -299,7 +359,7 @@
 
   function entrar() {
     aguardar();
-    
+
     var emailVar = email_input_login.value;
     var senhaVar = senha_input_login.value;
 
