@@ -1,117 +1,116 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+CREATE DATABASE Trackware;
+USE Trackware;
 
-/*
-comandos para mysql - banco local - ambiente de desenvolvimento
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj VARCHAR(14)
+CREATE TABLE Departamento(
+	idDepartamento INT PRIMARY KEY AUTO_INCREMENT,
+    Funcao VARCHAR (45)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE Grupo (
+	idGrupo INT PRIMARY KEY AUTO_INCREMENT,
+    Projeto VARCHAR (45),
+    fkDepartamento INT,
+    CONSTRAINT fkDepartamentoGrupo FOREIGN KEY (fkDepartamento) REFERENCES Departamento (idDepartamento)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+CREATE TABLE Telefone(
+	idTelefone INT PRIMARY KEY AUTO_INCREMENT,
+    TelFixo CHAR (8),
+    TelCel CHAR (9)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE Permissao(
+	idPermissao INT PRIMARY KEY AUTO_INCREMENT,
+    Inserir CHAR (1),
+    Alterar CHAR (1),
+    Excluir CHAR (1),
+    Visualizar VARCHAR (45)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+CREATE TABLE Endereco(
+	idEndereco INT PRIMARY KEY AUTO_INCREMENT,
+    CEP CHAR (8),
+    Rua VARCHAR (100),
+    Bairro VARCHAR (100),
+    Cidade VARCHAR (100),
+    Estado CHAR (2)
 );
 
-
-/*
-comando para sql server - banco remoto - ambiente de produção
-*/
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	razao_social VARCHAR(50),
-	cnpj VARCHAR(14)
+CREATE TABLE Complemento(
+	idComplemento INT PRIMARY KEY AUTO_INCREMENT,
+    fkEndereco INT,
+    Numero INT,
+    Complemento VARCHAR (15),
+    CONSTRAINT fkEnderecoComplemento FOREIGN KEY (fkEndereco) REFERENCES Endereco (idEndereco)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT FOREIGN KEY REFERENCES empresa(id)
+CREATE TABLE Empresa (
+	idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    Nome VARCHAR (50),
+    CNPJ CHAR (15),
+    Token CHAR (29),
+    PlanoContratado VARCHAR (20),
+    fkEnderecoComplemento INT,
+    CONSTRAINT fkEnderecoComplementoEmpresa FOREIGN KEY (fkEnderecoComplemento) REFERENCES Complemento (idComplemento)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT FOREIGN KEY REFERENCES usuario(id)
+CREATE TABLE Usuario (
+	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    Nome VARCHAR (30),
+    Sobrenome VARCHAR (50),
+    CPF CHAR (11),
+    Email_Corporativo VARCHAR (80),
+    Senha VARCHAR (45),
+    fkEmpresa INT,
+    fkTelefone INT,
+    fkGrupo INT,
+    fkPermissao INT,
+    CONSTRAINT fkEmpresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES Empresa (idEmpresa),
+    CONSTRAINT fkTelefoneUsuario FOREIGN KEY (fkTelefone) REFERENCES Telefone (idTelefone),
+    CONSTRAINT fkGrupo FOREIGN KEY (fkGrupo) REFERENCES Grupo (idGrupo),
+    CONSTRAINT fkPermissaoUsuario FOREIGN KEY (fkPermissao) REFERENCES Permissao (idPermissao)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY IDENTITY(1,1),
-	descricao VARCHAR(300),
-	fk_empresa INT FOREIGN KEY REFERENCES empresa(id)
+CREATE TABLE Dispositivo (
+	idDispositivo INT PRIMARY KEY AUTO_INCREMENT,
+    Num_Serie INT,
+    Setor_Empresa VARCHAR (45),
+    Sistema_Operacional VARCHAR (45),
+    fkEmpresa INT,
+    CONSTRAINT fkEmpresaDispositivo FOREIGN KEY (fkEmpresa) REFERENCES Empresa (idEmpresa)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-CREATE TABLE medida (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT FOREIGN KEY REFERENCES aquario(id)
+CREATE TABLE Acesso (
+	LogAcesso INT,
+    fkUsuario INT,
+    fkDispositivo INT,
+    Inicio_Sessao DATETIME,
+    Fim_Sessao DATETIME,
+    CONSTRAINT fkUsuarioAcesso FOREIGN KEY (fkUsuario) REFERENCES Usuario (idUsuario),
+    CONSTRAINT fkDispositivo FOREIGN KEY (fkDispositivo) REFERENCES Dispositivo (idDispositivo)
 );
 
-/*
-comandos para criar usuário em banco de dados azure, sqlserver,
-com permissão de insert + update + delete + select
-*/
+CREATE TABLE Componentes(
+	idComponente INT PRIMARY KEY AUTO_INCREMENT,
+    Nome VARCHAR (45),
+    Descricao VARCHAR (100),
+    tipoMedida VARCHAR (45),
+    fkDispositivo INT,
+    CONSTRAINT fkDispositivoComponente FOREIGN KEY (fkDispositivo) REFERENCES Dispositivo (idDispositivo)
+);
 
-CREATE USER [usuarioParaAPIWebDataViz_datawriter_datareader]
-WITH PASSWORD = '#Gf_senhaParaAPIWebDataViz',
-DEFAULT_SCHEMA = dbo;
+CREATE TABLE Monitoramento(
+	idMonitoramento INT PRIMARY KEY AUTO_INCREMENT,
+    DadoCapturado FLOAT,
+    Data_Hora DATETIME,
+    fkComponente INT,
+    CONSTRAINT fkComponenteMonitoramento FOREIGN KEY (fkComponente) REFERENCES Componentes (idComponente)
+);
 
-EXEC sys.sp_addrolemember @rolename = N'db_datawriter',
-@membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
-
-EXEC sys.sp_addrolemember @rolename = N'db_datareader',
-@membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
+CREATE TABLE Alerta (
+	idAlerta INT PRIMARY KEY AUTO_INCREMENT,
+    Nivel VARCHAR (45),
+    Descricao VARCHAR (100),
+    fkComponente INT,
+    CONSTRAINT fkComponenteAlerta FOREIGN KEY (fkComponente) REFERENCES Componentes (idComponente)
+);
