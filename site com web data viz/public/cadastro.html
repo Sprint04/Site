@@ -77,10 +77,15 @@
         </div>
         
         <h3>Dados do Representante Legal</h3>
-///////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////
         <div class="input-group">
-          <input type="text" id="nomeRep_input" class="input-group__input" required />
-          <label for="nomeRep_input" class="input-group__label">Nome Complemento</label>
+          <input type="text" id="nome_input" class="input-group__input" required />
+          <label for="nomeRep_input" class="input-group__label">Nome</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="sobrenome_input" class="input-group__input" required />
+          <label for="nomeRep_input" class="input-group__label">Sobrenome</label>
         </div>
 
         <div class="input-group">
@@ -272,7 +277,7 @@
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = nomeRep_input.value;
+    var nomeVar = nome_input.value;
     var telefoneFixoVar = telFixo_input.value;
     var telefoneCelularVar = telCel_input;
     var cpfVar = cpf_input.value;
@@ -290,6 +295,7 @@
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
+        sobrenomeServer: sobrenomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
         telefoneFixoServer: telefoneFixoVar,
