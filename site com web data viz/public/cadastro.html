@@ -36,7 +36,7 @@
         
         <div class="input-group">
           <input type="text" id="nome_input" class="input-group__input" required />
-          <label for="nomeEmpresa_input" class="input-group__label">Nome da empresa</label>
+          <label for="empresa_input" class="input-group__label">Nome da empresa</label>
         </div>
 
         <div class="input-group">
@@ -288,7 +288,7 @@
     // Agora vá para o método fetch logo abaixo
 
      // dados empresa
-    var nomeEmpresaVar = nomeEmpresa_input.value;
+    var nomeEmpresaVar = empresa_input.value;
     var cnpjVar = cnpj_input.value;
     var tokenVar = token_input.value;
     var cepVar = cep_input.value;
@@ -338,7 +338,7 @@
     emailServer: emailVar,
     senhaServer: senhaVar
     
-        //      , empresaServer: empresaVar
+        //, empresaServer: empresaVar
       }),
     })
       .then(function (resposta) {

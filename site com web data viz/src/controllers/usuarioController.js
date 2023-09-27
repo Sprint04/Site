@@ -53,13 +53,29 @@ function autenticar(req, res) {
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    // dados empresa
+    var empresa = req.body.nomeEmpresaServer;
+    var cnpj = req;body.cnpjServer;
+    var token = req.body.tokenServer;
+    var cep = req.body.cepServer;
+    var rua = req.body.ruaServer;
+    var numero = req.body.nomeServer;
+    var bairro = req.body.bairroServer;
+    var cidade = req.body.cidadeServer;
+    var estado = req.body.estadoServer;
+    var complemento = req.body.complementoServer;
+
+
+    // dados usuario
     var nome = req.body.nomeServer;
+    var sobrenome = req.body.sobrenomeServer;
+    var cpf = req.body.cpfServer
+    var telefoneFixo = req.body.telFixoServer;
+    var telefoneCalular = req.body.telCelServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var sobrenome = req.body.sobrenomeVar;
-    var telefoneFixo = req.body.telefoneFixoVar;
-    var telefoneCalular = req.body.telefoneCalularVar;
-    var cpf = req.body.cpfVar
+    
+    
 //    var empresaId = req.body.empresaServer;
 
     // Faça as validações dos valores
@@ -78,8 +94,8 @@ function cadastrar(req, res) {
      {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, sobrenome, telefoneFixo,
-            telefoneCalular, cpf
+        usuarioModel.cadastrar(empresa, cnpj, token, cep, rua, numero, bairro, cidade, estado, complemento, 
+            nome, sobrenome, cpf, telefoneFixo, telefoneCalular, email , senha
             // empresaId
             )
             .then(
