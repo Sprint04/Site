@@ -35,17 +35,17 @@
       <div> 
         
         <div class="input-group">
-          <input type="text" id="nome_input" class="input-group__input" required />
+          <input type="text" id="nomeEmpresa_input" class="input-group__input" required />
           <label for="empresa_input" class="input-group__label">Nome da empresa</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="email_input2" class="input-group__input" required />
+          <input type="text" id="cnpj_input" class="input-group__input" required />
           <label for="cnpj_input" class="input-group__label">CNPJ</label>
         </div>
         
         <div class="input-group">
-          <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()" required />
+          <input type="text" id="token_input" class="input-group__input" oninput="buscarCep()" required />
           <label for="token_input" class="input-group__label">Token</label>
         </div>
 
@@ -80,8 +80,8 @@
         </div>
 
         <div class="input-group">
-          <input type="text" id="complemeto_input" class="input-group__input" required />
-          <label for="complemeto_input" class="input-group__label">Complemento</label>
+          <input type="text" id="complemento_input" class="input-group__input" required />
+          <label for="complemento_input" class="input-group__label">Complemento</label>
         </div>
       </div>
         <!-- Dados do representante da empresa -->
@@ -147,38 +147,53 @@
         <h1>Cadastro Empresarial</h1>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Nome da empresa</label>
+          <input type="text" id="nomeEmpresa_input" class="input-group__input" required />
+          <label for="nomeEmpresa_input" class="input-group__label">Nome da empresa</label>
         </div>
 
         <div class="input-group">
-          <input type="number" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">CNPJ</label>
+          <input type="number" id="cnpj_input" class="input-group__input" required />
+          <label for="cnpj_input" class="input-group__label">CNPJ</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Rua</label>
+          <input type="text" id="token_input" class="input-group__input" oninput="buscarCep()" required />
+          <label for="token_input" class="input-group__label">Token</label>
         </div>
 
         <div class="input-group">
-          <input type="number" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Número</label>
+          <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()" required />
+          <label for="cep_input" class="input-group__label">CEP</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Bairro</label>
+          <input type="text" id="rua_input" class="input-group__input" required />
+          <label for="rua_input" class="input-group__label">Rua</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Cidade</label>
+          <input type="number" id="numero_input" class="input-group__input" required />
+          <label for="numero_input" class="input-group__label">Número</label>
         </div>
 
         <div class="input-group">
-          <input type="password" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Senha</label>
+          <input type="text" id="bairro_input" class="input-group__input" required />
+          <label for="bairro_input" class="input-group__label">Bairro</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="cidade_input" class="input-group__input" required />
+          <label for="cidade_input" class="input-group__label">Cidade</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="estado_input" class="input-group__input" required  />
+          <label for="estado_input" class="input-group__label">Estado</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="complemento_input" class="input-group__input" required />
+          <label for="complemento_input" class="input-group__label">Complemento</label>
         </div>
 
         <div id="aguardar"></div>
@@ -288,7 +303,7 @@
     // Agora vá para o método fetch logo abaixo
 
      // dados empresa
-    var nomeEmpresaVar = empresa_input.value;
+    var nomeEmpresaVar = nomeEmpresa_input.value;
     var cnpjVar = cnpj_input.value;
     var tokenVar = token_input.value;
     var cepVar = cep_input.value;
@@ -304,7 +319,7 @@
     var cpfVar = cpf_input.value;
     var emailVar = email_input.value;
     var telefoneFixoVar = telFixo_input.value;
-    var telefoneCelularVar = telCel_input;
+    var telefoneCelularVar = telCel_input.value;
     var senhaVar = senha_input.value;
   
 

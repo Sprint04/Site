@@ -11,7 +11,7 @@ function autenticar(email, senha) {
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(empresa, cnpj, token, cep, rua, numero, bairro, cidade, estado, complemento, 
-    nome, sobrenome, cpf, telefoneFixo, telefoneCalular, email , senha
+    nome, sobrenome, cpf, telefoneFixo, telefoneCelular, email , senha
     // , empresaId
     ) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
@@ -24,22 +24,22 @@ function cadastrar(empresa, cnpj, token, cep, rua, numero, bairro, cidade, estad
     `;
     var instrucao2 = `
             INSERT INTO Telefone (TelFixo, TelCel
-                ) VALUES ('${telefoneFixo}', '${telefoneCalular}';  
+                ) VALUES ('${telefoneFixo}', '${telefoneCelular}');  
     `;
     var instrucao3 = `
             INSERT INTO Empresa (Nome, CNPJ, Token,
-                ) VALUES ('${empresa}', '${cnpj}','${token}';  
+                ) VALUES ('${empresa}', '${cnpj}','${token}');  
     `;
     var instrucao4 = `
          INSERT INTO Endereco (CEP, Rua, Bairro, Cidade, Estado
-                 ) VALUES ('${cep}', '${rua}','${bairro}','${cidade}','${estado}';
+                 ) VALUES ('${cep}', '${rua}','${bairro}','${cidade}','${estado}');
     `;
     var instrucao5 = `
          INSERT INTO Complemento (Numero, Complemento
-                 ) VALUES ('${numero}', '${complemento}';
+                 ) VALUES ('${numero}', '${complemento}');
     `;
-    console.log("Executando a instrução SQL: \n" + instrucao1, instrucao2);
-    return database.executar(instrucao1 + instrucao2 + instrucao3+ instrucao4+ instrucao5);
+    // console.log("Executando a instrução SQL: \n" + instrucao1, instrucao2);
+    return database.executar(instrucao4 + instrucao2 + instrucao3+ instrucao5+ instrucao1);
 }
 // nas instruções havia o idempresa, mas como não dava para comentar, apaguei 
 module.exports = {
