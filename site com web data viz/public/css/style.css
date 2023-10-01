@@ -61,6 +61,41 @@ body {
     cursor: pointer;
 }
 
+.button-entrar {
+    position: absolute;
+    left: 81%;
+    top: 5%;
+    background: #8800ff;
+    color: #fff;
+    border: #8800ff;
+    border-radius: 20px;
+    width: 200px;
+    height: 60px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 23px;
+    transition: 0.5s;
+    box-shadow: 0 0 7px #6a23bc;
+}
+
+.button-entrar:hover {
+    color: #ffffff;
+    transition: 0.5s;
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
+    background-color: #50008a;
+    transition-duration: 0.3s;
+    box-shadow: 0 0 7px #d5b1ff;
+    /*duração da transição da animação*/
+}
+
+.navbar .navbar-logo{
+    transition:1.5s; /* Transition duration */
+}
+.navbar .navbar-logo:hover{
+    transform:rotate(360deg); /* How many times it'll rotate = degrees÷360 */
+}
+
 /* SECTION: HOME */
 
 #homeMain {
@@ -143,6 +178,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 23px;
     margin-left: -6px;
+    transition: 0.5s;
 }
 
 .button-home:hover {
