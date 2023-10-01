@@ -17,10 +17,10 @@
   <link
   href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
   rel="stylesheet" />
-  <script src="js/viaCep.js"></script>
+  <script type="text/javascript" src="js/viaCep.js"></script>
 </head>
 
-<body onload="listar()">
+<body>
 
 
   <!-- Cadastro e Login -->
@@ -30,20 +30,38 @@
       <div class="formCadastroUsuario" id="formCadastroUsuario" display="block">
         <h1>Cadastro Empresarial</h1>
         <h3>Dados da Empresa</h3>
+
+          <!-- Dados da empresa -->
+      <div> 
         
         <div class="input-group">
-          <input type="text" id="nome_input" class="input-group__input" required />
-          <label for="nome_input" class="input-group__label">Nome da empresa</label>
+          <input type="text" id="nomeEmpresa_input" class="input-group__input" required />
+          <label for="empresa_input" class="input-group__label">Nome da empresa</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="email_input" class="input-group__input" required />
-          <label for="email_input" class="input-group__label">CNPJ</label>
+          <input type="text" id="cnpj_input" class="input-group__input" required />
+          <label for="cnpj_input" class="input-group__label">CNPJ</label>
         </div>
-        
+
         <div class="input-group">
-          <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()" required />
+          <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()" oninput="cadastroEndereco()" required />
           <label for="cep_input" class="input-group__label">CEP</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="estado_input" class="input-group__input" required  />
+          <label for="estado_input" class="input-group__label">Estado</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="cidade_input" class="input-group__input" required  />
+          <label for="cidade_input" class="input-group__label">Cidade</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="bairro_input" class="input-group__input" required  />
+          <label for="bairro_input" class="input-group__label">Bairro</label>
         </div>
         
         <div class="input-group">
@@ -52,35 +70,26 @@
         </div>
 
         <div class="input-group">
-          <input type="text" id="bairro_input" class="input-group__input" required  />
-          <label for="bairro_input" class="input-group__label">Bairro</label>
+          <input type="text" id="numero_input" class="input-group__input" required  />
+          <label for="numero_input" class="input-group__label">Número</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="cidade_input" class="input-group__input" required  />
-          <label for="bairro_input" class="input-group__label">Cidade</label>
+          <input type="text" id="complemento_input" class="input-group__input" required />
+          <label for="complemento_input" class="input-group__label">Complemento</label>
         </div>
-
-        <div class="input-group">
-          <input type="text" id="estado_input" class="input-group__input" required  />
-          <label for="bairro_input" class="input-group__label">Estado</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" id="numero_input" class="input-group__input" required />
-          <label for="numero_input" class="input-group__label">Numero</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" id="complemeto_input" class="input-group__input" required />
-          <label for="complemeto_input" class="input-group__label">Complemento</label>
-        </div>
-        
+      </div>
+        <!-- Dados do representante da empresa -->
+        <div>
         <h3>Dados do Representante Legal</h3>
+        <div class="input-group">
+          <input type="text" id="nome_input" class="input-group__input" required />
+          <label for="nome_input" class="input-group__label">Nome</label>
+        </div>
 
         <div class="input-group">
-          <input type="text" id="nomeRep_input" class="input-group__input" required />
-          <label for="nomeRep_input" class="input-group__label">Nome Complemento</label>
+          <input type="text" id="sobrenome_input" class="input-group__input" required />
+          <label for="sobrenome_input" class="input-group__label">Sobrenome</label>
         </div>
 
         <div class="input-group">
@@ -100,17 +109,17 @@
 
         <div class="input-group">
           <input type="text" id="telCel_input" class="input-group__input" required />
-          <label for="telCel_input" class="input-group__label">Celular</label>
+          <label for="telCel_input" class="input-group__label">Telefone Celular</label>
         </div>
 
         <div class="input-group">
           <input type="password" id="senha_input" class="input-group__input" required />
           <label for="senha_input" class="input-group__label">Senha</label>
         </div>
+      </div>
 
 
         <div id="aguardar"></div>
-
         <div id="cardErro">
           <p id="mensagem_erro"></p>
         </div>
@@ -128,43 +137,58 @@
 
 
       </div>
-
+      
       <div class="formCadastroEmpresa" id="formCadastroEmpresa" display="none">
         <h1>Cadastro Empresarial</h1>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Nome da empresa</label>
+          <input type="text" class="input-group__input" required />
+          <label for="nomeEmpresa_input" class="input-group__label">Nome da empresa</label>
         </div>
 
         <div class="input-group">
-          <input type="number" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">CNPJ</label>
+          <input type="number" class="input-group__input" required />
+          <label for="cnpj_input" class="input-group__label">CNPJ</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Rua</label>
+          <input type="text" class="input-group__input" oninput="buscarCep()" required />
+          <label for="token_input" class="input-group__label">Token</label>
         </div>
 
         <div class="input-group">
-          <input type="number" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Número</label>
+          <input type="text" class="input-group__input" oninput="buscarCep()" required />
+          <label for="cep_input" class="input-group__label">CEP</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Bairro</label>
+          <input type="text" class="input-group__input" required  />
+          <label for="estado_input" class="input-group__label">Estado</label>
         </div>
 
         <div class="input-group">
-          <input type="text" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Cidade</label>
+          <input type="text" class="input-group__input" required />
+          <label for="cidade_input" class="input-group__label">Cidade</label>
         </div>
 
         <div class="input-group">
-          <input type="password" id="" class="input-group__input" required />
-          <label for="" class="input-group__label">Senha</label>
+          <input type="text" class="input-group__input" required />
+          <label for="bairro_input" class="input-group__label">Bairro</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" class="input-group__input" required />
+          <label for="rua_input" class="input-group__label">Rua</label>
+        </div>
+
+        <div class="input-group">
+          <input type="number" class="input-group__input" required />
+          <label for="numero_input" class="input-group__label">Número</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" class="input-group__input" required />
+          <label for="complemento_input" class="input-group__label">Complemento</label>
         </div>
 
         <div id="aguardar"></div>
@@ -219,7 +243,7 @@
         <div class="overlay-panel overlay-left">
           <h1>É novo por aqui?</h1>
           <p>Boas-Vindas! Crie uma conta para obter uma ampla visão sobre os hardwares do seu negócio, ou, clique no
-            botão abaixo para a realização de login.</p>
+            botão abaixo para a realização de login, caso já tenha um cadastro.</p>
           <button class="botao ghost" id="signIn" onclick="signInLogin()">Login</button>
         </div>
         <div class="overlay-panel overlay-right">
@@ -249,7 +273,6 @@
 
   function signInLogin() {
     container.classList.remove("right-panel-active");
-    alert("Cadastro realizado com sucesso!! Agora faça o seu login.")
   }
 
   // id container criado lá em cima 
@@ -257,6 +280,7 @@
   function signUpCadastrar() {
     container.classList.add("right-panel-active");
   }
+  
 
   function login() {
 
@@ -266,32 +290,33 @@
 
   // Area Cadastro -------------------------------------------------------------------------------------
 
-  function cadastrar() {
+  function login() {
+    
     aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value
-    //    ; var empresaVar = listaEmpresas.value
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-      //    || empresaVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
 
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
-    }
+     // dados empresa
+    var nomeEmpresaVar = nomeEmpresa_input.value;
+    var cnpjVar = cnpj_input.value;
+    var tokenVar = token_input.value;
+    var cepVar = cep_input.value;
+    var ruaVar = rua_input.value;
+    var numeroVar = numero_input.value;
+    var bairroVar = bairro_input.value;
+    var cidadeVar = cidade_input.value;
+    var estadoVar = estado_input.value;
+    var complementoVar = complemento_input.value;
+    // dados usuario
+    var nomeVar = nome_input.value;
+    var sobrenomeVar = sobrenome_input.value;
+    var cpfVar = cpf_input.value;
+    var emailVar = email_input.value;
+    var telefoneFixoVar = telFixo_input.value;
+    var telefoneCelularVar = telCel_input.value;
+    var senhaVar = senha_input.value;
+  
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -302,10 +327,28 @@
       body: JSON.stringify({
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
-        //      , empresaServer: empresaVar
+
+    // dados empresa
+    nomeEmpresaServer : nomeEmpresaVar,
+    cnpjServer : cnpjVar,
+    tokenServer : tokenVar,
+    cepServer : cepVar, 
+    ruaServer : ruaVar, 
+    numeroServer : numeroVar, 
+    bairroServer : bairroVar,  
+    cidadeServer : cidadeVar,
+    estadoServer : estadoVar,
+    complementoServer : complementoVar,
+    // dados usuario
+    nomeServer: nomeVar,
+    sobrenomeServer: sobrenomeVar,
+    cpfServer: cpfVar,
+    telFixoServer : telefoneFixoVar,
+    telCelServer: telefoneCelularVar,
+    emailServer: emailVar,
+    senhaServer: senhaVar
+    
+        //, empresaServer: empresaVar
       }),
     })
       .then(function (resposta) {
@@ -333,6 +376,7 @@
       });
 
     return false;
+    alert("Cadastro realizado com sucesso!! Agora faça o seu login.")
   }
   /*
     function listar() {
@@ -422,7 +466,104 @@
     return false;
   }
 
+  async function buscarCep() {
+    var cep = cep_input.value
+    var url = `https://viacep.com.br/ws/${cep}/json/`;
 
+    if (cep.length == 8) {
+        fetch(url)
+        console.log(
+            fetch(url)
+        )
+        try {
+            var resposta = await fetch(url)
+            resposta.json()
+            console.log(resposta)
+            if (resposta.ok) {
+                var respostaJson = await resposta.json()
+                console.log('DADOS RECEBIDOS', respostaJson)
+                estado_input.value = respostaJson.uf;
+                cidade_input.value = respostaJson.localidade;
+                bairro_input.value = respostaJson.bairro;
+                rua_input.value = respostaJson.logradouro;
+            }
+        } catch (erro) {
+            console.log("Erro", erro)
+        }
 
+        console.log(
+            fetch(url)
+        )
+        fetch(url).then(
+            function (resposta) {
+                // funcionamento em json
+                console.log('Deu certo', resposta)
+                resposta.json()
+                    .then(
+                        function (respostaJson) {
+                            console.log('DADOS RECEBIDOS', respostaJson)
+                            rua_input.value = respostaJson.logradouro;
+                            bairro_input.value = respostaJson.bairro;
+                            cidade_input.value = respostaJson.localidade;
+                            estado_input.value = respostaJson.uf;
+                        }
+                    )
+            })
+            .catch(
+                function (erro) {
+                    console.log(`Deu erro`)
+                    console.log(erro)
+                }
+            )
+            setTimeout(cadastroEndereco, 1000)
+    }
+}
 
+  function cadastroEndereco(){
+    var cep = cep_input.value
+    var estado = estado_input.value
+    var cidade = cidade_input.value
+    var bairro = bairro_input.value
+    var rua = rua_input.value
+
+    console.log("FORM CEP: ", cep);
+
+    fetch("/endereco/autenticarEndereco", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            cepServer: cep,
+            estadoServer: estado,
+            cidadeServer: cidade,
+            bairroServer: bairro,
+            ruaServer: rua
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN do Autenticar Endereco()!")
+
+        if (resposta.ok) {
+            console.log(resposta);
+
+            resposta.json().then(json => {
+                console.log(json);
+                console.log(JSON.stringify(json));
+
+                console.log("Session Storage")
+                sessionStorage.ID_ENDERECO = sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
+            });
+        } else {
+            console.log("Houve um erro ao tentar consultar o endereço!");
+
+            resposta.text().then(texto => {
+                console.error(texto);
+            })
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+    return false;
+  }
 </script>
