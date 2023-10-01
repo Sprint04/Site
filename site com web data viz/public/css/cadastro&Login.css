@@ -159,6 +159,15 @@ a {
     height: 100%;
     text-align: center;
     margin-top: 10vh;
+    overflow: auto;
+}
+
+::-webkit-scrollbar{
+    width: 20px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #6E43B9;
 }
 
 /* frase de transição entre o cadastro de usuário e o cadastro empresarial */

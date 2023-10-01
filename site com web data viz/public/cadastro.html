@@ -248,7 +248,7 @@
         <div class="overlay-panel overlay-left">
           <h1>É novo por aqui?</h1>
           <p>Boas-Vindas! Crie uma conta para obter uma ampla visão sobre os hardwares do seu negócio, ou, clique no
-            botão abaixo para a realização de login.</p>
+            botão abaixo para a realização de login, caso já tenha um cadastro.</p>
           <button class="botao ghost" id="signIn" onclick="signInLogin()">Login</button>
         </div>
         <div class="overlay-panel overlay-right">
@@ -278,7 +278,6 @@
 
   function signInLogin() {
     container.classList.remove("right-panel-active");
-    alert("Cadastro realizado com sucesso!! Agora faça o seu login.")
   }
 
   // id container criado lá em cima 
@@ -286,6 +285,7 @@
   function signUpCadastrar() {
     container.classList.add("right-panel-active");
   }
+  
 
   function login() {
 
@@ -295,7 +295,7 @@
 
   // Area Cadastro -------------------------------------------------------------------------------------
 
-  function signInLogin() {
+  function login() {
     
     aguardar();
 
