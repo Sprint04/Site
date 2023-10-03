@@ -551,7 +551,7 @@
                 console.log(JSON.stringify(json));
 
                 console.log("Session Storage")
-                sessionStorage.ID_ENDERECO = sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
+                sessionStorage.ID_ENDERECO = (json.idEndereco)
             });
         } else {
             console.log("Houve um erro ao tentar consultar o endereço!");
