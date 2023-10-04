@@ -34,18 +34,18 @@ function autenticarEndereco(req, res) {
                                 function (resultado) {
                                     res.json(resultado);
                                     console.log(resultado)
+                                    
+                                        enderecoModel.autenticarEndereco(cep)
+                                            .then(
+                                                function (resultado) {
+                                                    console.log(`\n Resultados encontrados: ${resultado.length}`);
+                                                    console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
 
-                                    enderecoModel.autenticarEndereco(cep)
-                                        .then(
-                                            function (resultado) {
-                                                console.log(`\n Resultados encontrados: ${resultado.length}`);
-                                                console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
-
-                                                if (resultado.length == 1) {
-                                                    console.log(resultado);
-                                                    res.json(resultado[0]);
+                                                    if (resultado.length == 1) {
+                                                        console.log(resultado);
+                                                        res.json(resultado[0]);
+                                                    }
                                                 }
-                                            }
                                             ).catch(
                                                 function (erro) {
                                                     console.log(erro);
@@ -53,8 +53,9 @@ function autenticarEndereco(req, res) {
                                                     res.status(500).json(erro.sqlMessage);
                                                 }
                                             );
-                                }
-                            ).catch(
+                                    }
+                            )
+                            .catch(
                                 function (erro) {
                                     console.log(erro);
                                     console.log(
@@ -78,6 +79,21 @@ function autenticarEndereco(req, res) {
     }
 }
 
+function cadastrarComplemento(req, res){
+    var numero = req.body.numeroServer;
+    var complemento = req.body.complementoServer;
+    var fkEndereco = req.body.fkEnderecoServer;
+
+    if (numero == undefined) {
+        res.status(400).send("Seu NUMERO está undefined!");
+    } else if (fkEndereco == undefined) {
+        res.status(400).send("Sua fkEndereco está undefined!");
+    } else {
+        enderecoModel.cadastrarComplemento(numero, complemento, fkEndereco)
+    }
+}
+
 module.exports = {
-    autenticarEndereco
+    autenticarEndereco,
+    cadastrarComplemento
 }

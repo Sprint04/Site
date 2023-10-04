@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="assets/logo-icon.png" type="image/x-icon">
   <link
-  href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-  rel="stylesheet" />
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
   <script type="text/javascript" src="js/viaCep.js"></script>
 </head>
 
@@ -31,92 +31,93 @@
         <h1>Cadastro Empresarial</h1>
         <h3>Dados da Empresa</h3>
 
-          <!-- Dados da empresa -->
-      <div> 
-        
-        <div class="input-group">
-          <input type="text" id="nomeEmpresa_input" class="input-group__input" required />
-          <label for="empresa_input" class="input-group__label">Nome da empresa</label>
-        </div>
+        <!-- Dados da empresa -->
+        <div>
 
-        <div class="input-group">
-          <input type="text" id="cnpj_input" class="input-group__input" required />
-          <label for="cnpj_input" class="input-group__label">CNPJ</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="nomeEmpresa_input" class="input-group__input" required />
+            <label for="empresa_input" class="input-group__label">Nome da empresa</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()" oninput="cadastroEndereco()" required />
-          <label for="cep_input" class="input-group__label">CEP</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="cnpj_input" class="input-group__input" required />
+            <label for="cnpj_input" class="input-group__label">CNPJ</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="estado_input" class="input-group__input" required  />
-          <label for="estado_input" class="input-group__label">Estado</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()"
+              oninput="cadastroEndereco()" required />
+            <label for="cep_input" class="input-group__label">CEP</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="cidade_input" class="input-group__input" required  />
-          <label for="cidade_input" class="input-group__label">Cidade</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="estado_input" class="input-group__input" required />
+            <label for="estado_input" class="input-group__label">Estado</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="bairro_input" class="input-group__input" required  />
-          <label for="bairro_input" class="input-group__label">Bairro</label>
-        </div>
-        
-        <div class="input-group">
-          <input type="text" id="rua_input" class="input-group__input" required  />
-          <label for="rua_input" class="input-group__label">Rua</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="cidade_input" class="input-group__input" required />
+            <label for="cidade_input" class="input-group__label">Cidade</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="numero_input" class="input-group__input" required  />
-          <label for="numero_input" class="input-group__label">Número</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="bairro_input" class="input-group__input" required />
+            <label for="bairro_input" class="input-group__label">Bairro</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="complemento_input" class="input-group__input" required />
-          <label for="complemento_input" class="input-group__label">Complemento</label>
+          <div class="input-group">
+            <input type="text" id="rua_input" class="input-group__input" required />
+            <label for="rua_input" class="input-group__label">Rua</label>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="numero_input" class="input-group__input" required />
+            <label for="numero_input" class="input-group__label">Número</label>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="complemento_input" class="input-group__input" required />
+            <label for="complemento_input" class="input-group__label">Complemento</label>
+          </div>
         </div>
-      </div>
         <!-- Dados do representante da empresa -->
         <div>
-        <h3>Dados do Representante Legal</h3>
-        <div class="input-group">
-          <input type="text" id="nome_input" class="input-group__input" required />
-          <label for="nome_input" class="input-group__label">Nome</label>
-        </div>
+          <h3>Dados do Representante Legal</h3>
+          <div class="input-group">
+            <input type="text" id="nome_input" class="input-group__input" required />
+            <label for="nome_input" class="input-group__label">Nome</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="sobrenome_input" class="input-group__input" required />
-          <label for="sobrenome_input" class="input-group__label">Sobrenome</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="sobrenome_input" class="input-group__input" required />
+            <label for="sobrenome_input" class="input-group__label">Sobrenome</label>
+          </div>
 
-        <div class="input-group">
-          <input type="number" id="cpf_input" class="input-group__input" required />
-          <label for="cpf_input" class="input-group__label">CPF</label>
-        </div>
+          <div class="input-group">
+            <input type="number" id="cpf_input" class="input-group__input" required />
+            <label for="cpf_input" class="input-group__label">CPF</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="email_input" class="input-group__input" required />
-          <label for="email_input" class="input-group__label">Email Corporativo</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="email_input" class="input-group__input" required />
+            <label for="email_input" class="input-group__label">Email Corporativo</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="telFixo_input" class="input-group__input" required />
-          <label for="telFixo_input" class="input-group__label">Telefone Fixo</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="telFixo_input" class="input-group__input" required />
+            <label for="telFixo_input" class="input-group__label">Telefone Fixo</label>
+          </div>
 
-        <div class="input-group">
-          <input type="text" id="telCel_input" class="input-group__input" required />
-          <label for="telCel_input" class="input-group__label">Telefone Celular</label>
-        </div>
+          <div class="input-group">
+            <input type="text" id="telCel_input" class="input-group__input" required />
+            <label for="telCel_input" class="input-group__label">Telefone Celular</label>
+          </div>
 
-        <div class="input-group">
-          <input type="password" id="senha_input" class="input-group__input" required />
-          <label for="senha_input" class="input-group__label">Senha</label>
+          <div class="input-group">
+            <input type="password" id="senha_input" class="input-group__input" required />
+            <label for="senha_input" class="input-group__label">Senha</label>
+          </div>
         </div>
-      </div>
 
 
         <div id="aguardar"></div>
@@ -129,15 +130,15 @@
         <button class="botao" onclick="signInLogin()">Cadastrar Usuário</button>
 
         <div class="frase-cadastro-usuario">
-        <!--   <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
+          <!--   <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
               onclick="cadastroEmpresa()">Clique aqui</button></span>-->
-        </div> 
+        </div>
 
         <button class="botao-voltar-colaborativo"><a href="index.html">Voltar para Home »</a></button>
 
 
       </div>
-      
+
       <div class="formCadastroEmpresa" id="formCadastroEmpresa" display="none">
         <h1>Cadastro Empresarial</h1>
 
@@ -162,7 +163,7 @@
         </div>
 
         <div class="input-group">
-          <input type="text" class="input-group__input" required  />
+          <input type="text" class="input-group__input" required />
           <label for="estado_input" class="input-group__label">Estado</label>
         </div>
 
@@ -280,7 +281,7 @@
   function signUpCadastrar() {
     container.classList.add("right-panel-active");
   }
-  
+
 
   function login() {
 
@@ -291,13 +292,13 @@
   // Area Cadastro -------------------------------------------------------------------------------------
 
   function login() {
-    
+
     aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
 
-     // dados empresa
+    // dados empresa
     var nomeEmpresaVar = nomeEmpresa_input.value;
     var cnpjVar = cnpj_input.value;
     var tokenVar = token_input.value;
@@ -316,7 +317,7 @@
     var telefoneFixoVar = telFixo_input.value;
     var telefoneCelularVar = telCel_input.value;
     var senhaVar = senha_input.value;
-  
+
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -328,26 +329,26 @@
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
 
-    // dados empresa
-    nomeEmpresaServer : nomeEmpresaVar,
-    cnpjServer : cnpjVar,
-    tokenServer : tokenVar,
-    cepServer : cepVar, 
-    ruaServer : ruaVar, 
-    numeroServer : numeroVar, 
-    bairroServer : bairroVar,  
-    cidadeServer : cidadeVar,
-    estadoServer : estadoVar,
-    complementoServer : complementoVar,
-    // dados usuario
-    nomeServer: nomeVar,
-    sobrenomeServer: sobrenomeVar,
-    cpfServer: cpfVar,
-    telFixoServer : telefoneFixoVar,
-    telCelServer: telefoneCelularVar,
-    emailServer: emailVar,
-    senhaServer: senhaVar
-    
+        // dados empresa
+        nomeEmpresaServer: nomeEmpresaVar,
+        cnpjServer: cnpjVar,
+        tokenServer: tokenVar,
+        cepServer: cepVar,
+        ruaServer: ruaVar,
+        numeroServer: numeroVar,
+        bairroServer: bairroVar,
+        cidadeServer: cidadeVar,
+        estadoServer: estadoVar,
+        complementoServer: complementoVar,
+        // dados usuario
+        nomeServer: nomeVar,
+        sobrenomeServer: sobrenomeVar,
+        cpfServer: cpfVar,
+        telFixoServer: telefoneFixoVar,
+        telCelServer: telefoneCelularVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar
+
         //, empresaServer: empresaVar
       }),
     })
@@ -471,55 +472,55 @@
     var url = `https://viacep.com.br/ws/${cep}/json/`;
 
     if (cep.length == 8) {
+      fetch(url)
+      console.log(
         fetch(url)
-        console.log(
-            fetch(url)
-        )
-        try {
-            var resposta = await fetch(url)
-            resposta.json()
-            console.log(resposta)
-            if (resposta.ok) {
-                var respostaJson = await resposta.json()
-                console.log('DADOS RECEBIDOS', respostaJson)
-                estado_input.value = respostaJson.uf;
-                cidade_input.value = respostaJson.localidade;
-                bairro_input.value = respostaJson.bairro;
-                rua_input.value = respostaJson.logradouro;
-            }
-        } catch (erro) {
-            console.log("Erro", erro)
+      )
+      try {
+        var resposta = await fetch(url)
+        resposta.json()
+        console.log(resposta)
+        if (resposta.ok) {
+          var respostaJson = await resposta.json()
+          console.log('DADOS RECEBIDOS', respostaJson)
+          estado_input.value = respostaJson.uf;
+          cidade_input.value = respostaJson.localidade;
+          bairro_input.value = respostaJson.bairro;
+          rua_input.value = respostaJson.logradouro;
         }
+      } catch (erro) {
+        console.log("Erro", erro)
+      }
 
-        console.log(
-            fetch(url)
-        )
-        fetch(url).then(
-            function (resposta) {
-                // funcionamento em json
-                console.log('Deu certo', resposta)
-                resposta.json()
-                    .then(
-                        function (respostaJson) {
-                            console.log('DADOS RECEBIDOS', respostaJson)
-                            rua_input.value = respostaJson.logradouro;
-                            bairro_input.value = respostaJson.bairro;
-                            cidade_input.value = respostaJson.localidade;
-                            estado_input.value = respostaJson.uf;
-                        }
-                    )
-            })
-            .catch(
-                function (erro) {
-                    console.log(`Deu erro`)
-                    console.log(erro)
-                }
+      console.log(
+        fetch(url)
+      )
+      fetch(url).then(
+        function (resposta) {
+          // funcionamento em json
+          console.log('Deu certo', resposta)
+          resposta.json()
+            .then(
+              function (respostaJson) {
+                console.log('DADOS RECEBIDOS', respostaJson)
+                rua_input.value = respostaJson.logradouro;
+                bairro_input.value = respostaJson.bairro;
+                cidade_input.value = respostaJson.localidade;
+                estado_input.value = respostaJson.uf;
+              }
             )
-            setTimeout(cadastroEndereco, 1000)
+        })
+        .catch(
+          function (erro) {
+            console.log(`Deu erro`)
+            console.log(erro)
+          }
+        )
+      setTimeout(cadastroEndereco, 1000)
     }
-}
+  }
 
-  function cadastroEndereco(){
+  function cadastroEndereco() {
     var cep = cep_input.value
     var estado = estado_input.value
     var cidade = cidade_input.value
@@ -529,39 +530,79 @@
     console.log("FORM CEP: ", cep);
 
     fetch("/endereco/autenticarEndereco", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            cepServer: cep,
-            estadoServer: estado,
-            cidadeServer: cidade,
-            bairroServer: bairro,
-            ruaServer: rua
-        })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cepServer: cep,
+        estadoServer: estado,
+        cidadeServer: cidade,
+        bairroServer: bairro,
+        ruaServer: rua
+      })
     }).then(function (resposta) {
-        console.log("ESTOU NO THEN do Autenticar Endereco()!")
+      console.log("ESTOU NO THEN do Autenticar Endereco()!")
 
-        if (resposta.ok) {
-            console.log(resposta);
+      if (resposta.ok) {
+        console.log(resposta);
 
-            resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
 
-                console.log("Session Storage")
-                sessionStorage.ID_ENDERECO = (json.idEndereco)
-            });
-        } else {
-            console.log("Houve um erro ao tentar consultar o endereço!");
+          sessionStorage.ID_ENDERECO = sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
+          console.log(sessionStorage.getItem('idEndereco'));
+        });
+      } else {
+        console.log("Houve um erro ao tentar consultar o endereço!");
 
-            resposta.text().then(texto => {
-                console.error(texto);
-            })
-        }
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
     }).catch(function (erro) {
-        console.log(erro);
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  function cadastrarComplemento() {
+    var Numero = Number(numero_input.value)
+    var Complemento = complemento_input.value
+    var valorArmazenadoFkEndereco = sessionStorage.getItem('idEndereco');
+    var fkEndereco = valorArmazenadoFkEndereco
+
+    fetch("endereco/cadastrarComplemento", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        numeroServer: Numero,
+        complementoServer: Complemento,
+        fkEnderecoServer: fkEndereco
+      })
+    }).then(function(resposta) {
+      console.log("Efetuando o cadastro do complemento")
+      if(resposta.ok){
+        console.log(resposta);
+
+        resposta.json().then(json =>{
+          console.log(json);
+          console.log(JSON.stringify(json));
+          sessionStorage.setItem('idComplemento', JSON.stringify(json.idComplemento)); 
+        });
+      } else {
+        console.log("Houve ao cadastrar o complemento!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
     })
 
     return false;

@@ -7,4 +7,9 @@ router.post("/autenticarEndereco", function (req, res){
     enderecoController.autenticarEndereco(req, res);
 });
 
+router.post("/cadastrarComplemento", function (req, res){
+    enderecoController.cadastrarComplemento(req, res);
+});
+
+
 module.exports = router;
