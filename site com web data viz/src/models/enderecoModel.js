@@ -19,8 +19,15 @@ function cadastrarEndereco(cep, estado, cidade, bairro, rua){
     return database.executar(instrucao);
 }
 
-function cadastrarComplemento(numero, cadastrar, fkEndereco){
-    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credencias de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", cep, estado, cidade, bairro, rua)       
+function cadastrarComplemento(numero, complemento, fkEndereco){
+    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credencias de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", numero, complemento, fkEndereco)       
+    var instrucao = `
+    insert into complemento values
+    (null, ${fkEndereco}, "${numero}", "${complemento}");
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
 }
 
 module.exports = {

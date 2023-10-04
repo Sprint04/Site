@@ -90,6 +90,20 @@ function cadastrarComplemento(req, res){
         res.status(400).send("Sua fkEndereco está undefined!");
     } else {
         enderecoModel.cadastrarComplemento(numero, complemento, fkEndereco)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
     }
 }
 

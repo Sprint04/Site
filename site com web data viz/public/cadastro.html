@@ -127,7 +127,7 @@
 
         <div id="div_aguardar"></div>
 
-        <button class="botao" onclick="signInLogin()">Cadastrar Usuário</button>
+        <button class="botao" onclick="cadastrar()">Cadastrar Usuário</button>
 
         <div class="frase-cadastro-usuario">
           <!--   <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
@@ -135,78 +135,6 @@
         </div>
 
         <button class="botao-voltar-colaborativo"><a href="index.html">Voltar para Home »</a></button>
-
-
-      </div>
-
-      <div class="formCadastroEmpresa" id="formCadastroEmpresa" display="none">
-        <h1>Cadastro Empresarial</h1>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" required />
-          <label for="nomeEmpresa_input" class="input-group__label">Nome da empresa</label>
-        </div>
-
-        <div class="input-group">
-          <input type="number" class="input-group__input" required />
-          <label for="cnpj_input" class="input-group__label">CNPJ</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" oninput="buscarCep()" required />
-          <label for="token_input" class="input-group__label">Token</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" oninput="buscarCep()" required />
-          <label for="cep_input" class="input-group__label">CEP</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" required />
-          <label for="estado_input" class="input-group__label">Estado</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" required />
-          <label for="cidade_input" class="input-group__label">Cidade</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" required />
-          <label for="bairro_input" class="input-group__label">Bairro</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" required />
-          <label for="rua_input" class="input-group__label">Rua</label>
-        </div>
-
-        <div class="input-group">
-          <input type="number" class="input-group__input" required />
-          <label for="numero_input" class="input-group__label">Número</label>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="input-group__input" required />
-          <label for="complemento_input" class="input-group__label">Complemento</label>
-        </div>
-
-        <div id="aguardar"></div>
-
-        <div id="cardErro">
-          <p id="mensagem_erro"></p>
-        </div>
-
-        <div id="div_aguardar"></div>
-
-        <button class="botao" onclick="signInLogin()">Cadastrar Empresa</button>
-
-        <div class="frase-cadastro-empresa">
-          <span>Precisa cadastrar um colaborador? <button class="botao-cadastrar-usuario"
-              onclick="cadastroUsuario()">Clique aqui</button></span>
-        </div>
-        <button class="botao-voltar-empresarial"><a href="index.html">Voltar para Home »</a></button>
       </div>
 
     </div>
@@ -232,7 +160,6 @@
         <div id="div_aguardar"></div>
         <button class="botao" onclick="login()" type="button">Entrar</button>
         <button class="botao-voltar-login"><a href="index.html"> « Voltar para Home</a></button>
-
 
       </div>
     </div>
@@ -291,111 +218,10 @@
 
   // Area Cadastro -------------------------------------------------------------------------------------
 
-  function login() {
+  function cadastrar() {
+    cadastrarComplemento();
 
-    aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-
-    // dados empresa
-    var nomeEmpresaVar = nomeEmpresa_input.value;
-    var cnpjVar = cnpj_input.value;
-    var tokenVar = token_input.value;
-    var cepVar = cep_input.value;
-    var ruaVar = rua_input.value;
-    var numeroVar = numero_input.value;
-    var bairroVar = bairro_input.value;
-    var cidadeVar = cidade_input.value;
-    var estadoVar = estado_input.value;
-    var complementoVar = complemento_input.value;
-    // dados usuario
-    var nomeVar = nome_input.value;
-    var sobrenomeVar = sobrenome_input.value;
-    var cpfVar = cpf_input.value;
-    var emailVar = email_input.value;
-    var telefoneFixoVar = telFixo_input.value;
-    var telefoneCelularVar = telCel_input.value;
-    var senhaVar = senha_input.value;
-
-
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-
-        // dados empresa
-        nomeEmpresaServer: nomeEmpresaVar,
-        cnpjServer: cnpjVar,
-        tokenServer: tokenVar,
-        cepServer: cepVar,
-        ruaServer: ruaVar,
-        numeroServer: numeroVar,
-        bairroServer: bairroVar,
-        cidadeServer: cidadeVar,
-        estadoServer: estadoVar,
-        complementoServer: complementoVar,
-        // dados usuario
-        nomeServer: nomeVar,
-        sobrenomeServer: sobrenomeVar,
-        cpfServer: cpfVar,
-        telFixoServer: telefoneFixoVar,
-        telCelServer: telefoneCelularVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
-
-        //, empresaServer: empresaVar
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
-
-    return false;
-    alert("Cadastro realizado com sucesso!! Agora faça o seu login.")
   }
-  /*
-    function listar() {
-      fetch("/empresas/listar", {
-        method: "GET",
-      })
-        .then(function (resposta) {
-          resposta.json().then((empresas) => {
-            empresas.forEach((empresa) => {
-              listaEmpresas.innerHTML += `<option value='${empresa.id}'>${empresa.cnpj}</option>`;
-            });
-          });
-        })
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
-        });
-    }
-  */
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
@@ -604,7 +430,8 @@
     }).catch(function (erro) {
       console.log(erro);
     })
-
     return false;
   }
+
+  function recuperarComplemento()
 </script>
