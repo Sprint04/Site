@@ -12,4 +12,8 @@ router.post("/recuperarUsuario", function (req, res) {
     usuarioController.recuperarUsuario(req, res);
 });
 
+router.post("/cadastrarTelefone", function (req, res){
+    usuarioController.cadastrarTelefone(req, res)
+});
+
 module.exports = router;

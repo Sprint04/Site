@@ -61,7 +61,36 @@ function cadastrarUsuario(req, res) {
     }
 }
 
+function cadastrarTelefone(req, res) {
+    var telFixo = req.body.telFixoServer;
+    var telCel = req.body.telCelServer;
+    var fkUsuario = req.body.fkUsuarioServer;
+
+    if (telFixo == undefined) {
+        res.status(400).send("Seu TELEFONE FIXO está undefined!");
+    } else if (telCel == undefined) {
+        res.status(400).send("Seu TELEFONE CELULAR está undefined!");
+    } else {
+        usuarioModel.cadastrarTelefone(telCel, telFixo, fkUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     recuperarUsuario,
-    cadastrarUsuario
+    cadastrarUsuario,
+    cadastrarTelefone
 }

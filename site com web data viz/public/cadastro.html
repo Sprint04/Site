@@ -221,8 +221,9 @@
   function cadastrar() {
     cadastrarComplemento();
     var fkComplemento = sessionStorage.getItem('idComplemento')
-    setTimeout(cadastrarEmpresa, 2000)
-    setTimeout(cadastrarUsuario, 3000)
+    setTimeout(cadastrarEmpresa, 500)
+    setTimeout(cadastrarUsuario, 1000)
+    setTimeout(cadastrarTelefone, 1500)
 
   }
   function sumirMensagem() {
@@ -432,7 +433,7 @@
     }).catch(function (erro) {
       console.log(erro);
     })
-    setTimeout(recuperarComplemento, 1000)
+    setTimeout(recuperarComplemento, 250)
     return false;
   }
 
@@ -512,7 +513,7 @@
     }).catch(function (erro) {
       console.log(erro);
     })
-    setTimeout(recuperarEmpresa, 500)
+    setTimeout(recuperarEmpresa, 250)
     return false;
   }
 
@@ -595,7 +596,7 @@
     }).catch(function (erro) {
       console.log(erro);
     })
-    setTimeout(recuperarUsuario, 2000)
+    setTimeout(recuperarUsuario, 250)
     return false;
   }
 
@@ -635,6 +636,44 @@
       console.log(erro);
     })
 
+    return false;
+  }
+
+  function cadastrarTelefone(){
+    var telefoneFixo = telFixo_input.value;
+    var telefoneCelular = telCel_input.value;
+    var fkUsuario = sessionStorage.getItem('idUsuario');
+
+    fetch("/usuarios/cadastrarTelefone", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        telFixoServer: telefoneFixo,
+        telCelServer: telefoneCelular,
+        fkUsuarioServer: fkUsuario
+      })
+    }).then(function(resposta){
+      console.log("ESTOU NO THEN do Cadastrar Telefone!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+        });
+      } else {
+        console.log("Houve um erro ao tentar cadastrar o telefone!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
     return false;
   }
 </script>
