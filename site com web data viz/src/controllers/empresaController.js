@@ -8,10 +8,25 @@ function buscarPorCnpj(req, res) {
   });
 }
 
-function listar(req, res) {
-  empresaModel.listar().then((resultado) => {
-    res.status(200).json(resultado);
-  });
+function recuperarEmpresa(req, res) {
+  var cnpj = req.body.cnpjServer;
+  if (cnpj == undefined) {
+    res.status(400).send("Seu NUMERO está undefined!");
+  } else {
+    empresaModel.recuperarEmpresa(cnpj)
+      .then(
+        function (resultado) {
+          console.log(`\n Resultados encontrados: ${resultado.length}`);
+          console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
+          if (resultado.length >= 1) {
+            console.log(resultado);
+            res.json(resultado[resultado.length - 1]);
+          } else {
+            res.status(403).send("Empresa não cadastrado!")
+          }
+        }
+      )
+  }
 }
 
 function buscarPorId(req, res) {
@@ -22,26 +37,39 @@ function buscarPorId(req, res) {
   });
 }
 
-function cadastrar(req, res) {
-  var cnpj = req.body.cnpj;
-  var razaoSocial = req.body.razaoSocial;
+function cadastrarEmpresa(req, res) {
+  var nome = req.body.nomeServer;
+  var cnpj = req.body.cnpjServer;
+  var fkEnderecoComplemento = req.body.fkEnderecoComplementoServer;
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
-    if (resultado.length > 0) {
-      res
-        .status(401)
-        .json({ mensagem: `a empresa com o cnpj ${cnpj} já existe` });
-    } else {
-      empresaModel.cadastrar(razaoSocial, cnpj).then((resultado) => {
-        res.status(201).json(resultado);
-      });
-    }
-  });
+  if (nome == undefined) {
+    res.status(400).send("Seu NOME DA EMPRESA está undefined!");
+  } else if (cnpj == undefined) {
+    res.status(400).send("Seu CNPJ está undefined!");
+  } else if (fkEnderecoComplemento == undefined) {
+    res.status(400).send("Seu fkEnderecoComplemento está undefined!");
+  } else {
+    empresaModel.cadastrarEmpresa(nome, cnpj, fkEnderecoComplemento)
+      .then(
+        function (resultado) {
+          res.json(resultado);
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar o cadastro! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }
 }
 
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
-  cadastrar,
-  listar,
+  cadastrarEmpresa,
+  recuperarEmpresa
 };

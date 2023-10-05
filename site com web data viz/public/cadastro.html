@@ -220,6 +220,9 @@
 
   function cadastrar() {
     cadastrarComplemento();
+    var fkComplemento = sessionStorage.getItem('idComplemento')
+    setTimeout(cadastrarEmpresa, 2000)
+    setTimeout(cadastrarUsuario, 3000)
 
   }
   function sumirMensagem() {
@@ -410,15 +413,14 @@
         complementoServer: Complemento,
         fkEnderecoServer: fkEndereco
       })
-    }).then(function(resposta) {
+    }).then(function (resposta) {
       console.log("Efetuando o cadastro do complemento")
-      if(resposta.ok){
+      if (resposta.ok) {
         console.log(resposta);
 
-        resposta.json().then(json =>{
+        resposta.json().then(json => {
           console.log(json);
           console.log(JSON.stringify(json));
-          sessionStorage.setItem('idComplemento', JSON.stringify(json.idComplemento)); 
         });
       } else {
         console.log("Houve ao cadastrar o complemento!");
@@ -430,8 +432,209 @@
     }).catch(function (erro) {
       console.log(erro);
     })
+    setTimeout(recuperarComplemento, 1000)
     return false;
   }
 
-  function recuperarComplemento()
+  function recuperarComplemento() {
+    var numero = numero_input.value
+    var complemento = complemento_input.value
+
+    fetch("/endereco/recuperarComplemento", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        numeroServer: numero,
+        complementoServer: complemento
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN do Autenticar Endereco()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.setItem('idComplemento', JSON.stringify(json.idComplemento));
+          console.log(sessionStorage.getItem('idComplemento'));
+        });
+      } else {
+        console.log("Houve um erro ao tentar cadastrar a empresa!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  function cadastrarEmpresa() {
+    var nome = nomeEmpresa_input.value;
+    var cnpj = cnpj_input.value;
+    var fkEnderecoComplemento = sessionStorage.getItem('idComplemento')
+
+    fetch("/empresas/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        cnpjServer: cnpj,
+        fkEnderecoComplementoServer: fkEnderecoComplemento
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN do Cadastrar Empresa!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+        });
+      } else {
+        console.log("Houve um erro ao tentar cadastrar a empresa!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+    setTimeout(recuperarEmpresa, 500)
+    return false;
+  }
+
+  function recuperarEmpresa() {
+    var cnpj = cnpj_input.value;
+
+    fetch("/empresas/recuperarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cnpjServer: cnpj
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN do Recuperar Empresa!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.setItem('idEmpresa', JSON.stringify(json.idEmpresa));
+          console.log(sessionStorage.getItem('idEmpresa'));
+        });
+      } else {
+        console.log("Houve um erro ao tentar recuperar os dados da empresa!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  function cadastrarUsuario() {
+    var nome = nome_input.value
+    var sobrenome = sobrenome_input.value
+    var cpf = cpf_input.value
+    var email = email_input.value
+    var senha = senha_input.value
+    var fkEmpresa = sessionStorage.getItem('idEmpresa')
+
+    fetch("/usuarios/cadastrarUsuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        sobrenomeServer: sobrenome,
+        cpfServer: cpf,
+        emailServer: email,
+        senhaServer: senha,
+        fkEmpresaServer: fkEmpresa
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN do Cadastrar Usuario!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+        });
+      } else {
+        console.log("Houve um erro ao tentar cadastrar o usuario!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+    setTimeout(recuperarUsuario, 2000)
+    return false;
+  }
+
+  function recuperarUsuario() {
+
+    var cpf = cpf_input.value;
+
+    fetch("/usuarios/recuperarUsuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cpfServer: cpf
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN do Recuperar Usuario!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.setItem('idUsuario', JSON.stringify(json.idUsuario));
+          console.log(sessionStorage.getItem('idUsuario'));
+        });
+      } else {
+        console.log("Houve um erro ao tentar recuperar os dados do usuario!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
 </script>

@@ -11,5 +11,7 @@ router.post("/cadastrarComplemento", function (req, res){
     enderecoController.cadastrarComplemento(req, res);
 });
 
-
+router.post("/recuperarComplemento", function (req, res){
+    enderecoController.recuperarComplemento(req, res);
+});
 module.exports = router;

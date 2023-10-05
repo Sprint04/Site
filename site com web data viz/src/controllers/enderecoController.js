@@ -34,26 +34,26 @@ function autenticarEndereco(req, res) {
                                 function (resultado) {
                                     res.json(resultado);
                                     console.log(resultado)
-                                    
-                                        enderecoModel.autenticarEndereco(cep)
-                                            .then(
-                                                function (resultado) {
-                                                    console.log(`\n Resultados encontrados: ${resultado.length}`);
-                                                    console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
 
-                                                    if (resultado.length == 1) {
-                                                        console.log(resultado);
-                                                        res.json(resultado[0]);
-                                                    }
+                                    enderecoModel.autenticarEndereco(cep)
+                                        .then(
+                                            function (resultado) {
+                                                console.log(`\n Resultados encontrados: ${resultado.length}`);
+                                                console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
+
+                                                if (resultado.length == 1) {
+                                                    console.log(resultado);
+                                                    res.json(resultado[0]);
                                                 }
-                                            ).catch(
-                                                function (erro) {
-                                                    console.log(erro);
-                                                    console.log("\nHouve um erro ao consultar endereço! Erro: ", erro.sqlMessage);
-                                                    res.status(500).json(erro.sqlMessage);
-                                                }
-                                            );
-                                    }
+                                            }
+                                        ).catch(
+                                            function (erro) {
+                                                console.log(erro);
+                                                console.log("\nHouve um erro ao consultar endereço! Erro: ", erro.sqlMessage);
+                                                res.status(500).json(erro.sqlMessage);
+                                            }
+                                        );
+                                }
                             )
                             .catch(
                                 function (erro) {
@@ -79,7 +79,7 @@ function autenticarEndereco(req, res) {
     }
 }
 
-function cadastrarComplemento(req, res){
+function cadastrarComplemento(req, res) {
     var numero = req.body.numeroServer;
     var complemento = req.body.complementoServer;
     var fkEndereco = req.body.fkEnderecoServer;
@@ -90,24 +90,47 @@ function cadastrarComplemento(req, res){
         res.status(400).send("Sua fkEndereco está undefined!");
     } else {
         enderecoModel.cadastrarComplemento(numero, complemento, fkEndereco)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "\nHouve um erro ao realizar o cadastro! Erro: ",
-                    erro.sqlMessage
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function recuperarComplemento(req, res) {
+    var numero = req.body.numeroServer;
+    var complemento = req.body.complementoServer;
+    if (numero == undefined) {
+        res.status(400).send("Seu NUMERO está undefined!");
+    } else {
+        enderecoModel.recuperarComplemento(numero, complemento)
+            .then(
+                function (resultado) {
+                    console.log(`\n Resultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
+                    if (resultado.length >= 1) {
+                        console.log(resultado);
+                        res.json(resultado[resultado.length - 1]);
+                    } else {
+                        res.status(403).send("Complemento não cadastrado!")
+                    }
+                }
+            )
     }
 }
 
 module.exports = {
     autenticarEndereco,
-    cadastrarComplemento
+    cadastrarComplemento,
+    recuperarComplemento
 }
