@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,12 @@
     <link rel="stylesheet" href="../css/dashboards.css">
     <title>Trackware - Dashboards</title>
 </head>
+
 <body>
     <div class="container_pagina">
         <div class="menu_dashboard">
             <div class="container_logo_menu_dashboard">
-                <div class="logo_menu_dashboard">    
+                <div class="logo_menu_dashboard">
                     <img src="../assets/logo-icon.png" alt="logo_menu">
                 </div>
             </div>
@@ -82,7 +84,100 @@
                     </div>
                 </div>
             </div>
+            <!-- gráfico abaixo !!! -->
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- script características do Gráfico -->
+<script>
+    const labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+    ];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45],
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+</script>
+<!-- script config do Grafico, get & plot -->
+<script>
+    function obterDadosGrafico() {
+        fetch(`/medidas/ultimas/`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico(resposta, idAquario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ['Velho Testamento', 'Novo Testamento'];
+        // 
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Velho testamento',
+                data: [],
+                backgroundColor: ['rgb(0, 99, 140)', 'rgb(0, 99, 90)'],
+                borderColor: '#fff',
+                borderwidth: 1
+            }]
+        };
+
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            // labels.push(registro.Novo_Testamento);
+            // labels.push(registro.Velho_Testamento);
+            dados.datasets[0].data.push(registro.Velho_Testamento);
+            dados.datasets[0].data.push(registro.Novo_Testamento);
+            // dados.datasets[1].data.push(registro.temperatura);
+        }
+        // id do gráfico
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    }
+</script>
