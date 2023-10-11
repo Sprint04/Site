@@ -94,7 +94,7 @@
           </div>
 
           <div class="input-group">
-            <input type="number" id="cpf_input" class="input-group__input" required />
+            <input type="text" id="cpf_input" class="input-group__input" required />
             <label for="cpf_input" class="input-group__label">CPF</label>
           </div>
 
@@ -118,14 +118,7 @@
             <label for="senha_input" class="input-group__label">Senha</label>
           </div>
         </div>
-
-
-        <div id="aguardar"></div>
-        <div id="cardErro">
-          <p id="mensagem_erro"></p>
-        </div>
-
-        <div id="div_aguardar"></div>
+        <br>
 
         <button class="botao" onclick="cadastrar()">Cadastrar Usuário</button>
 
@@ -211,9 +204,50 @@
 
 
   function login() {
+    var email = email_input_login.value
+    var senha = senha_input_login.value
 
-    alert("Login realizado com sucesso!!")
+    if (email == "" && senha == "") {
+      alert("Os campos de email e senha precisam ser preenchidos")
+    } else {
+      console.log("Realizando login")
+      fetch("/usuarios/usuarioLogin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          emailServer: email,
+          senhaServer: senha
+        })
+      }).then(function (resposta) {
+        console.log("Estou no then do Login()!")
+        if (resposta.ok) {
+          console.log(resposta);
 
+          resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            sessionStorage.ID_USUARIO = json.idUsuario;
+            sessionStorage.NOME_USUARIO = json.nome;
+            sessionStorage.EMAIL_USUARIO = json.email_Corporativo;
+
+            setTimeout(function () {
+              window.location = "../Dashboard/dashboard-aluno.html";
+            }, 1000);
+          });
+        } else {
+          console.log("Houve ao efetuar o login!");
+
+          resposta.text().then(texto => {
+            console.error(texto);
+          })
+        }
+      }).catch(function (erro) {
+        console.log(erro);
+      })
+    }
   }
 
   // Area Cadastro -------------------------------------------------------------------------------------
@@ -639,7 +673,7 @@
     return false;
   }
 
-  function cadastrarTelefone(){
+  function cadastrarTelefone() {
     var telefoneFixo = telFixo_input.value;
     var telefoneCelular = telCel_input.value;
     var fkUsuario = sessionStorage.getItem('idUsuario');
@@ -654,7 +688,7 @@
         telCelServer: telefoneCelular,
         fkUsuarioServer: fkUsuario
       })
-    }).then(function(resposta){
+    }).then(function (resposta) {
       console.log("ESTOU NO THEN do Cadastrar Telefone!")
 
       if (resposta.ok) {

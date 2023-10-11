@@ -16,4 +16,8 @@ router.post("/cadastrarTelefone", function (req, res){
     usuarioController.cadastrarTelefone(req, res)
 });
 
+router.post("/usuarioLogin", function (req, res){
+    usuarioController.usuarioLogin(req, res)
+});
+
 module.exports = router;

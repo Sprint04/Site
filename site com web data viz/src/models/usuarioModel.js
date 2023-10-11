@@ -30,9 +30,19 @@ function cadastrarTelefone(telCel, telFixo, fkUsuario){
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+
+function usuarioLogin(email, senha){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
+    var instrucao = `
+        SELECT * FROM usuario WHERE email_Corporativo = '${email}' AND senha = '${senha}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 // nas instruções havia o idempresa, mas como não dava para comentar, apaguei 
 module.exports = {
     recuperarUsuario,
     cadastrarUsuario,
-    cadastrarTelefone
+    cadastrarTelefone,
+    usuarioLogin
 };
