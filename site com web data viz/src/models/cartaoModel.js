@@ -1,6 +1,6 @@
 var database = require("../database/config")
 
-function listar(numero) {
+function recuperarIDCartao(numero) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()", numero);
     var instrucao = `
         select * from cartao where numero = '${numero}';
@@ -34,5 +34,5 @@ function cadastrar(nome, numero, data_expiracao, codigo_seguranca, fkTipoCartao,
 
 module.exports = {
     cadastrar,
-    listar
+    recuperarIDCartao
 };

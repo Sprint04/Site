@@ -404,7 +404,7 @@
         data_expiracaoServer: data_expiracaoVar_formatado,
         codigo_segurancaServer: codigo_segurancaVar,
         fkTipoCartaoServer: tipo_cartaoVar,
-        fkBandeiraCartaoServer: bandeira_cartaoVar,
+        fkBandeiraCartaoServer: bandeira_cartaoVar
       })
     }).then(function (resposta) {
         console.log("Efetuando cadastro do cartão")
@@ -419,52 +419,52 @@
             console.log("Houve um erro ao cadastrar o cartão")
 
             resposta.text().then(texto => {
-                console.error(texto);
             })
         }
       })
       .catch(function (erro) {
         console.log(erro);
       })
-    setTimeout(listarID, 5000);
+    setTimeout(recuperarIDCartao, 250)
     return false;
   }
 
-  function listarID() {
+  function recuperarIDCartao() {
     var numero_cartaoVar = numero_cartao_input.value;
     var numero_cartaoVar_formatado = numero_cartaoVar.split(" ").join("");
 
-    fetch("/cartao/listar", {
+    fetch("/cartao/recuperarIDCartao", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        numeroServer: numero_cartaoVar_formatado,
+        numeroServer: numero_cartaoVar_formatado
+
       })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN do Autenticar Recuperar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.setItem('idCartao', JSON.stringify(json.idCartao));
+          console.log(sessionStorage.getItem('idCartao'));
+        });
+      } else {
+        console.log("Houve um erro ao tentar cadastrar a empresa!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
     })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          console.log(resposta);
-
-          resposta.json().then((json) => {
-            console.log(json);
-            console.log(JSON.stringify(json));
-
-            sessionStorage.setItem("idCartao", JSON.stringify(json.idCartao));
-            console.log(sessionStorage.getItem("idCartao"));
-          });
-        } else {
-          console.log("Houve um erro ao tentar realizar o listar!");
-
-          resposta.text().then((texto) => {
-            console.error(texto);
-          })
-        }
-      })
-      .catch(function (erro) {
-        console.log(erro);
-      })
 
     return false;
   }

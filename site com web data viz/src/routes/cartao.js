@@ -8,8 +8,8 @@ router.post("/cadastrar", function (req, res) {
   cartaoController.cadastrar(req, res);
 })
 
-router.post("/listar", function (req, res) {
-  cartaoController.listar(req, res);
+router.post("/recuperarIDCartao", function (req, res) {
+  cartaoController.recuperarIDCartao(req, res);
 });
 
 module.exports = router;

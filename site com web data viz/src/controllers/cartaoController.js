@@ -1,23 +1,26 @@
 var cartaoModel = require("../models/cartaoModel");
 
-function listar(req, res) {
+function recuperarIDCartao(req, res) {
     
     var numero = req.body.numeroServer;
 
-    cartaoModel.listar(numero)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    if (numero == undefined) {
+        res.status(400).send("Seu NUMERO está undefined!");
+    } else {
+        cartaoModel.recuperarIDCartao(numero)
+            .then(
+                function (resultado) {
+                    console.log(`\n Resultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
+                    if (resultado.length >= 1) {
+                        console.log(resultado);
+                        res.json(resultado[resultado.length - 1]);
+                    } else {
+                        res.status(403).send("Cartao não cadastrado!")
+                    }
+                }
+            )
+    }
 }
 
 function cadastrar(req, res) {
@@ -53,5 +56,5 @@ function cadastrar(req, res) {
 
 module.exports = {
     cadastrar,
-    listar
+    recuperarIDCartao
 }
