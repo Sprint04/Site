@@ -54,7 +54,32 @@ function cadastrar(req, res) {
             );
     }
 
+    function updateCartao(req, res) {
+    
+        var idEmpresa = req.params.idEmpresa;
+        var idPlano = req.body.fkPlanoServer;
+        var idCartao = req.body.fkCartaoServer;
+    
+        cartaoModel.updateCartao(idEmpresa, idPlano, idCartao)
+           .then(
+               function (resultado) {
+                   res.json(resultado);
+               }
+           ).catch(
+               function (erro) {
+                   console.log(erro);
+                   console.log(
+                       "\nHouve um erro ao realizar o cadastro! Erro: ",
+                       erro.sqlMessage
+                   );
+                   res.status(500).json(erro.sqlMessage);
+               }
+           );
+   }
+
+
 module.exports = {
     cadastrar,
-    recuperarIDCartao
+    recuperarIDCartao,
+    updateCartao
 }
