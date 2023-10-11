@@ -7,9 +7,10 @@
     <link rel="shortcut icon" type="imagex/png" href="../assets/logo-icon.png">
     <link rel="stylesheet" href="../css/dashboards.css">
     <title>Trackware - Dashboards</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="obterDadosGrafico()">
     <div class="container_pagina">
         <div class="menu_dashboard">
             <div class="container_logo_menu_dashboard">
@@ -86,16 +87,16 @@
             </div>
             <!-- gráfico abaixo !!! -->
             <div>
-                <canvas id="myChart"></canvas>
+                <canvas id="myChart" style="background-color:rgb(233, 233, 233)"></canvas>
             </div>
         </div>
     </div>
 </body>
 
 </html>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!-- script características do Gráfico -->
-<script>
+<!-- <script>
     const labels = [
         'January',
         'February',
@@ -108,23 +109,20 @@
     const data = {
         labels: labels,
         datasets: [{
-            label: 'My First dataset',
+            label: 'CPU usage',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
+            data: [],
         }]
     };
 
-    const config = {
-        type: 'line',
-        data: data,
-        options: {}
-    };
-</script>
-<!-- script config do Grafico, get & plot -->
+    
+</script> -->
+<!-- script config do Grafico, fetch & plot -->
 <script>
+
     function obterDadosGrafico() {
-        fetch(`/medidas/ultimas/`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboard/obterDadosGrafico`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -141,43 +139,47 @@
             });
     }
 
-    function plotarGrafico(resposta, idAquario) {
-
-        console.log('iniciando plotagem do gráfico...');
-
+    function plotarGrafico(resposta) {
         // Criando estrutura para plotar gráfico - labels
-        let labels = ['Velho Testamento', 'Novo Testamento'];
+        let labels = [];
         // 
         // Criando estrutura para plotar gráfico - dados
-        let dados = {
+        let data = {
             labels: labels,
             datasets: [{
-                label: 'Velho testamento',
+                label: 'CPU usage',
                 data: [],
                 backgroundColor: ['rgb(0, 99, 140)', 'rgb(0, 99, 90)'],
                 borderColor: '#fff',
                 borderwidth: 1
             }]
         };
+        const config = {
+            type: 'line',
+            data: data,
+        };
+
+        console.log('iniciando plotagem do gráfico...');
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
 
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             // labels.push(registro.Novo_Testamento);
-            // labels.push(registro.Velho_Testamento);
-            dados.datasets[0].data.push(registro.Velho_Testamento);
-            dados.datasets[0].data.push(registro.Novo_Testamento);
+            labels.push(registro.dtHora);
+            data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
+            // dados.datasets[0].data.push(registro.Novo_Testamento);
             // dados.datasets[1].data.push(registro.temperatura);
         }
-        // id do gráfico
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
+        
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
     }
+    // setInterval(plotarGrafico, 3000);
 </script>
