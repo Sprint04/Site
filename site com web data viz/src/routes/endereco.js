@@ -3,8 +3,12 @@ var router = express.Router();
 
 var enderecoController = require("../controllers/enderecoController");
 
-router.post("/autenticarEndereco", function (req, res){
-    enderecoController.autenticarEndereco(req, res);
+router.post("/cadastroEndereco", function (req, res){
+    enderecoController.cadastroEndereco(req, res);
+});
+
+router.post("/recuperarEndereco", function (req, res){
+    enderecoController.recuperarEndereco(req, res);
 });
 
 router.post("/cadastrarComplemento", function (req, res){

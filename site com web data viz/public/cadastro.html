@@ -252,6 +252,15 @@
 
   // Area Cadastro -------------------------------------------------------------------------------------
 
+  function verificarEndereco(){
+    sessionStorage.setItem('idEndereco', 0)
+    recuperarEndereco()
+    if(sessionStorage.getItem('idEndereco') == 0){
+      cadastroEndereco()
+      setTimeout(recuperarEndereco, 500)
+    }
+  }
+
   function cadastrar() {
     cadastrarComplemento();
     var fkComplemento = sessionStorage.getItem('idComplemento')
@@ -380,8 +389,48 @@
             console.log(erro)
           }
         )
-      setTimeout(cadastroEndereco, 1000)
+      setTimeout(verificarEndereco, 1000)
     }
+  }
+
+  function recuperarEndereco(){
+    var cep = cep_input.value
+
+    console.log("FORM CEP: ", cep);
+
+    fetch("/endereco/recuperarEndereco", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cepServer: cep
+      })
+    }).then(function(resposta){
+      console.log("ESTOU NO THEN do verificar endereço!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
+          console.log(sessionStorage.getItem('idEndereco'));
+        });
+      } else {
+        console.log("Houve um erro ao tentar consultar o endereço!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false
   }
 
   function cadastroEndereco() {
@@ -391,9 +440,7 @@
     var bairro = bairro_input.value
     var rua = rua_input.value
 
-    console.log("FORM CEP: ", cep);
-
-    fetch("/endereco/autenticarEndereco", {
+    fetch("/endereco/cadastroEndereco", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -406,7 +453,7 @@
         ruaServer: rua
       })
     }).then(function (resposta) {
-      console.log("ESTOU NO THEN do Autenticar Endereco()!")
+      console.log("ESTOU NO THEN do cadastro endereço!")
 
       if (resposta.ok) {
         console.log(resposta);
@@ -415,11 +462,9 @@
           console.log(json);
           console.log(JSON.stringify(json));
 
-          sessionStorage.ID_ENDERECO = sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
-          console.log(sessionStorage.getItem('idEndereco'));
         });
       } else {
-        console.log("Houve um erro ao tentar consultar o endereço!");
+        console.log("Houve um erro ao tentar cadastrar o endereço!");
 
         resposta.text().then(texto => {
           console.error(texto);

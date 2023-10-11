@@ -1,6 +1,6 @@
 var database = require("../database/config")
 
-function autenticarEndereco(cep){
+function recuperarEndereco(cep){
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credencias de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", cep)
     var instrucao = `
     SELECT * FROM endereco WHERE cep = "${cep}";
@@ -40,7 +40,7 @@ function recuperarComplemento(numero, complemento){
 }
 
 module.exports = {
-    autenticarEndereco,
+    recuperarEndereco,
     cadastrarEndereco,
     cadastrarComplemento,
     recuperarComplemento

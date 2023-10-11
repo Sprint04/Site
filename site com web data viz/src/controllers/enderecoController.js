@@ -1,6 +1,6 @@
 var enderecoModel = require("../models/enderecoModel");
 
-function autenticarEndereco(req, res) {
+function cadastroEndereco(req, res) {
     var cep = req.body.cepServer;
     var estado = req.body.estadoServer;
     var cidade = req.body.cidadeServer;
@@ -18,64 +18,44 @@ function autenticarEndereco(req, res) {
     } else if (rua == undefined) {
         res.status(400).send("Sua RUA está undefined!");
     } else {
-        enderecoModel.autenticarEndereco(cep)
+        enderecoModel.cadastrarEndereco(cep, estado, cidade, bairro, rua)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                    console.log(resultado)
+                }
+            )
+            .catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function recuperarEndereco(req, res) {
+    var cep = req.body.cepServer;
+    if (cep == undefined) {
+        res.status(400).send("Seu CEP está undefined!");
+    } else {
+        enderecoModel.recuperarEndereco(cep)
             .then(
                 function (resultado) {
                     console.log(`\n Resultados encontrados: ${resultado.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
-
                     if (resultado.length == 1) {
                         console.log(resultado);
                         res.json(resultado[0]);
-                    } else if (resultado.length == 0) {
-                        console.log("CEP Não encontrado, iniciando cadastro")
-                        enderecoModel.cadastrarEndereco(cep, estado, cidade, bairro, rua)
-                            .then(
-                                function (resultado) {
-                                    res.json(resultado);
-                                    console.log(resultado)
-
-                                    enderecoModel.autenticarEndereco(cep)
-                                        .then(
-                                            function (resultado) {
-                                                console.log(`\n Resultados encontrados: ${resultado.length}`);
-                                                console.log(`Resultados: ${JSON.stringify(resultado)}`) //transforma JSON em string
-
-                                                if (resultado.length == 1) {
-                                                    console.log(resultado);
-                                                    res.json(resultado[0]);
-                                                }
-                                            }
-                                        ).catch(
-                                            function (erro) {
-                                                console.log(erro);
-                                                console.log("\nHouve um erro ao consultar endereço! Erro: ", erro.sqlMessage);
-                                                res.status(500).json(erro.sqlMessage);
-                                            }
-                                        );
-                                }
-                            )
-                            .catch(
-                                function (erro) {
-                                    console.log(erro);
-                                    console.log(
-                                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                                        erro.sqlMessage
-                                    );
-                                    res.status(500).json(erro.sqlMessage);
-                                }
-                            );
-                    } else {
-                        res.status(403).send("Mais de um endereço encontrado!")
+                    } else if (resultado.length > 1) {
+                        res.status(403).send("Endereço com o mesmo CEP já foi cadastrado!")
                     }
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao consultar endereço! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+            )
     }
 }
 
@@ -130,7 +110,8 @@ function recuperarComplemento(req, res) {
 }
 
 module.exports = {
-    autenticarEndereco,
+    cadastroEndereco,
+    recuperarEndereco,
     cadastrarComplemento,
     recuperarComplemento
 }
