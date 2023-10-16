@@ -13,14 +13,15 @@
 
     /* NAVBAR */
     .navbar {
-        width: 216vw;
+        width: 100vw;
         height: 12vh;
     }
 
     .navbar-items ul {
         list-style: none;
-        margin-left: 25vw;
-        margin-top: 6vh;
+        margin-left: 0;
+        margin-top: 3vh;
+        
     }
 
     .navbar-logo img {
@@ -29,41 +30,43 @@
     }
 
     .navbar-items a {
-        font-size: 3vh;
+        font-size: 0.6vh;
     }
 
     /* HOME */
 
     #homeMain {
         height: 80vh;
-        width: 200vw;
+        width: 80vw;
+        display: flex;
+        flex-direction: column;
     }
 
     #imagemHome {
-        width: 70vh;
-        height: 70vh;
+        width: 35vh;
+        height: 35vh;
         position: relative;
-        top: 20vh;
-        right: 4vh;
+        top: 2vh;
+        right: 6vh;
     }
 
     #TrackWare-titulo {
-        font-size: 8vh;
+        font-size: 5vh;
         width: 20vh;
     }
 
     #part1 {
-        font-size: 3vh;
-        width: 120%;
+        font-size: 2vh;
+        width: 80%;
     }
 
     #part2 {
-        font-size: 3vh;
-        width: 100%;
+        font-size: 2vh;
+        width: 80%;
     }
 
     #TrackWare-subtitulo {
-        font-size: 3vh;
+        font-size: 2vh;
         width: 35vh;
     }
 
@@ -80,63 +83,85 @@
         font-size: 16px;
     }
 
+    .button-entrar {
+        position: absolute;
+        left: 37%;
+        top: 10%;
+        background: #8800ff;
+        color: #fff;
+        border: #8800ff;
+        border-radius: 20px;
+        width: 100px;
+        height: 20px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 23px;
+        transition: 0.5s;
+        box-shadow: 0 0 7px #6a23bc;
+        color: white;
+    }
+
+    .button-entrar a {
+        /* Não sei */
+    }
+
     /* SOBRE A EMPRESA */
 
     .sobre-nos .section-sobre {
-        width: 200vw;
-        height: 280vh;
+        width: 50vw;
+        height: 180vh;
         flex-direction: column;
         margin-bottom: -120vw;
     }
 
     .section-sobre .texto-sobre-nos h1 {
-        width: 100vw;
-        font-size: 5vh;
+        width: 80vw;
+        font-size: 3vh;
         letter-spacing: 1px;
         position: relative;
-        left: 38vh;
+        left: 15vh;
     }
 
     .section-sobre .texto-sobre-nos .line {
         height: 4px;
-        width: 50vh;
+        width: 30vh;
         position: relative;
-        left: 37vh;
+        left: 15vh;
+        top: -75px;
     }
 
     .p1 {
-        width: 83%;
-        font-size: 4vh;
+        width: 90%;
+        font-size: 2vh;
         position: relative;
-        left: 16vh;
-        line-height: 5vh;
+        left: 13vh;
+        line-height: 3vh;
         text-align: justify;
     }
 
     .p2 {
-        width: 86%;
+        width: 90%;
         height: 10vh;
-        font-size: 4vh;
+        font-size: 2vh;
         position: relative;
         text-align: justify;
         bottom: 10vh;
         left: 13vh;
-        top: -20vh;
+        top: -18vh;
     }
 
     .section-sobre .texto-sobre-nos img {
-        width: 150vw;
-        height: 90vh;
+        width: 60vw;
+        height: auto;
         position: relative;
-        left: 22vh;
-        bottom: 16vh;
+        left: 15vh;
+        bottom: 12vh;
     }
 
     /* MISSÃO, VISÃO E VALORES */
 
     .cardDesc {
         height: 130vh;
-        width: 218vw;
+        width: 100vw;
         flex-direction: column;
         background-color: #FAFAFA;
     }
@@ -155,7 +180,7 @@
         width: 30vh;
         background-color: #ffffff;
         position: relative;
-        right: 1vh;
+        right: 1vw;
     }
 
     .card1 {
@@ -185,15 +210,15 @@
     .servicos {
         flex-direction: row;
         height: 100vh;
-        width: 200vw;
+        width: 80vw;
     }
 
 
     .servicosDesc {
         height: 60vh;
-        width: 100%;
+        width: 8%;
         position: relative;
-        left: 7vh;
+        left: 5vh;
     }
 
     .servicos .servicosDesc h1 {
@@ -201,7 +226,7 @@
         font-size: 5vh;
         letter-spacing: 1px;
         position: relative;
-        left: 35vh;
+        left: 22.5vh;
         bottom: 28vh;
     }
 
@@ -209,25 +234,25 @@
         height: 4px;
         width: 55vh;
         position: relative;
-        left: 35vh;
+        left: 20vh;
         background-color: #6E43B9;
-        top: -57vw;
+        top: -55vw;
         color: #FAFAFA;
     }
 
     .subtitulo {
         width: 120vw;
-        font-size: 3vh;
+        font-size: 2vh;
         position: relative;
-        left: 35vh;
+        left: 22.5vh;
         bottom: 34vh;
         top: -60vw;
     }
 
     .servicos img {
-        width: 300vh;
-        height: 70vh;
-        right: 39vh;
+        width: 45vh;
+        height: auto;
+        right: -3vh;
         top: -10vh;
     }
 
@@ -240,16 +265,16 @@
     }
 
     .texto {
-        font-size: 2.7vh;
+        font-size: 2.3vh;
         position: relative;
         bottom: 15vh;
     }
 
     .servicoBox {
         height: 24vh;
-        width: 160vw;
+        width: 100vw;
         position: relative;
-        left: 34vh;
+        left: 47.8vw;
         top: 40vw;
     }
 
@@ -260,24 +285,23 @@
         top: 60vh;
         text-align: center;
         height: 90vh;
-        width: 200vw;
+        width: 100vw;
     }
 
     #nossa-equipe {
-        width: 80vw;
+        width: 90vw;
         font-size: 5vh;
         letter-spacing: 1px;
         flex-direction: column;
         position: relative;
-        top: 0vh;
-        left: -10vw;
+        left: -34vw;
     }
 
     .line5 {
         height: 5px;
         width: 40vh;
         position: relative;
-        left: -4vw;
+        left: -32vw;
         bottom: 0vw;
     }
 
@@ -285,21 +309,20 @@
         display: flex;
         padding-left: 3.5%;
         padding-right: 3.5%;
-        height: 1700vw;
-        margin-left: 12vw;
+        height: 500vw;
+        margin-left: -3vw;
     }
 
     .cards-equipe {
         display: flex;
-        width: 200vw;
-        height: 500vw;
+        height: 80vw;
         flex-direction: column;
         margin-top: 10vw;
     }
 
     .card-foto {
         height: 900px;
-        width: 180vw;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         border-radius: 1%;
@@ -311,15 +334,16 @@
     .nossa-equipe img {
         position: relative;
         top: 2vh;
-        height: 190vw;
-        width: 145vw;
+        height: auto;
+        width: 80vw;
         border-radius: 10px;
+        left: -7.5vw;
     }
 
     .card-desc {
         background-color: #FAFAFA;
         height: 50px;
-        width: 120vw;
+        width: 70vw;
         margin-top: 5vw;
         margin-bottom: 30vw;
         flex-direction: column;
@@ -338,25 +362,26 @@
     }
 
     #nome-equipe {
-        font-size: 5vh;
+        font-size: 4vh;
         color: #2A327A;
         font-family: 'Poppins', sans-serif;
         position: relative;
         top: -1vh;
-        margin-left: 18vh;
+        margin-left: 18vw;
         width: 100%;
     }
 
     .texto3 {
-        top: -10vh;
+        top: -8vh;
         text-align: center;
         height: 20vh;
-        font-size: 4vh;
+        font-size: 3vh;
         position: relative;
         bottom: 1vh;
         opacity: 0.8;
-        margin-left: 25vw;
+        left: 10vw;
         width: 100%;
+        color: black;
     }
 
      /* QUER FAZER PARTE DO NOSSO TIME */
@@ -405,8 +430,8 @@
     /* RODAPÉ */
 
     .back-footer {
-        margin-top: 1700vw;
-        width: 218vw;
+        margin-top: 1100vw;
+        width: 100vw;
         height: 55vw;
     }
 
@@ -736,7 +761,7 @@ https://github.com/bytesoftheweb/Reels/tree/main/Icons/02z
 
     .back-to-top {
         position: fixed;
-        right: 1vh;
+        right: 9vh;
         bottom: 1vh;
         z-index: 999;
         background: #6E43B9;
