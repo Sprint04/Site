@@ -45,8 +45,7 @@
           </div>
 
           <div class="input-group">
-            <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()"
-              oninput="cadastroEndereco()" required />
+            <input type="text" id="cep_input" class="input-group__input" oninput="buscarCep()" required />
             <label for="cep_input" class="input-group__label">CEP</label>
           </div>
 
@@ -234,7 +233,7 @@
             sessionStorage.EMAIL_USUARIO = json.email_Corporativo;
 
             setTimeout(function () {
-              window.location = "../Dashboard/dashboard-aluno.html";
+              window.location = "./dashboard/dashboard.html";
             }, 1000);
           });
         } else {
@@ -252,13 +251,15 @@
 
   // Area Cadastro -------------------------------------------------------------------------------------
 
-  function verificarEndereco(){
+  function verificarEndereco() {
     sessionStorage.setItem('idEndereco', 0)
     recuperarEndereco()
-    if(sessionStorage.getItem('idEndereco') == 0){
-      cadastroEndereco()
-      setTimeout(recuperarEndereco, 500)
-    }
+    setTimeout(function () {
+      if (sessionStorage.getItem('idEndereco') == 0) {
+        cadastroEndereco()
+        setTimeout(recuperarEndereco, 500)
+      }
+    },500)
   }
 
   function cadastrar() {
@@ -393,7 +394,7 @@
     }
   }
 
-  function recuperarEndereco(){
+  function recuperarEndereco() {
     var cep = cep_input.value
 
     console.log("FORM CEP: ", cep);
@@ -406,7 +407,7 @@
       body: JSON.stringify({
         cepServer: cep
       })
-    }).then(function(resposta){
+    }).then(function (resposta) {
       console.log("ESTOU NO THEN do verificar endereço!")
 
       if (resposta.ok) {
