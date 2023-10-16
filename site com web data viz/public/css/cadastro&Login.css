@@ -11,7 +11,8 @@ body {
     align-items: center;
     width: 98.5vw;
     height: 95.5vh;
-    background-color: #000000;
+    /*background-color: #000000;*/
+    background-image:url(../assets/fundo.png);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -22,7 +23,7 @@ h1 {
     font-size: 190%;
     color: #aa00ff;
     font-family: 'Poppins', sans-serif;
-    width: 100%;
+    width: 100%; 
     margin-top: 2vh;
 }
 
@@ -50,20 +51,26 @@ a {
 
 
 /* caixa que contém o login e o cadastro */
+/*  */
 .container {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
         0 10px 10px rgba(17, 17, 17, 0.22);
     position: relative;
     overflow: hidden;
     width: 73vw;
+    /*  height: 100vh; */
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: -6vh;
+    background-color:white;
+    border-radius: 30px;
+    
 }
 
 .container2 {
+    
     position: relative;
     overflow: hidden;
     width: 100%;

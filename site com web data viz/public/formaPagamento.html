@@ -414,10 +414,14 @@
             resposta.json().then(json => {
                 console.log(json)
                 console.log(JSON.stringify(json));
+
+                setTimeout(function () {
+                        window.location = "confirmaCompra.html";
+                    }, 1000); 
+
             });
         } else {
             console.log("Houve um erro ao cadastrar o cartão")
-
             resposta.text().then(texto => {
             })
         }
@@ -453,7 +457,9 @@
           console.log(JSON.stringify(json));
 
           sessionStorage.setItem('idCartao', JSON.stringify(json.idCartao));
-          console.log(sessionStorage.getItem('idCartao'));
+          sessionStorage.setItem('nomeCartao', JSON.stringify(json.nomeTitular));
+          sessionStorage.setItem('numeroCartao', JSON.stringify(json.numero));
+        //   console.log(sessionStorage.getItem('idCartao'));
         });
       } else {
         console.log("Houve um erro ao tentar cadastrar a empresa!");

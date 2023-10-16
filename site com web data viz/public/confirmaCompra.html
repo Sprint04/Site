@@ -13,7 +13,7 @@
     <link
     href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet" />
-    <link rel="stylesheet" href="/public/css/confirmaCompra.css">
+    <link rel="stylesheet" href="css/confirmaCompra.css" />
 
 </head>
 <body>
@@ -23,9 +23,9 @@
     <!-- BARRA DE PROGRESSÃO DA COMPRA -->
         <div class="container-barra">
             <ul class="barra">
-              <li>Planos</li>
-              <li>Forma de pagamento</li>
-              <li class="active">Confirma Compra</li>
+              <li><a href="planos.html">Planos</a></li>
+              <li><a href="formaPagamento.html">Forma de pagamento</a></li>
+              <li class="active"><a href="confirmaCompra.html">Confirma Compra</a></li>
             </ul>
           </div>
 
@@ -41,13 +41,13 @@
         <!-- DADOS DO USUARIO -->
             <div class="container-dados">
 
-                <div class="dado">Plano selecionado: <p>Black</p></div>
+                <div class="dado">Plano selecionado: <p id="plano_cartao"></p></div>
 
-                <div class="dado">Nome do cartão: <p>GUSTAVO ALBINO PEREIRA</p></div>
+                <div class="dado">Nome do cartão: <p id="nome_cartao"></p></div>
 
-                <div class="dado">Número do cartão: <p>0000 0000 0000 0000</p></div>
+                <div class="dado">Número do cartão: <p id="numero_cartao"></p></div>
 
-                <div class="dado">Valor: <p style="color:#38da33;">R$349,99</p></div>
+                <div class="dado">Valor: <p style="color:#38da33;" id="valor_plano_cartao">R$</p></div>
 
             </div>
 
@@ -68,5 +68,49 @@
 </html>
 
 <script>
+        nome_cartao.innerHTML = sessionStorage.nomeCartao;
+        numero_cartao.innerHTML = sessionStorage.numeroCartao;
+        plano_cartao.innerHTML = sessionStorage.nomePlano;
+        valor_plano_cartao.innerHTML += sessionStorage.valorPlano;
+        var idEmpresa = sessionStorage.getItem("idEmpresa");
+        var idPlano = sessionStorage.getItem("idPlano");
+        var idCartao = sessionStorage.getItem("idCartao");
+
+        function confirmaCompra() {
+    fetch(`/cartao/updateCartao/${idEmpresa}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fkPlanoServer: idPlano,
+        fkCartaoServer: idCartao
+      })
+    }).then(function (resposta) {
+        console.log("Efetuando cadastro do cartão")
+        if(resposta.ok){
+            console.log(resposta);
+
+            resposta.json().then(json => {
+                console.log(json)
+                console.log(JSON.stringify(json));
+
+                setTimeout(function () {
+                        window.location = "cadastro.html";
+                    }, 1000); 
+
+            });
+        } else {
+            console.log("Houve um erro ao cadastrar o cartão")
+            resposta.text().then(texto => {
+            })
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      })
+    return false;
+  }
+
 
 </script>

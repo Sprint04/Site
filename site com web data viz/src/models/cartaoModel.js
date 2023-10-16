@@ -21,18 +21,17 @@ function cadastrar(nome, numero, data_expiracao, codigo_seguranca, fkTipoCartao,
     return database.executar(instrucao1);
 }
 
-// function cadastrar(nome, numero, data_expiracao, codigo_seguranca, fkTipoCartao, fkBandeiraCartao) {
-//     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, numero, data_expiracao, codigo_seguranca, fkTipoCartao, fkBandeiraCartao);
-    
-//     var instrucao1 = `
-//         INSERT INTO Cartao (nomeTitular, numero, dtExpiracao, numSeguranca, fkTipoCartao, fkBandeiraCartao
-//             ) VALUES ('${nome}', ${numero}, ${data_expiracao},${codigo_seguranca},${fkTipoCartao}, ${fkBandeiraCartao});
-//     `;
-//     // console.log("Executando a instrução SQL: \n" + instrucao1, instrucao2);
-//     return database.executar(instrucao1);
-// }
+function updateCartao(idEmpresa,idPlano,idCartao) {
+    console.log("ACESSEI O CARTAO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()", idCartao);
+    var instrucao = `
+        update Empresa set fkPlano = ${idPlano} ,fontePagamento = ${idCartao} where idEmpresa = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
     cadastrar,
-    recuperarIDCartao
+    recuperarIDCartao,
+    updateCartao
 };

@@ -12,4 +12,8 @@ router.post("/recuperarIDCartao", function (req, res) {
   cartaoController.recuperarIDCartao(req, res);
 });
 
+router.get("/updateCartao/:idEmpresa", function (req, res) {
+  cartaoController.listar(req, res);
+});
+
 module.exports = router;

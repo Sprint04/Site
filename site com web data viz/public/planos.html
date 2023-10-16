@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrackWare - Planos</title>
-    <link rel="stylesheet" href="/public/css/planos.css">
+    <link rel="stylesheet" href="css/planos.css">
     <link rel="shortcut icon" href="assets/logo-icon.png" type="image/x-icon">
 
 </head>
@@ -115,7 +115,7 @@
                 </div>
 
                 <div class="button-container">
-                  <button type="button">
+                  <button type="button" onclick="btnAssinarGratuito()">
                     Assinar
                   </button>
                 </div>
@@ -208,7 +208,7 @@
                 </div>
 
                 <div class="button-container">
-                  <button type="button">
+                  <button type="button" onclick="btnAssinarPurple()">
                     Assinar
                   </button>
                 </div>
@@ -304,7 +304,7 @@
                 </div>
 
                 <div class="button-container">
-                  <button type="button">
+                  <button type="button" onclick="btnAssinarBlack()">
                     Assinar
                   </button>
                 </div>
@@ -314,3 +314,32 @@
 
 </body>
 </html>
+
+<script>
+    function btnAssinarGratuito() {
+      setTimeout(function () {
+                        window.location = "formaPagamento.html";
+                    }, 1000); 
+                    sessionStorage.setItem('idPlano', '1');
+                    sessionStorage.setItem('nomePlano', 'Gratuito');
+                    sessionStorage.setItem('valorPlano', '0');
+    }
+
+    function btnAssinarPurple() {
+      setTimeout(function () {
+                        window.location = "formaPagamento.html";
+                    }, 1000); 
+                    sessionStorage.setItem('idPlano', '2');
+                    sessionStorage.setItem('nomePlano', 'Purple');
+                    sessionStorage.setItem('valorPlano', '99,90');
+    }
+
+    function btnAssinarBlack() {
+      setTimeout(function () {
+                        window.location = "formaPagamento.html";
+                    }, 1000); 
+                    sessionStorage.setItem('idPlano', '3');
+                    sessionStorage.setItem('nomePlano', 'Black');
+                    sessionStorage.setItem('valorPlano', '349,99');
+    }
+</script>
