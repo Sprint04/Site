@@ -13,15 +13,15 @@
 
     /* NAV BAR */
     .navbar {
-        width: 220.9vw;
+        width: 100vw;
         height: 12vh;
     }
 
     /* área da lista da navbar */
     .navbar-items ul {
-        font-size: 1rem;
+        font-size: .3rem;
         list-style: none;
-        margin-left: 8vw;
+        margin-left: -3vw;
         margin-top: 6vh;
     }
 
@@ -29,7 +29,7 @@
     /* INICIO HOME (SAIBA MAIS) */
     #homeMain {
         height: 110vh;
-        width: 205.2vw;
+        width: 100vw;
     }
 
     /* área onde fica todos os textos da home (saiba mais) */
@@ -39,7 +39,7 @@
 
     /* título: saiba mais */
     #TrackWare-titulo {
-        font-size: 8vh;
+        font-size: 6vh;
         width: 50vh;
     }
 
@@ -59,7 +59,7 @@
 
     /* sublinhado */
     .line-saiba-mais {
-        width: 45vh;
+        width: 36vh;
     }
 
     /* imagem home (saiba mais): gráficos e métricas*/
@@ -69,6 +69,7 @@
         position: relative;
         top: 13vh;
         right: 8vh;
+        display: none;
     }
 
     #imagemHome {
@@ -83,31 +84,32 @@
 
     /* SECTION: O QUE MONITORAMOS? */
     .back-sobre-nos {
-        width: 223.7vw;
+        width: 100vw;
     }
 
     .section-sobre {
         margin-top: 10vh;
-        width: 214vw;
+        width: 100vw;
         height: 80vh;
     }
 
     /* titulo */
     .texto-sobre-nos h1 {
-        left: 22vh;
+        left: 11vh;
     }
 
     /* sublinhado */
     .section-sobre .texto-sobre-nos .line {
-        left: 30vh;
+        left: 5vh;
     }
 
     /* texto 1 */
     .p1 {
         width: 65%;
         margin: 0;
-        left: 28vh;
+        left: 10vh;
         text-align: justify;
+        font-size: 1.6vh;
     }
 
 
@@ -115,7 +117,7 @@
 
     .section-analise {
         margin-top: 20vh;
-        width: 223.5vw;
+        width: 100vw;
         height: 120vh;
     }
 
@@ -128,7 +130,7 @@
     /* titulo */
     .analise-dados .texto-analise h1 {
         width: 75%;
-        left: 17vh;
+        left: 5vh;
         line-height: 8vh;
     }
 
@@ -139,51 +141,103 @@
         background-color: #8800ff;
         position: relative;
         bottom: 10vh;
-        left: 17vh;
+        left: -1vh;
     }
 
     /* texto */
     .analise-dados .texto-analise .p1 {
         width: 75%;
-        left: 19vh;
+        left: 5vh;
         text-align: justify;
+        font-size: 1.9vh;
+        line-height: 25px;
     }
 
     /* o retângulo interio ocupando toda a largura da página */
     .cards {
-        margin-top: 0vh;
+        margin-top: 10vh;
+        margin-left: -3vw;
     }
 
+    /* cada retângulo dentro do retângulo maior */
+.card1-analise{
+    background-color: #4f0081;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 20vh;
+    font-size: 1.5vh;
+    color: #ffffff;
+}
+
+.card2-analise{
+    background-color: #6700a6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 20vh;
+    font-size: 1.5vh;
+    color: #ffffff;
+}
+
+.card3-analise{
+    background-color: #7c00c9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 20vh;
+    font-size: 1.5vh;
+    color: #ffffff;
+}
+
+.card4-analise{
+    background-color: #9d00ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 20vh;
+    font-size: 1.4vh;
+    color: #ffffff;
+}
 
 
     /* SECTION: PORQUE EMPRESAS DE LOGÍSTICA?*/
     .back-logistica .porque-logistica {
-        width: 223.7vw;
+        width: 100vw;
     }
 
     .section-logistica {
         margin-top: 20vh;
-        width: 214vw;
+        width: 100vw;
         height: 120vh;
     }
 
     /* área que engloba a section */
     .porque-logistica {
         margin-top: 10vh;
-        width: 214vw;
+        width: 100vw;
         height: 120vh;
     }
 
     /* título */
     .h1 {
-        left: 18vh;
+        left: 6vh;
         line-height: 8vh;
+        font-size: 4vh;
     }
 
     /* sublinhado */
     .section-logistica .texto-porque-logistica .line {
         width: 65vh;
-        left: 31vh;
+        left: -2vh;
     }
 
     /* área do texto */
@@ -194,8 +248,9 @@
     /* texto */
     .texto-porque-logistica .p1 {
         width: 70%;
-        left: 20vh;
+        left: 6vh;
         margin-top: 10vh;
+        font-size: 1.7vh;
     }
 
     /* imagem: homem levando caixas */
@@ -205,24 +260,24 @@
 
     /* SECTION: FRASE DO QUE A TRACKWARE DESEJA OFERECER */
     .frase .frase-trackware {
-        width: 223.5vw;
+        width: 100vw;
     }
 
     .section-frase {
         margin-top: 5vh;
-        width: 214vw;
+        width: 100vw;
         height: 120vh;
     }
 
     .texto-analise {
-        width: 214vw;
+        width: 100vw;
     }
 
     /* área que engloba a section */
     .frase-trackware {
         margin-top: 5vh;
         background-color: #000000;
-        width: 214vw;
+        width: 100vw;
         height: 70vh;
     }
 
@@ -237,7 +292,7 @@
 
     /* SECTION: INFORMAÇÕES RELEVANTES SOBRE NOSSOS SERVIÇOS */
     .servicos {
-        width: 214vw;
+        width: 100vw;
     }
 
     /* titulo */
@@ -294,7 +349,7 @@
 
     .back-footer {
         margin-top: 500vw;
-        width: 224.9vw;
+        width: 100vw;
         height: 50vw;
     }
 

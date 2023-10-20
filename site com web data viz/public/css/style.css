@@ -578,7 +578,7 @@ body {
 /* nome dos integrantes */
 #nome-equipe {
     font-size: x-large;
-    color: #2A327A;
+    color: black;
     font-family: 'Poppins', sans-serif;
     position: relative;
     top: 1vh;
@@ -593,6 +593,7 @@ body {
     position: relative;
     bottom: 1vh;
     opacity: 0.8;
+    color: black;
 }
 
 /* SECTION: QUER FAZER PARTE DO NOSSO TIME? */
