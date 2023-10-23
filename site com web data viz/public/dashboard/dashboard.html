@@ -21,6 +21,7 @@
             <div class="opcoes_menu_dashboard">
                 <button>Usuário</button>
                 <button>Funcionários</button>
+                <button>Planos</button>
                 <button>Monitoramento</button>
                 <button>Alertas</button>
                 <button>Chamados</button>
@@ -41,7 +42,6 @@
                     <div class="botao_maquina">
                         <select name="" id="">
                             <option value="">Máquina 1</option>
-                            <option value="">Máquina 2</option>
                         </select>
                     </div>
                 </div>
@@ -50,44 +50,47 @@
                 <span>Empresa Cliente</span>
             </div>
             <div class="container_cards_monitoramento">
-                <div class="card">
-                    <span class="tipo_componente">CPU</span>
-                    <div class="dado_monitoramento">
-                        <span class="dado">20%</span>
-                        <span class="tipo_utilizacao">Processador</span>
+                <button class="card">
+                    <div class="container_dados_botao">
+                        <span class="tipo_componente">CPU</span>
+                        <div class="dado_monitoramento">
+                            <span class="dado">0%</span>
+                            <span class="tipo_utilizacao">Utilizado</span>
+                        </div>
                     </div>
-                    <div class="card_grafico">
+                </button>
+                <button class="card">
+                    <div class="container_dados_botao">
+                        <span class="tipo_componente">RAM</span>
+                        <div class="dado_monitoramento">
+                            <span class="dado">0%</span>
+                            <span class="tipo_utilizacao">Utilizada</span>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <span class="tipo_componente">RAM</span>
-                    <div class="dado_monitoramento">
-                        <span class="dado">60%</span>
-                        <span class="tipo_utilizacao">Utilização</span>
+                </button>
+                <button class="card">
+                    <div class="container_dados_botao">
+                        <span class="tipo_componente">DISCO</span>
+                        <div class="dado_monitoramento">
+                            <span class="dado">0%</span>
+                            <span class="tipo_utilizacao">Utilizado</span>
+                        </div>
                     </div>
-                    <div class="card_grafico">
+                </button>
+                <button class="card">
+                    <div class="container_dados_botao">
+                        <span class="tipo_componente">REDE</span>
+                        <div class="dado_monitoramento">
+                            <span class="dado">0</span>
+                            <span class="tipo_utilizacao">Bytes</span>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <span class="tipo_componente">DISCO</span>
-                    <div class="dado_monitoramento">
-                        <span class="dado">40%</span>
-                        <span class="tipo_utilizacao">Utilização</span>
-                    </div>
-                    <div class="card_grafico">
-                    </div>
-                </div>
-                <div class="card">
-                    <span class="tipo_componente">REDE</span>
-                    <div class="dado_monitoramento">
-                        <span class="dado">200</span>
-                        <span class="tipo_utilizacao">Bytes</span>
-                    </div>
-                </div>
+                </button>
             </div>
             <!-- gráfico abaixo !!! -->
-            <div>
-                <canvas id="myChart" style="background-color:rgb(233, 233, 233)"></canvas>
+            <div class="container_grafico">
+                <canvas id="Grafico_Principal">
+                </canvas>
             </div>
         </div>
     </div>
@@ -118,8 +121,64 @@
 
     
 </script> -->
-<!-- script config do Grafico, fetch & plot -->
 <script>
+    var ctx = document.getElementById('Grafico_Principal').getContext('2d');
+
+    let label_teste = [];
+
+    var data = {
+        labels: ['Atualização a cada 5 minutos'],
+        datasets: [{
+            label: 'CPU',
+            backgroundColor: 'green',
+            borderColor: 'black',
+            fill: false,
+            data: [10],
+            tension: 0.1
+        },
+
+        {
+            label: 'RAM',
+            backgroundColor: 'red',
+            borderColor: 'black',
+            fill: false,
+            data: [75],
+            tension: 0.1
+        },
+
+        {
+            label: 'DISCO',
+            backgroundColor: 'blue',
+            borderColor: 'black',
+            fill: false,
+            data: [55],
+            tension: 0.1
+        }
+        ]
+    };
+
+    var options = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monitoração dos principais componentes (Em %)',
+                font: {
+                    size: 16,
+                    color: '#ff5733' // Altere a cor aqui
+                }
+            }
+        }
+    };
+
+    var Grafico_Principal = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+</script>
+<!-- script config do Grafico, fetch & plot -->
+<!-- <script>
 
     function obterDadosGrafico() {
         fetch(`/dashboard/obterDadosGrafico`, { cache: 'no-store' }).then(function (response) {
@@ -176,10 +235,10 @@
             // dados.datasets[0].data.push(registro.Novo_Testamento);
             // dados.datasets[1].data.push(registro.temperatura);
         }
-        
+
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
     }
     // setInterval(plotarGrafico, 3000);
-</script>
+</script> -->

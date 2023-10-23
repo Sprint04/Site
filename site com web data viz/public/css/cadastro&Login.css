@@ -63,10 +63,9 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -6vh;
+    margin-top: 2vh;
     background-color:white;
     border-radius: 30px;
-    
 }
 
 .container2 {
