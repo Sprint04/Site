@@ -50,7 +50,7 @@
                 <span>Empresa Cliente</span>
             </div>
             <div class="container_cards_monitoramento">
-                <button class="card">
+                <button class="card" onclick="chamar_grafico_cpu()">
                     <div class="container_dados_botao">
                         <span class="tipo_componente">CPU</span>
                         <div class="dado_monitoramento">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </button>
-                <button class="card">
+                <button class="card" onclick="chamar_grafico_ram()">
                     <div class="container_dados_botao">
                         <span class="tipo_componente">RAM</span>
                         <div class="dado_monitoramento">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </button>
-                <button class="card">
+                <button class="card" onclick="chamar_grafico_disco()">
                     <div class="container_dados_botao">
                         <span class="tipo_componente">DISCO</span>
                         <div class="dado_monitoramento">
@@ -89,7 +89,13 @@
             </div>
             <!-- gráfico abaixo !!! -->
             <div class="container_grafico">
-                <canvas id="Grafico_Principal">
+                <canvas id="Grafico_Principal" style="display: block;">
+                </canvas>
+                <canvas id="Grafico_Cpu" style="display: none;">
+                </canvas>
+                <canvas id="Grafico_Ram" style="display: none;">
+                </canvas>
+                <canvas id="Grafico_Disco" style="display: none;">
                 </canvas>
             </div>
         </div>
@@ -122,60 +128,270 @@
     
 </script> -->
 <script>
-    var ctx = document.getElementById('Grafico_Principal').getContext('2d');
+    plotar_grafico_principal()
+    plotar_grafico_cpu()
+    plotar_grafico_ram()
+    plotar_grafico_disco()
 
-    let label_teste = [];
+    var grafico_principal_ativado = 1;
+    var grafico_cpu_ativado = 0;
+    var grafico_ram_ativado = 0;
+    var grafico_disco_ativado = 0;
 
-    var data = {
-        labels: ['Atualização a cada 5 minutos'],
-        datasets: [{
-            label: 'CPU',
-            backgroundColor: 'green',
-            borderColor: 'black',
-            fill: false,
-            data: [10],
-            tension: 0.1
-        },
+    function chamar_grafico_cpu() {
+        if (grafico_cpu_ativado == 0) {
+            grafico_cpu_ativado = 1;
+            Grafico_Cpu.style.display = "block"
 
-        {
-            label: 'RAM',
-            backgroundColor: 'red',
-            borderColor: 'black',
-            fill: false,
-            data: [75],
-            tension: 0.1
-        },
+            grafico_principal_ativado = 0;
+            Grafico_Principal.style.display = "none"
 
-        {
-            label: 'DISCO',
-            backgroundColor: 'blue',
-            borderColor: 'black',
-            fill: false,
-            data: [55],
-            tension: 0.1
+            grafico_ram_ativado = 0;
+            Grafico_Ram.style.display = "none"
+
+            grafico_disco_ativado = 0;
+            Grafico_Disco.style.display = "none"
+        } else {
+            grafico_principal_ativado = 1;
+            Grafico_Principal.style.display = "block"
+
+            grafico_cpu_ativado = 0;
+            Grafico_Cpu.style.display = "none"
+
+            grafico_ram_ativado = 0;
+            Grafico_Ram.style.display = "none"
+
+            grafico_disco_ativado = 0;
+            Grafico_Disco.style.display = "none"
         }
-        ]
-    };
+    }
 
-    var options = {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monitoração dos principais componentes (Em %)',
-                font: {
-                    size: 16,
-                    color: '#ff5733' // Altere a cor aqui
+    function chamar_grafico_ram(){
+        if (grafico_ram_ativado == 0) {
+            grafico_cpu_ativado = 0;
+            Grafico_Cpu.style.display = "none"
+
+            grafico_principal_ativado = 0;
+            Grafico_Principal.style.display = "none"
+
+            grafico_ram_ativado = 1;
+            Grafico_Ram.style.display = "block"
+
+            grafico_disco_ativado = 0;
+            Grafico_Disco.style.display = "none"
+        } else {
+            grafico_principal_ativado = 1;
+            Grafico_Principal.style.display = "block"
+
+            grafico_cpu_ativado = 0;
+            Grafico_Cpu.style.display = "none"
+
+            grafico_ram_ativado = 0;
+            Grafico_Ram.style.display = "none"
+
+            grafico_disco_ativado = 0;
+            Grafico_Disco.style.display = "none"
+        }
+    }
+
+    function chamar_grafico_disco(){
+        if (grafico_disco_ativado == 0) {
+            grafico_cpu_ativado = 0;
+            Grafico_Cpu.style.display = "none"
+
+            grafico_principal_ativado = 0;
+            Grafico_Principal.style.display = "none"
+
+            grafico_ram_ativado = 0;
+            Grafico_Ram.style.display = "none"
+
+            grafico_disco_ativado = 1;
+            Grafico_Disco.style.display = "block"
+        } else {
+            grafico_principal_ativado = 1;
+            Grafico_Principal.style.display = "block"
+
+            grafico_cpu_ativado = 0;
+            Grafico_Cpu.style.display = "none"
+
+            grafico_ram_ativado = 0;
+            Grafico_Ram.style.display = "none"
+
+            grafico_disco_ativado = 0;
+            Grafico_Disco.style.display = "none"
+        }
+    }
+
+    function plotar_grafico_cpu() {
+        var ctx = document.getElementById('Grafico_Cpu').getContext('2d');
+
+        let label_teste = [];
+
+        var data = {
+            labels: ['Há 20s', 'Há 15s', 'Há 10s', 'Há 5s', 'Atual'],
+            datasets: [{
+                label: 'CPU',
+                backgroundColor: 'lightgreen',
+                borderColor: 'darkgreen',
+                fill: false,
+                data: [10, 9, 11, 7, 2],
+                tension: 0.1
+            }]
+        };
+
+        var options = {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monitoração da utilização da CPU (Em %) a cada 5 segundos',
+                    font: {
+                        size: 16,
+                        color: '#ff5733' // Altere a cor aqui
+                    }
                 }
             }
-        }
-    };
+        };
 
-    var Grafico_Principal = new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: options
-    });
+        var Grafico_Cpu = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+    }
+
+    function plotar_grafico_ram() {
+        var ctx = document.getElementById('Grafico_Ram').getContext('2d');
+
+        let label_teste = [];
+
+        var data = {
+            labels: ['Há 20s', 'Há 15s', 'Há 10s', 'Há 5s', 'Atual'],
+            datasets: [{
+                label: 'Ram',
+                backgroundColor: 'lightblue',
+                borderColor: 'darkblue',
+                fill: false,
+                data: [97, 94, 95, 91, 96],
+                tension: 0.1
+            }]
+        };
+
+        var options = {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monitoração da utilização da RAM (Em %) a cada 5 segundos',
+                    font: {
+                        size: 16,
+                        color: '#ff5733' // Altere a cor aqui
+                    }
+                }
+            }
+        };
+
+        var Grafico_Principal = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+    }
+
+    function plotar_grafico_disco() {
+        var ctx = document.getElementById('Grafico_Disco').getContext('2d');
+
+        let label_teste = [];
+
+        var data = {
+            labels: ['Há 20s', 'Há 15s', 'Há 10s', 'Há 5s', 'Atual'],
+            datasets: [{
+                label: 'Ram',
+                backgroundColor: 'red',
+                borderColor: 'darkred',
+                fill: false,
+                data: [57, 56, 56, 56, 56],
+                tension: 0.1
+            }]
+        };
+
+        var options = {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monitoração da utilização do Disco (Em %) a cada 5 segundos',
+                    font: {
+                        size: 16,
+                        color: '#ff5733' // Altere a cor aqui
+                    }
+                }
+            }
+        };
+
+        var Grafico_Principal = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+    }
+
+    function plotar_grafico_principal() {
+        var ctx = document.getElementById('Grafico_Principal').getContext('2d');
+
+        let label_teste = [];
+
+        var data = {
+            labels: ['Atualização a cada 5 minutos'],
+            datasets: [{
+                label: 'CPU',
+                backgroundColor: 'green',
+                borderColor: 'black',
+                fill: false,
+                data: [10],
+                tension: 0.1
+            },
+
+            {
+                label: 'RAM',
+                backgroundColor: 'red',
+                borderColor: 'black',
+                fill: false,
+                data: [75],
+                tension: 0.1
+            },
+
+            {
+                label: 'DISCO',
+                backgroundColor: 'blue',
+                borderColor: 'black',
+                fill: false,
+                data: [55],
+                tension: 0.1
+            }
+            ]
+        };
+
+        var options = {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monitoração dos principais componentes (Em %)',
+                    font: {
+                        size: 16,
+                        color: '#ff5733' // Altere a cor aqui
+                    }
+                }
+            }
+        };
+
+        var Grafico_Principal = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    }
 </script>
 <!-- script config do Grafico, fetch & plot -->
 <!-- <script>
