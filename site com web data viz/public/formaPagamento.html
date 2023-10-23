@@ -349,7 +349,7 @@
         </div>
 
         <div class="button-container">
-          <button onclick="btnCadastrarCartao()">Adicionar cartão</button>
+          <button onclick="btnConfirmaCartao()">Adicionar cartão</button>
         </div>
       </div>
     </div>
@@ -361,7 +361,7 @@
 </html>
 
 <script>
-  function btnCadastrarCartao() {
+  function btnConfirmaCartao() {
     var nome_titularVar = nome_input.value;
     var numero_cartaoVar = numero_cartao_input.value;
     var data_expiracaoVar = data_expiracao_input.value;
@@ -393,86 +393,16 @@
 
     var data_expiracaoVar_formatado = a + u + p + d;
 
-    fetch("/cartao/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeServer: nome_titularVar,
-        numeroServer: numero_cartaoVar_formatado,
-        data_expiracaoServer: data_expiracaoVar_formatado,
-        codigo_segurancaServer: codigo_segurancaVar,
-        fkTipoCartaoServer: tipo_cartaoVar,
-        fkBandeiraCartaoServer: bandeira_cartaoVar
-      })
-    }).then(function (resposta) {
-        console.log("Efetuando cadastro do cartão")
-        if(resposta.ok){
-            console.log(resposta);
+                    // sessionStorage.setItem('idCartao', JSON.stringify(json.idCartao));
+                    sessionStorage.setItem('nomeCartao', nome_titularVar);
+                    sessionStorage.setItem('numeroCartao', numero_cartaoVar_formatado);
+                    sessionStorage.setItem('dtExpircao', data_expiracaoVar_formatado);
+                    sessionStorage.setItem('codSeguranca', codigo_segurancaVar);
+                    sessionStorage.setItem('bandCartao', bandeira_cartaoVar);
+                    sessionStorage.setItem('tipoCartao', tipo_cartaoVar);
 
-            resposta.json().then(json => {
-                console.log(json)
-                console.log(JSON.stringify(json));
+    window.location.href = "confirmaCompra.html";
 
-                setTimeout(function () {
-                        window.location = "confirmaCompra.html";
-                    }, 1000); 
-
-            });
-        } else {
-            console.log("Houve um erro ao cadastrar o cartão")
-            resposta.text().then(texto => {
-            })
-        }
-      })
-      .catch(function (erro) {
-        console.log(erro);
-      })
-    setTimeout(recuperarIDCartao, 250)
-    return false;
-  }
-
-  function recuperarIDCartao() {
-    var numero_cartaoVar = numero_cartao_input.value;
-    var numero_cartaoVar_formatado = numero_cartaoVar.split(" ").join("");
-
-    fetch("/cartao/recuperarIDCartao", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        numeroServer: numero_cartaoVar_formatado
-
-      })
-    }).then(function (resposta) {
-      console.log("ESTOU NO THEN do Autenticar Recuperar()!")
-
-      if (resposta.ok) {
-        console.log(resposta);
-
-        resposta.json().then(json => {
-          console.log(json);
-          console.log(JSON.stringify(json));
-
-          sessionStorage.setItem('idCartao', JSON.stringify(json.idCartao));
-          sessionStorage.setItem('nomeCartao', JSON.stringify(json.nomeTitular));
-          sessionStorage.setItem('numeroCartao', JSON.stringify(json.numero));
-        //   console.log(sessionStorage.getItem('idCartao'));
-        });
-      } else {
-        console.log("Houve um erro ao tentar cadastrar a empresa!");
-
-        resposta.text().then(texto => {
-          console.error(texto);
-        })
-      }
-    }).catch(function (erro) {
-      console.log(erro);
-    })
-
-    return false;
   }
 
   window.onload = function () {
