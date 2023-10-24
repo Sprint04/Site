@@ -1,0 +1,87 @@
+.funcionario{
+    border: 5px solid black;
+    border-radius: 10px;
+    width: 30%;
+    height: 50%;
+    margin-left: 10%;
+    text-align: center;
+    padding: 3%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.funcionario_titulo{
+    position: relative;
+    left: -.1%;
+}
+.funcionario_lista{
+    top: 10%;
+    position: relative;
+    width: 80%;
+    left: 8.5%;
+    height: 70%;
+    border: 1px solid black;
+    padding: 2%;
+    text-align: start;
+}
+.texto_meio{
+    text-align: center;
+}
+.crud{
+    position: absolute;
+    right: 5%;
+    top: 30%;
+    border: solid black 1px;
+    width: 30%;
+    height: 50%;
+    flex-direction: row;
+}
+.crudInput{
+    height: 5%;
+    width: 10%;
+    position: relative;
+    top: 10%;
+    left: 7%;
+}
+.crudInput .titulo{
+    font-size: large;
+    font-weight: 900;
+}
+.crudInput input{
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.adicionarFunci{
+    position: absolute;
+    border: solid black 1px;
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    top: 15%;
+}
+.adicionarFunci .inputs{
+    position: absolute;
+    top: 20%;
+    left: 18%;
+}
+.adicionarFunci .inputs input, .adicionarFunci .inputs select{
+    border: none;
+    display: flex;
+    border-bottom: 1px solid black;
+    width: 150%;
+    text-align: center;
+    margin: 10%;
+}
+.adicionarFunci h2{
+    position: absolute;
+    top: 10%;
+    left: 23%;
+}
+
+.adicionarFunci button{
+    position: relative;
+    top: 80%;
+    width: 22%;
+    left: 40%;
+}
