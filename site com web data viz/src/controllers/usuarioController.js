@@ -89,7 +89,7 @@ function cadastrarTelefone(req, res) {
     }
 }
 
-function usuarioLogin(){
+function usuarioLogin(req, res){
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
