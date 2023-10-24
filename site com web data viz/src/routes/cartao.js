@@ -13,7 +13,7 @@ router.post("/recuperarIDCartao", function (req, res) {
 });
 
 router.get("/updateCartao/:idEmpresa", function (req, res) {
-  cartaoController.listar(req, res);
+  cartaoController.updateCartao(req, res);
 });
 
 module.exports = router;
