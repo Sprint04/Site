@@ -1,0 +1,25 @@
+.historico{
+    border: 5px solid black;
+    border-radius: 10px;
+    width: 70%;
+    height: 50%;
+    margin-left: 10%;
+    text-align: center;
+    padding: 3%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.historico_titulo{
+    position: relative;
+    left: -.1%;
+}
+.historico_lista{
+    top: 10%;
+    position: relative;
+    width: 40%;
+    left: 27.5%;
+    height: 70%;
+    border: 1px solid black;
+    padding: 2%;
+}
