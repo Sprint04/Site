@@ -271,6 +271,7 @@
 
     .texto-analise {
         width: 100vw;
+        font-size: 1vw;
     }
 
     /* área que engloba a section */
@@ -284,8 +285,10 @@
     /* frase */
     .frase-trackware .texto-frase .h1 {
         width: 95%;
-        left: 5vh;
+        left: 0;
         margin-top: 10vh;
+        font-size: 5vw;
+        text-align: center;
     }
 
 
@@ -298,14 +301,15 @@
     /* titulo */
     .servicos .texto-infos .h1 {
         line-height: 8vh;
-        left: 35vh;
+        left: 22vh;
+        font-size: 10vw;
     }
 
     /* sublinhado */
     .servicos .texto-infos .line {
         height: 5px;
         width: 49vh;
-        left: 38vh;
+        left: 23vh;
         line-height: 20vh;
         margin-bottom: 10vh;
         color: white;
@@ -314,8 +318,7 @@
     /* área que engloba todas as caixas */
     .servicosDesc {
         height: 40vh;
-        width: 114vw;
-        left: -25vh;
+        width: 100vw;
         margin-top: -180vh;
         margin-bottom: -100vh;
     }
@@ -323,22 +326,29 @@
     /* área das caixas */
     .servicoBox {
         height: 76vh;
-        width: 90vh;
+        width: 77vh;
     }
 
 
     /* subtitulos em cada uma das caixas */
     .servicos .servicosDesc h2 {
-        display: flex;
         text-align: center;
         top: 4vh;
-        left: 7vh;
+        left: 16vh;
+        margin-bottom: 7vh;
+        font-size: 2.8vh;
     }
 
     /* texto dentro das caixas */
-    .texto {
-        width: 82%;
+    .servicos .servicosDesc .texto {
+        width: 70%;
+        left: 18vh;
         text-align: justify;
+        font-size: 2.3vh;
+    }
+
+    .servicos label {
+        width: 100vw;
     }
 
 
