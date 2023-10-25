@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="obterDadosGrafico()">
+<body>
     <div class="container_pagina">
         <div class="menu_dashboard">
             <div class="container_logo_menu_dashboard">
@@ -103,7 +103,7 @@
 </body>
 
 </html>
-
+<!-- parte do GU -->
 <script>
     function btnPlanos() {
         window.location.href = "../planos.html"
@@ -112,34 +112,12 @@
     function btnChamado() {
         window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
     }
-    function btnHistorico(){
+    function btnHistorico() {
         window.location.href = "historico.html"
     }
 </script>
 
-<!-- script características do Gráfico -->
-<!-- <script>
-    const labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-    ];
-
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'CPU usage',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [],
-        }]
-    };
-
-    
-</script> -->
+<!-- script config do Grafico, fetch & plot -->
 <script>
     plotar_grafico_principal()
     plotar_grafico_cpu()
@@ -164,6 +142,7 @@
 
             grafico_disco_ativado = 0;
             Grafico_Disco.style.display = "none"
+
         } else {
             grafico_principal_ativado = 1;
             Grafico_Principal.style.display = "block"
@@ -179,7 +158,7 @@
         }
     }
 
-    function chamar_grafico_ram(){
+    function chamar_grafico_ram() {
         if (grafico_ram_ativado == 0) {
             grafico_cpu_ativado = 0;
             Grafico_Cpu.style.display = "none"
@@ -207,7 +186,7 @@
         }
     }
 
-    function chamar_grafico_disco(){
+    function chamar_grafico_disco() {
         if (grafico_disco_ativado == 0) {
             grafico_cpu_ativado = 0;
             Grafico_Cpu.style.display = "none"
@@ -236,41 +215,70 @@
     }
 
     function plotar_grafico_cpu() {
-        var ctx = document.getElementById('Grafico_Cpu').getContext('2d');
+        console.log("oi césar")
+        obterDadosGrafico()
 
-        let label_teste = [];
+        function obterDadosGrafico() {
+            fetch(`/dashboard/obterDadosGrafico`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
 
-        var data = {
-            labels: ['Há 20s', 'Há 15s', 'Há 10s', 'Há 5s', 'Atual'],
-            datasets: [{
-                label: 'CPU',
-                backgroundColor: 'lightgreen',
-                borderColor: 'darkgreen',
-                fill: false,
-                data: [10, 9, 11, 7, 2],
-                tension: 0.1
-            }]
-        };
-
-        var options = {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Monitoração da utilização da CPU (Em %) a cada 5 segundos',
-                    font: {
-                        size: 16,
-                        color: '#ff5733' // Altere a cor aqui
-                    }
+                        plotarGrafico(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
                 }
-            }
-        };
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
 
-        var Grafico_Cpu = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: options
-        });
+        function plotarGrafico(resposta) {
+            // Criando estrutura para plotar gráfico - labels
+            let labels = [];
+            // 
+            // Criando estrutura para plotar gráfico - dados
+            let data = {
+                labels: labels,
+                datasets: [{
+                    label: 'CPU usage',
+                    data: [],
+                    backgroundColor: ['rgb(0, 99, 140)', 'rgb(0, 99, 90)'],
+                    borderColor: '#fff',
+                    borderwidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+            };
+
+            console.log('iniciando plotagem do gráfico...');
+            const Grafico_Cpu = new Chart(
+                document.getElementById('Grafico_Cpu'),
+                config
+            );
+
+            // Inserindo valores recebidos em estrutura para plotar o gráfico
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                // labels.push(registro.Novo_Testamento);
+                labels.push(registro.dtHora);
+                data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
+                // dados.datasets[0].data.push(registro.Novo_Testamento);
+                // dados.datasets[1].data.push(registro.temperatura);
+            }
+
+            console.log('----------------------------------------------')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log(resposta)
+        }
+
+        // setInterval(plotarGrafico, 3000);
     }
 
     function plotar_grafico_ram() {
@@ -406,7 +414,8 @@
         });
     }
 </script>
-<!-- script config do Grafico, fetch & plot -->
+
+<!-- Meu script -->
 <!-- <script>
 
     function obterDadosGrafico() {
