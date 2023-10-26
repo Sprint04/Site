@@ -152,7 +152,7 @@ insert into permissionamento value
     
 CREATE TABLE usuario (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR (30),
+    nomeUsuario VARCHAR (30),
     sobrenome VARCHAR (100),
     CPF CHAR (11),
     email_Corporativo VARCHAR (80),
@@ -367,7 +367,12 @@ select * from usuario;
 select * from telefone;
 select * from cartao;
 
-SELECT * FROM usuario JOIN empresa ON idEmpresa = fkEmpresa WHERE email_Corporativo = 'tom@gmail.com' AND senha = 'Tom4002!';
+SELECT 
+usuario.nomeUsuario as "nomeUsuario",
+usuario.email_Corporativo,
+usuario.idUsuario,
+empresa.idEmpresa,
+empresa.nome as "nomeEmpresa" FROM usuario JOIN empresa ON idEmpresa = fkEmpresa WHERE email_Corporativo = 'tom@gmail.com' AND senha = 'Tom4002!';
 
 desc telefone;
 delete from endereco where idEndereco = 29;
