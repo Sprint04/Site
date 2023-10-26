@@ -1,8 +1,8 @@
 var dashboardModel = require("../models/dashboardModel");
 
-function buscarUltimasMedidas(res, res) {
+function buscarUltimasMedidasCPU(res, res) {
 
-    dashboardModel.buscarUltimasMedidas().then(function (resultado) {
+    dashboardModel.buscarUltimasMedidasCPU().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -15,6 +15,35 @@ function buscarUltimasMedidas(res, res) {
     });
 }
 
+function buscarUltimasMedidasRAM(res, res) {
+
+    dashboardModel.buscarUltimasMedidasRAM().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarUltimasMedidasDISCO(res, res) {
+
+    dashboardModel.buscarUltimasMedidasDISCO().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 // function buscarMedidasEmTempoReal(req, res) {
 
@@ -36,7 +65,9 @@ function buscarUltimasMedidas(res, res) {
 // }
 
 module.exports = {
-    buscarUltimasMedidas
+    buscarUltimasMedidasCPU,
+    buscarUltimasMedidasRAM,
+    buscarUltimasMedidasDISCO
     // buscarMedidasEmTempoReal
 
 }

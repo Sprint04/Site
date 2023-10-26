@@ -230,16 +230,16 @@
 
     function plotar_grafico_cpu() {
         console.log("oi césar")
-        obterDadosGrafico()
+        obterDadosGraficoCPU()
 
-        function obterDadosGrafico() {
-            fetch(`/dashboard/obterDadosGrafico`, { cache: 'no-store' }).then(function (response) {
+        function obterDadosGraficoCPU() {
+            fetch(`/dashboard/obterDadosGraficoCPU`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta.reverse();
 
-                        plotarGrafico(resposta);
+                        plotarGrafico_CPU(resposta);
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -250,7 +250,7 @@
                 });
         }
 
-        function plotarGrafico(resposta) {
+        function plotarGrafico_CPU(resposta) {
             // Criando estrutura para plotar gráfico - labels
             let labels = [];
             // 
@@ -261,7 +261,7 @@
                     label: 'CPU usage',
                     data: [],
                     backgroundColor: ['rgb(0, 99, 140)', 'rgb(0, 99, 90)'],
-                    borderColor: '#fff',
+                    borderColor: 'blue',
                     borderwidth: 1
                 }]
             };
@@ -296,79 +296,137 @@
     }
 
     function plotar_grafico_ram() {
-        var ctx = document.getElementById('Grafico_Ram').getContext('2d');
+        console.log("oi césar")
+        obterDadosGraficoRAM()
 
-        let label_teste = [];
+        function obterDadosGraficoRAM() {
+            fetch(`/dashboard/obterDadosGraficoRAM`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
 
-        var data = {
-            labels: ['Há 20s', 'Há 15s', 'Há 10s', 'Há 5s', 'Atual'],
-            datasets: [{
-                label: 'Ram',
-                backgroundColor: 'lightblue',
-                borderColor: 'darkblue',
-                fill: false,
-                data: [97, 94, 95, 91, 96],
-                tension: 0.1
-            }]
-        };
-
-        var options = {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Monitoração da utilização da RAM (Em %) a cada 5 segundos',
-                    font: {
-                        size: 16,
-                        color: '#ff5733' // Altere a cor aqui
-                    }
+                        plotarGrafico_RAM(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
                 }
-            }
-        };
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
 
-        var Grafico_Principal = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: options
-        });
+        function plotarGrafico_RAM(resposta) {
+            // Criando estrutura para plotar gráfico - labels
+            let labels = [];
+            // 
+            // Criando estrutura para plotar gráfico - dados
+            let data = {
+                labels: labels,
+                datasets: [{
+                    label: 'RAM usage',
+                    data: [],
+                    backgroundColor: ['rgb(120, 20, 20)', 'rgb(150, 20, 10)'],
+                    borderColor: 'red',
+                    borderwidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+            };
+
+            console.log('iniciando plotagem do gráfico...');
+            const Grafico_Ram = new Chart(
+                document.getElementById('Grafico_Ram'),
+                config
+            );
+
+            // Inserindo valores recebidos em estrutura para plotar o gráfico
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                // labels.push(registro.Novo_Testamento);
+                labels.push(registro.dtHora);
+                data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
+                // dados.datasets[0].data.push(registro.Novo_Testamento);
+                // dados.datasets[1].data.push(registro.temperatura);
+            }
+
+            console.log('----------------------------------------------')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log(resposta)
+        }
+
+        // setInterval(plotarGrafico, 3000);
     }
 
     function plotar_grafico_disco() {
-        var ctx = document.getElementById('Grafico_Disco').getContext('2d');
+        console.log("oi césar")
+        obterDadosGraficoDISCO()
 
-        let label_teste = [];
+        function obterDadosGraficoDISCO() {
+            fetch(`/dashboard/obterDadosGraficoDISCO`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
 
-        var data = {
-            labels: ['Há 20s', 'Há 15s', 'Há 10s', 'Há 5s', 'Atual'],
-            datasets: [{
-                label: 'Ram',
-                backgroundColor: 'red',
-                borderColor: 'darkred',
-                fill: false,
-                data: [57, 56, 56, 56, 56],
-                tension: 0.1
-            }]
-        };
-
-        var options = {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Monitoração da utilização do Disco (Em %) a cada 5 segundos',
-                    font: {
-                        size: 16,
-                        color: '#ff5733' // Altere a cor aqui
-                    }
+                        plotarGrafico_DISCO(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
                 }
-            }
-        };
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
 
-        var Grafico_Principal = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: options
-        });
+        function plotarGrafico_DISCO(resposta) {
+            // Criando estrutura para plotar gráfico - labels
+            let labels = [];
+            // 
+            // Criando estrutura para plotar gráfico - dados
+            let data = {
+                labels: labels,
+                datasets: [{
+                    label: 'DISCO usage',
+                    data: [],
+                    backgroundColor: ['rgb(0, 90, 40)', 'rgb(0, 99, 90)'],
+                    borderColor: 'green',
+                    borderwidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+            };
+
+            console.log('iniciando plotagem do gráfico...');
+            const Grafico_Disco = new Chart(
+                document.getElementById('Grafico_Disco'),
+                config
+            );
+
+            // Inserindo valores recebidos em estrutura para plotar o gráfico
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                // labels.push(registro.Novo_Testamento);
+                labels.push(registro.dtHora);
+                data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
+                // dados.datasets[0].data.push(registro.Novo_Testamento);
+                // dados.datasets[1].data.push(registro.temperatura);
+            }
+
+            console.log('----------------------------------------------')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log(resposta)
+        }
+
+        // setInterval(plotarGrafico, 3000);
     }
 
     function plotar_grafico_principal() {
