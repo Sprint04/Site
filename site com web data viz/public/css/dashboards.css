@@ -201,16 +201,23 @@
 }
 
 .container_grafico{
-  /* background-color:; */
   width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;;
+}
+
+.grafico{
+  /* background-color: blue; */
+  width: 70%;
   height: 55%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* canvas{
-  background-color: lightblue;
-  width: 90%;
+canvas{
+  /* background-color: lightblue; */
+  width: 100%;
   height: 80%;
-} */
+}

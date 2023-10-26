@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <html>
+
 <body onload="listarHistorico()">
     <div class="container_pagina">
         <div class="menu_dashboard">
@@ -20,13 +21,14 @@
                 </div>
             </div>
             <div class="opcoes_menu_dashboard">
+                <button onclick="btnDashboard()">Dashboards</button>
                 <button>Usuário</button>
-                <button>Funcionários</button>
+                <button onclick="btnFuncionarios()">Funcionários</button>
                 <button onclick="btnPlanos()">Planos</button>
                 <button>Monitoramento</button>
                 <button>Alertas</button>
                 <button onclick="btnChamado()">Chamados</button>
-                <button>Históricos</button>
+                <button onclick="btnHistorico()">Históricos</button>
             </div>
         </div>
         <div class="tela_dashboard">
@@ -54,48 +56,60 @@
                 <h1 class="historico_titulo">Historico de Logs</h1>
                 <span class="historico_lista" id="historico_lista"><br></span>
             </div>
-            </html>
-            <script>
-                function btnPlanos() {
-                    window.location.href = "../planos.html"
-                }
-            
-                function btnChamado() {
-                    window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
-                }
-            </script>
+
+</html>
 <script>
-    usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
-function listarHistorico() {
-    var idVar = sessionStorage.ID_USUARIO
-fetch(`/historico/historico/${idVar}`
-).then(function (resposta) {
-
-    if (resposta.ok) {
-        console.log(resposta);
-
-        resposta.json().then(function (resposta) {
-            console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-            for (i = 0; i < resposta.length; i++) {
-              var hist = resposta[i].texto;
-              historico_lista.innerHTML += `<p>${i+1} - ${hist}</p><br>`
-            } 
-    });
-
-    } else {
-
-        console.log("Houve um erro ao tentar realizar o listar!");
-
-        resposta.text().then(texto => {
-            console.error(texto);
-        });
+    function btnPlanos() {
+        window.location.href = "../planos.html"
     }
 
-}).catch(function (erro) {
-    console.log(erro);
-})
+    function btnChamado() {
+        window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
+    }
+    function btnHistorico() {
+        window.location.href = "historico.html"
+    }
 
-return false;
-}
+    function btnFuncionarios(){
+        window.location.href = "funcionario.html"
+    }
+
+    function btnDashboard(){
+        window.location.href = "dashboard.html"
+    }
+</script>
+<script>
+    usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
+    function listarHistorico() {
+        var idVar = sessionStorage.ID_USUARIO
+        fetch(`/historico/historico/${idVar}`
+        ).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    for (i = 0; i < resposta.length; i++) {
+                        var hist = resposta[i].texto;
+                        historico_lista.innerHTML += `<p>${i + 1} - ${hist}</p><br>`
+                    }
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o listar!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
 </script>
