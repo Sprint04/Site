@@ -62,9 +62,19 @@
 }
 
 .opcoes_menu_dashboard button:hover{
-  transform: scale(1.5);
+  transform: scale(1.53);
   border-left: 2px solid white;
   border-right: 2px solid white;
+  border-radius: 25%;
+}
+
+.opcoes_menu_dashboard .button_selecionado {
+  color: #6E43B9;
+  font-weight: 800;
+  text-decoration: underline;
+  transform: scale(1.5);
+  border-left: 2px solid #6E43B9;
+  border-right: 2px solid #6E43B9;
   border-radius: 25%;
 }
 

@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="opcoes_menu_dashboard">
-                <button onclick="btnDashboard()">Dashboards</button>
+                <button onclick="btnDashboard()" class="button_selecionado">Dashboards</button>
                 <button>Usuário</button>
                 <button onclick="btnFuncionarios()">Funcionários</button>
                 <button onclick="btnPlanos()">Planos</button>
@@ -488,7 +488,7 @@
 </script>
 
 <!-- Meu script -->
-<!-- <script>
+    <!-- <script>
 
     function obterDadosGrafico() {
         fetch(`/dashboard/obterDadosGrafico`, { cache: 'no-store' }).then(function (response) {
