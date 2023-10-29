@@ -46,8 +46,7 @@
                     </li>
                     <li><a href="#rodape">Contato</a></li>
                     <li><a href="#nossos-servicos">Serviços</a></li>
-                    <button class="button-entrar" id="entrar"><a style="text-decoration: none; color: white;"
-                        href="cadastro.html"> Acesso </button>
+                    <button class="button-entrar" id="entrar" onclick="btnAcesso()">Acessar</button>
                 </ul>
             </div>
             <!-- <div class="navbar-direita">
@@ -64,6 +63,7 @@
                 <span id="TrackWare-subtitulo"> LOGISTICS SYSTEMS </span>
                 <p id="part1"> Potencializando a logística com tecnologia.</p>
                 <p id="part2">Com precisão e qualidade, TrackWare guia sua realidade!</p>
+                <button class="button-saibaMais" onclick="btnSaibaMais()">Saiba mais</button>
             </div>
 
             <div class="ilustracao-home">
@@ -431,6 +431,15 @@
 </html>
 
 <script>
+
+    function btnAcesso() {
+        window.location.href = "cadastro.html"
+    }
+
+    function btnSaibaMais() {
+        window.location.href = "saibaMais.html"
+    }
+
     //!!!! ESSE CÓDIGO PEGA TODOS OS ELEMENTOS QUE TEM O ATRIBUTO HREF E FAZ ESSA TRANSIÇÃO SUAVE, VE SE NÃO É MAIS INTERESSANTE QUE FAZER UMA CONST PARA CADA ELEMENTO QUE PRECISA DO HREF
     // SE NÃO FOR, ARRUMAR AS TRANSIÇÕES DO RODAPÉ (ABA DE SERVIÇOS) POR FAVOR!!!!
     

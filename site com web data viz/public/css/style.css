@@ -167,7 +167,7 @@ body {
 }
 
 /* botão home que direciona para o saiba mais */
-.button-home {
+.button-saibaMais{
     background: #8800ff;
     color: #fff;
     border: #8800ff;
@@ -181,7 +181,7 @@ body {
     transition: 0.5s;
 }
 
-.button-home:hover {
+.button-saibaMais:hover {
     color: #ffffff;
     transition: 0.5s;
     -ms-transform: scale(1.1);
