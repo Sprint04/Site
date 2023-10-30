@@ -35,27 +35,29 @@
             <div class="container_mensagem_botao">
                 <div class="container_mensagem_usuario">
                     <div class="img_usuario">
-                        <img src="../assets/user.png" alt="">
+                        <img src="../assets/perfil.png" alt="">
                     </div>
                     <div class="mensagem_usuario">
-                        Olá, <span id="usuarioNome"></span>
+                        Nome: <span id="usuarioNome"></span>
+                        <br>
+                        Empresa: <span id="empresaNome"></span>
                     </div>
                 </div>
-                <div class="container_botao_maquinas">
-                    <div class="botao_maquina">
-                        <select name="" id="">
-                            <option value="">Máquina 1</option>
-                        </select>
-                    </div>
+                
+            </div>
+
+            <div class="cards">
+            <div class="cardLogs">
+                <div class="box"></div>
+                <h1 class="funcionario_titulo">Histórico de entrada
+                </h1>
+                <div class="container_logs">
+                    <span class="historico_lista" id="historico_lista"><br></span>
                 </div>
             </div>
-            <div class="nome_empresa">
-                <span>Empresa <span id="nome_empresa">Cliente</span></span>
-            </div>
-            <div class="historico">
-                <h1 class="historico_titulo">Historico de Logs</h1>
-                <span class="historico_lista" id="historico_lista"><br></span>
-            </div>
+
+        </div>
+
 
 </html>
 <script>
@@ -79,7 +81,10 @@
     }
 </script>
 <script>
+
     usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
+    empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
+
     function listarHistorico() {
         var idVar = sessionStorage.ID_USUARIO
         fetch(`/historico/historico/${idVar}`

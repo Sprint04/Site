@@ -69,7 +69,7 @@
 
 <script>
 
-        var idEmpresa = sessionStorage.getItem("idEmpresa");
+        var idEmpresa = sessionStorage.getItem("ID_EMPRESA");
         var idPlano = sessionStorage.getItem("idPlano");
         var idCartao = sessionStorage.getItem("idCartao");
 
@@ -145,6 +145,7 @@
           console.log(JSON.stringify(json));
 
           sessionStorage.setItem('idCartao', JSON.stringify(json.idCartao));
+          updateEmpresa()
 
         });
       } else {
@@ -158,7 +159,6 @@
       console.log(erro);
     })
 
-    setTimeout(updateEmpresa, 250)
     return false;
   }
 
@@ -193,9 +193,9 @@
         console.log(erro);
       })
       
+      alert("Compra Concluida")
+      window.location.href = "./dashboard/dashboard.html"
     return false;
-    alert("Compra Concluida")
-    window.location.href = "./dashboard/dashboard.html"
 
   }
 

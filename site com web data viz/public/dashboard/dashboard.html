@@ -33,12 +33,15 @@
             <div class="container_mensagem_botao">
                 <div class="container_mensagem_usuario">
                     <div class="img_usuario">
-                        <img src="../assets/user.png" alt="">
+                        <img src="../assets/perfil.png" alt="">
                     </div>
                     <div class="mensagem_usuario">
-                        Olá, <span id="usuarioNome"></span>
+                        Bem-vindo(a) <span id="usuarioNome"></span>!
+                        <br>
+                        Empresa: <span id="empresaNome"></span>
                     </div>
                 </div>
+                
                 <div class="container_botao_maquinas">
                     <div class="botao_maquina">
                         <select name="" id="">
@@ -47,9 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="nome_empresa">
-                <span id="empresaNome"></span>
-            </div>
+            
             <div class="container_cards_monitoramento">
                 <button class="card" onclick="chamar_grafico_cpu()">
                     <div class="container_dados_botao">
@@ -131,7 +132,7 @@
 <!-- script config do Grafico, fetch & plot -->
 <script>
     usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
-    empresaNome.innerHTML += `Empresa: ${sessionStorage.NOME_EMPRESA}`
+    empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
 
     plotar_grafico_principal()
     plotar_grafico_cpu()

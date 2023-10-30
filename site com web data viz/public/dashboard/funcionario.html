@@ -35,29 +35,92 @@
             <div class="container_mensagem_botao">
                 <div class="container_mensagem_usuario">
                     <div class="img_usuario">
-                        <img src="../assets/user.png" alt="">
+                        <img src="../assets/perfil.png" alt="">
                     </div>
                     <div class="mensagem_usuario">
-                        Olá, <span id="usuarioNome"></span>
+                        Nome: <span id="usuarioNome"></span>
+                        <br>
+                        Empresa: <span id="empresaNome"></span>
                     </div>
                 </div>
-                <div class="container_botao_maquinas">
+
+                <!-- <div class="container_botao_maquinas">
                     <div class="botao_maquina">
                         <select name="" id="">
                             <option value="">Máquina 1</option>
                         </select>
                     </div>
+                </div> -->
+                
+            </div>
+
+            <!-- <div class="nome_empresa">
+                <span>Empresa <span id="nome_empresa">Cliente</span></span>
+            </div> -->
+
+            <div class="cards">
+
+            <div class="cardFuncionario">
+                <div class="box"></div>
+                <h1 class="funcionario_titulo">Funcionários Cadastrados: <span id="KpiFuncionariosCadastrados"></span>
+                </h1>
+                <div class="container_funcionarios">
+                    <li id="funcionario_lista"></li>
                 </div>
             </div>
-            <div class="nome_empresa">
-                <span>Empresa <span id="nome_empresa">Cliente</span></span>
-            </div>
-            <div class="funcionario">
-                <h1 class="funcionario_titulo">Funcionarios cadastrados: <span id="KpiFuncionariosCadastrados"></span>
+
+            <div class="cardFuncionarioCadastrar">
+                <div class="box"></div>
+                <h1 class="funcionario_titulo">Cadastrar Funcionário
                 </h1>
-                <span class="funcionario_lista" id="funcionario_lista"></span>
+
+                <div class="container_funcionariosCadastrar">
+
+                    <div class="removeId"><h1 class="funcionario_titulo">Remover Funcionário</h1>
+                        
+                        <div class="input-group">
+                            <input type="text" id="removerId" class="input-group__input" required />
+                            <label for="cnpj_input" class="input-group__label">Insira o id:</label>
+                          </div>
+                          
+                          <button onclick="removerFuncionario()" class="botao">Remover</button></div>
+
+                    <h2 class="funcionario_titulo">Cadastrar Funcionário</h2>
+
+                        <div class="input-group">
+                            <input type="text" id="nome_input" class="input-group__input" required />
+                            <label for="cnpj_input" class="input-group__label">Nome:</label>
+                          </div>
+
+                          <div class="input-group">
+                              <input type="text" id="sobrenome_input" class="input-group__input" required />
+                              <label for="cnpj_input" class="input-group__label">Sobrenome:</label>
+                          </div>
+
+                          <div class="input-group">
+                              <input type="text" id="cpf_input" class="input-group__input" required />
+                              <label for="cnpj_input" class="input-group__label">CPF:</label>
+                          </div>
+
+                          <div class="input-group">
+                              <input type="text" id="email_input" class="input-group__input" required />
+                              <label for="cnpj_input" class="input-group__label">Email:</label>
+                          </div>
+
+                          <div class="input-group">
+                              <input type="text" id="senha_input" class="input-group__input" required />
+                              <label for="cnpj_input" class="input-group__label">Senha:</label>
+                          </div>     
+
+                        <select id="cargo">
+                            <option value="0">Cargo</option>
+                        </select>
+
+                        <button onclick="cadastrarUsuario()" class="botao">Adicionar</button>
+                </div>
             </div>
-            <div class="crud">
+
+            <!-- <div class="crud">
                 <span class="crudInput"><span class="titulo">Remover Funcionarios: </span>Insira o id: <input
                         placeholder="Id" id="removerId"> <button onclick="removerFuncionario()">Remover</button></span>
                 <div class="adicionarFunci">
@@ -72,9 +135,11 @@
                             <option value="0">Cargo</option>
                         </select>
                     </div>
-                    <button onclick="cadastrarUsuario()">Adicionar</button>
-                </div>
+
+                </div> -->
+
             </div>
+        </div>
 
 </html>
 <script>
@@ -98,7 +163,10 @@
     }
 </script>
 <script>
+
     usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
+    empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
+
     function listarFuncionario() {
         var idVar = sessionStorage.ID_USUARIO
         fetch(`/historico/funcionario/${idVar}`
