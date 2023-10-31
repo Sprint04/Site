@@ -260,9 +260,35 @@ canvas{
 }
 
 .img_informacao img{
-  width: 80%;
+  width: 65%;
 }
 
 .informacao{
+  /* background-color: white; */
   width: 60%;
+}
+
+.informacao h1{
+  padding: 5%;
+  font-family: Poppin-Bold;
+  color: white;
+  text-align: center;
+}
+
+.informacao span{
+  border-bottom: 2px solid white;
+}
+
+.informacao p{
+  width: 70%;
+  font-family: Poppin-Bold;
+  color: white;
+  text-align: justify;
+}
+
+.texto_informacao{
+  padding: 1%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
