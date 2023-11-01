@@ -56,7 +56,7 @@
                     <div class="container_dados_botao">
                         <span class="tipo_componente">CPU</span>
                         <div class="dado_monitoramento">
-                            <span class="dado">0%</span>
+                            <span id="dado_CPU">0%</span>
                             <span class="tipo_utilizacao">Utilizado</span>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="container_dados_botao">
                         <span class="tipo_componente">RAM</span>
                         <div class="dado_monitoramento">
-                            <span class="dado">0%</span>
+                            <span id="dado_RAM">0%</span>
                             <span class="tipo_utilizacao">Utilizada</span>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     <div class="container_dados_botao">
                         <span class="tipo_componente">DISCO</span>
                         <div class="dado_monitoramento">
-                            <span class="dado">0%</span>
+                            <span id="dado_DISCO">0%</span>
                             <span class="tipo_utilizacao">Utilizado</span>
                         </div>
                     </div>
@@ -128,6 +128,7 @@
 </html>
 <!-- parte do GU -->
 <script>
+
     function btnPlanos() {
         window.location.href = "../planos.html"
     }
@@ -150,6 +151,10 @@
 
 <!-- script config do Grafico, fetch & plot -->
 <script>
+    var dadoCPU = 0;
+    var dadoRAM = 0;
+    var dadoDISCO = 0;
+
     usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
     empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
 
@@ -257,7 +262,8 @@
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta.reverse();
-
+                        // sessionStorage.DADO_CPU = json.dadoCapturado;
+                        // console.log(sessionStorage.DADO_CPU)
                         plotarGrafico_CPU(resposta);
                     });
                 } else {
@@ -305,6 +311,11 @@
                 // dados.datasets[0].data.push(registro.Novo_Testamento);
                 // dados.datasets[1].data.push(registro.temperatura);
             }
+
+            var dadoCapturadoCPU = resposta[resposta.length - 1];
+            dadoCPU = dadoCapturadoCPU.dadoCapturado;
+            dado_CPU.innerHTML = `${dadoCPU}%`
+            
 
             console.log('----------------------------------------------')
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
@@ -373,6 +384,10 @@
                 // dados.datasets[1].data.push(registro.temperatura);
             }
 
+            var dadoCapturadoRAM = resposta[resposta.length - 1];
+            dadoRAM = dadoCapturadoRAM.dadoCapturado;
+            dado_RAM.innerHTML = `${dadoRAM}%`
+
             console.log('----------------------------------------------')
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
             console.log(resposta)
@@ -439,6 +454,10 @@
                 // dados.datasets[0].data.push(registro.Novo_Testamento);
                 // dados.datasets[1].data.push(registro.temperatura);
             }
+
+            var dadoCapturadoDISCO = resposta[resposta.length - 1];
+            dadoDISCO = dadoCapturadoDISCO.dadoCapturado;
+            dado_DISCO.innerHTML = `${dadoDISCO}%`
 
             console.log('----------------------------------------------')
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')

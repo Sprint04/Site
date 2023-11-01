@@ -220,6 +220,18 @@
   text-align: center;
 }
 
+#dado_CPU{
+  text-align: center;
+}
+
+#dado_RAM{
+  text-align: center;
+}
+
+#dado_DISCO{
+  text-align: center;
+}
+
 .container_grafico{
   width: 100%;
   height: auto;
