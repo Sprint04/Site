@@ -30,7 +30,7 @@ function cadastrarEmpresa(nome, cnpj, fkEnderecoComplemento) {
     `
   var token = ""
   var op = ["1","2","3","4","5","6","7","8","9","a",'b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-  for (i = 0; token.length < 25; i++){
+  for (i = 0; token.length < 15; i++){
     letra = Math.floor(Math.random() * 36)
     token += op[letra]
   }
