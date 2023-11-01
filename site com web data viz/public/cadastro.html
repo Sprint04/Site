@@ -276,7 +276,7 @@
     setTimeout(cadastrarEmpresa, 500)
     setTimeout(cadastrarUsuario, 1000)
     setTimeout(cadastrarTelefone, 1500)
-
+    setTimeout(alert('O cadastro foi realizado, faça seu login!!!'), 2000)
   }
   function sumirMensagem() {
     cardErro.style.display = "none";
@@ -711,6 +711,7 @@
           console.log(JSON.stringify(json));
 
           sessionStorage.setItem('idUsuario', JSON.stringify(json.idUsuario));
+          sessionStorage.setItem('NOME_USUARIO', JSON.stringify(json.nome))
           console.log(sessionStorage.getItem('idUsuario'));
         });
       } else {
