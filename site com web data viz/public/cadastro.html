@@ -119,7 +119,7 @@
         </div>
         <br>
 
-        <button class="botao" onclick="cadastrar()">Cadastrar Usuário</button>
+        <button class="botao" onclick="cadastrar()">Cadastrar</button>
 
         <div class="frase-cadastro-usuario">
           <!--   <span>Precisa cadastrar uma conta empresarial? <button class="botao-cadastrar-usuario"
@@ -233,7 +233,7 @@
             sessionStorage.ID_USUARIO = json.idUsuario;
             sessionStorage.NOME_USUARIO = json.nomeUsuario;
             sessionStorage.EMAIL_USUARIO = json.email_Corporativo;
-            sessionStorage.ID_EMPRESA =json.idEmpresa;
+            sessionStorage.ID_EMPRESA = json.idEmpresa;
             sessionStorage.NOME_EMPRESA = json.nome
 
             setTimeout(function () {
@@ -255,19 +255,12 @@
 
   // Area Cadastro -------------------------------------------------------------------------------------
 
-  function verificarEndereco() {
-    sessionStorage.setItem('idEndereco', 0)
-
-    setTimeout(recuperarEndereco, 500)
-
-    var valorRecuperado = Number(sessionStorage.getItem('idEndereco'))
-    
-    setTimeout(function () {
-      if (valorRecuperado == 0) {
-        cadastroEndereco()
-        setTimeout(recuperarEndereco, 1000)
-      }
-    }, 1000)
+  function verificarEndereco(idRecuperado) {
+    if (idRecuperado == 0) {
+      setTimeout(cadastroEndereco, 1000)
+    } else {
+      alert("Tudo Certo!")
+    }
   }
 
   function cadastrar() {
@@ -282,74 +275,9 @@
     cardErro.style.display = "none";
   }
 
-  // Area Login ----------------------------------------------------------------------------------------
-
-  function entrar() {
-    aguardar();
-
-    var emailVar = email_input_login.value;
-    var senhaVar = senha_input_login.value;
-
-    if (emailVar == "" || senhaVar == "") {
-      cardErro.style.display = "block"
-      mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-      finalizarAguardar();
-      return false;
-    }
-    else {
-      setInterval(sumirMensagem, 5000)
-    }
-
-    console.log("FORM LOGIN: ", emailVar);
-    console.log("FORM SENHA: ", senhaVar);
-
-    fetch("/usuarios/autenticar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        emailServer: emailVar,
-        senhaServer: senhaVar
-      })
-    }).then(function (resposta) {
-      console.log("ESTOU NO THEN DO entrar()!")
-
-      if (resposta.ok) {
-        console.log(resposta);
-
-        resposta.json().then(json => {
-          console.log(json);
-          console.log(JSON.stringify(json));
-          sessionStorage.EMAIL_USUARIO = json.email;
-          sessionStorage.NOME_USUARIO = json.nome;
-          sessionStorage.CPF_USUARIO = json.cpf;
-          //                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
-          setTimeout(function () {
-            window.location = "./dashboard/cards.html";
-          }, 1000); // apenas para exibir o loading
-
-        });
-
-      } else {
-
-        console.log("Houve um erro ao tentar realizar o login!");
-
-        resposta.text().then(texto => {
-          console.error(texto);
-          finalizarAguardar(texto);
-        });
-      }
-
-    }).catch(function (erro) {
-      console.log(erro);
-    })
-
-    return false;
-  }
-
+  // Area Login ------------------------------------------------------------------------------------
   async function buscarCep() {
+    var idRecuperado = 0
     var cep = cep_input.value
     var url = `https://viacep.com.br/ws/${cep}/json/`;
 
@@ -398,11 +326,11 @@
             console.log(erro)
           }
         )
-      setTimeout(verificarEndereco, 1000)
+      setTimeout(recuperarEndereco(idRecuperado), 1000)
     }
   }
 
-  function recuperarEndereco() {
+  function recuperarEndereco(idRecuperado) {
     var cep = cep_input.value
 
     console.log("FORM CEP: ", cep);
@@ -424,9 +352,9 @@
         resposta.json().then(json => {
           console.log(json);
           console.log(JSON.stringify(json));
-
-          sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
-          console.log(sessionStorage.getItem('idEndereco'));
+          // sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
+          idRecuperado = Number(json.idEndereco);
+          console.log(idRecuperado);
         });
       } else {
         console.log("Houve um erro ao tentar consultar o endereço!");
@@ -439,6 +367,7 @@
       console.log(erro);
     })
 
+    setTimeout(verificarEndereco(idRecuperado), 2000)
     return false
   }
 
@@ -473,7 +402,7 @@
 
         });
       } else {
-        console.log("Houve um erro ao tentar cadastrar o endereço!");
+        console.log("Houve um erro ao tentar cadastrar o endereço!")
 
         resposta.text().then(texto => {
           console.error(texto);
@@ -482,7 +411,7 @@
     }).catch(function (erro) {
       console.log(erro);
     })
-
+    setTimeout(recuperarEndereco, 1000)
     return false;
   }
 
