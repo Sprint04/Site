@@ -36,12 +36,12 @@ function usuarioLogin(email, senha) {
     var instrucao = `
     SELECT 
 u.idUsuario,
-u.nome,
+u.nome AS nomeUsuario,
 u.email_Corporativo,
 e.idEmpresa,
-e.nome,
+e.nome AS nomeEmpresa,
 c.idCargo,
-c.nome FROM usuario as u JOIN empresa as e ON u.fkEmpresa = e.idEmpresa
+c.nome AS nomeCargo FROM usuario as u JOIN empresa as e ON u.fkEmpresa = e.idEmpresa
 	JOIN cargo as c ON c.idCargo = u.fkCargo
 		WHERE email_Corporativo = '${email}' AND senha = '${senha}';
     `;
