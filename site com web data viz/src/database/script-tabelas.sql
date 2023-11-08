@@ -1,12 +1,12 @@
-CREATE DATABASE Trackware;
-USE Trackware;
+CREATE DATABASE trackware;
+USE trackware;
 
 create table situacao(
 	idSituacao int primary key auto_increment,
     nome varchar(45),
     descricao varchar(200)
     );
-    
+
 insert into situacao values
 	(null, 'Ativo', 'Funcionando'),
 	(null, 'Inativo', 'Parado mas não deletado'),
@@ -152,7 +152,7 @@ insert into permissionamento value
     
 CREATE TABLE usuario (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    nomeUsuario VARCHAR (30),
+    nome VARCHAR (30),
     sobrenome VARCHAR (100),
     CPF CHAR (11),
     email_Corporativo VARCHAR (80),
@@ -168,7 +168,7 @@ insert into usuario value
 	(null, 'Gustavo', 'Albino', '12345678123', 'gustavo@sptech.com', '12345678', 1,1),
 	(null, 'Cesar', 'Martins', '12345678123', 'cesar@sptech.com', '12345678', 1,1),
 	(null, 'Everton', 'Araujo', '12345678123', 'everton@sptech.com', '12345678', 1,1),
-	(null, 'Guiovanna', 'Avila', '12345678123', 'giovanna@sptech.com', '12345678', 1,1);
+	(null, 'Giovanna', 'Avila', '12345678123', 'giovanna@sptech.com', '12345678', 1,1);
 
 create table tipoTelefone(
 	idTipo int primary key auto_increment,
@@ -177,12 +177,12 @@ create table tipoTelefone(
     );
     
 insert into tipoTelefone value
-	(null, 'Celular', 9),
-	(null, 'Fixo', 8),
+	(null, 'Celular', 11),
+	(null, 'Fixo', 10),
 	(null, 'Ramal', 3);
 
 CREATE TABLE telefone(
-	idTelefone INT PRIMARY KEY AUTO_INCREMENT,
+	idTelefone INT PRIMARY KEY auto_increment,
 	fkUsuario INT,
 	FOREIGN KEY (fkusuario) REFERENCES usuario (idUsuario),
     fkTipo int,
@@ -198,18 +198,18 @@ CREATE TABLE dispositivo (
     FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
 
-insert into dispositivo values
-(null, "Windows", "192.168.00.0", 1);
-
 create table logs(
 idLog int primary key auto_increment,
 descricao varchar(200)
 );
 
 insert into logs values
-	(null, 'Iniciou o programa'),
-	(null, 'Desativou o programa'),
+	(null, 'iniciou o programa'),
+	(null, 'desativou o programa'),
 	(null, 'etc Logs');
+update logs set descricao = 'adicionou um Usuario' where idLog = 3;
+insert into logs values
+	(null, 'removeu um Usuario');
 
 CREATE TABLE acesso (
 	idAcesso INT primary key auto_increment,
@@ -278,7 +278,8 @@ insert into tipoComponente values
 	(null,'Disco','Um componente do escopo',1),
 	(null,'USB','Um componente do escopo', 4),
 	(null,'JanelasAbertas','Um componente do escopo',2),
-	(null,'Rede','Um componente do escopo', 3);
+	(null,'Rede(recebida)','Um componente do escopo', 3),
+	(null,'Rede(enviada)','Um componente do escopo', 3);
 
 CREATE TABLE Monitorar (
     idMonitorar INT AUTO_INCREMENT,
@@ -327,15 +328,6 @@ CREATE TABLE componentes(
     foreign key (fkGatilhos) references gatilhos(idGatilhos)
 );
 
-insert into componentes value
-	(null, 1, 1, 10.0, 1),
-	(null, 2, 1, 10.0, 2),
-	(null, 3, 1, 10.0, 3),
-	(null, 4, 1, 10.0, 4),
-	(null, 5, 1, 10.0, 5),
-	(null, 6, 1, 10.0, 6),
-	(null, 1, 1, 10.0, 6);
-
 CREATE TABLE monitoramento(
 	idDado INT PRIMARY KEY AUTO_INCREMENT,
     dadoCapturado FLOAT,
@@ -357,27 +349,21 @@ CREATE TABLE alerta (
     FOREIGN KEY (fkComponente) REFERENCES componentes (idComponente)
 );
 
+create table processosBloqueados(
+	idProcesso int primary key auto_increment,
+    fkEmpresa int,
+    foreign key (fkEmpresa) references empresa(idEmpresa),
+    nome varchar(45)
+);
 
-use trackware;
-select * from monitoramento;
-select * from endereco;
-select * from complemento;
-select * from empresa;
-select * from usuario;
-select * from telefone;
-select * from cartao;
+insert into processosBloqueados values
+	(null, 1, 'idea64');
 
-SELECT 
-usuario.nomeUsuario as "nomeUsuario",
-usuario.email_Corporativo,
-usuario.idUsuario,
-empresa.idEmpresa,
-empresa.nome as "nomeEmpresa" FROM usuario JOIN empresa ON idEmpresa = fkEmpresa WHERE email_Corporativo = 'tom@gmail.com' AND senha = 'Tom4002!';
-
-desc telefone;
-delete from endereco where idEndereco = 29;
-delete from complemento where idComplemento = 3;
-delete from empresa where idEmpresa = 3;
-delete from usuario where idUsuario = 6;
-delete from cartao where idCartao = 6;
-desc telefone;
+create table ocorrencias(
+	idOcorrencias int primary key auto_increment,
+    fkProcesso int,
+    foreign key (fkProcesso) references processosBloqueados(idProcesso),
+    fkDispositivo int,
+    foreign key (fkDispositivo) references dispositivo(idDispositivo),
+    dtHora datetime default current_timestamp
+    );
