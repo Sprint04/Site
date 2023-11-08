@@ -20,7 +20,7 @@ function cadastrarUsuario(nome, sobrenome, cpf, email, senha, fkEmpresa, cargo) 
     return database.executar(instrucao);
 }
 
-function cadastrarTelefone(telCel, telFixo, fkUsuario){
+function cadastrarTelefone(telCel, telFixo, fkUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", telCel, telFixo, fkUsuario);
     var instrucao = `
     insert into telefone values
@@ -31,10 +31,19 @@ function cadastrarTelefone(telCel, telFixo, fkUsuario){
     return database.executar(instrucao);
 }
 
-function usuarioLogin(email, senha){
+function usuarioLogin(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-    SELECT * FROM usuario JOIN empresa ON idEmpresa = fkEmpresa WHERE email_Corporativo = '${email}' AND senha = '${senha}';
+    SELECT 
+u.idUsuario,
+u.nome,
+u.email_Corporativo,
+e.idEmpresa,
+e.nome,
+c.idCargo,
+c.nome FROM usuario as u JOIN empresa as e ON u.fkEmpresa = e.idEmpresa
+	JOIN cargo as c ON c.idCargo = u.fkCargo
+		WHERE email_Corporativo = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
