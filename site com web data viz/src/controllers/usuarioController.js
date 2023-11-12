@@ -65,6 +65,30 @@ function cadastrarUsuario(req, res) {
     }
 }
 
+function cadastrarCargo(req, res) {
+    var nome = req.body.nomeServer;
+    var fkEmpresa = req.body.fkEmpresaServer;
+    var hist = req.body.cargoServer;
+    var add = req.body.addServer;
+    var adm = req.body.admServer;
+
+    usuarioModel.cadastrarCargo(nome, hist, add, adm, fkEmpresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+
 function cadastrarTelefone(req, res) {
     var telFixo = req.body.telFixoServer;
     var telCel = req.body.telCelServer;
@@ -130,6 +154,7 @@ function usuarioLogin(req, res){
 module.exports = {
     recuperarUsuario,
     cadastrarUsuario,
+    cadastrarCargo,
     cadastrarTelefone,
     usuarioLogin
 }

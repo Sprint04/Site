@@ -20,6 +20,23 @@ function cadastrarUsuario(nome, sobrenome, cpf, email, senha, fkEmpresa, cargo) 
     return database.executar(instrucao);
 }
 
+function cadastrarCargo(nome, hist, add, adm, fkEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",);
+    var instrucao = `
+    insert into cargo values
+    (null, ${fkEmpresa}, '${nome}', 'Um cargo adicionado pela empresa')   
+    `
+    var instrucao2 = `
+    insert into permissionamento values
+    (null, (select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 1, ${hist})
+    (null, (select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 2, ${add})
+    (null, (select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 3, ${adm})
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    database.executar(instrucao);
+    return database.executar(instrucao2);
+}
+
 function cadastrarTelefone(telCel, telFixo, fkUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", telCel, telFixo, fkUsuario);
     var instrucao = `
@@ -52,6 +69,7 @@ c.nome AS nomeCargo FROM usuario as u JOIN empresa as e ON u.fkEmpresa = e.idEmp
 module.exports = {
     recuperarUsuario,
     cadastrarUsuario,
+    cadastrarCargo,
     cadastrarTelefone,
     usuarioLogin
 };

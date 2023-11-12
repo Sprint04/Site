@@ -57,7 +57,6 @@
             <!-- <div class="nome_empresa">
                 <span>Empresa <span id="nome_empresa">Cliente</span></span>
             </div> -->
-
             <div class="cards">
 
             <div class="cardFuncionario">
@@ -68,14 +67,12 @@
                     <li id="funcionario_lista"></li>
                 </div>
             </div>
-
-            <div class="cardFuncionarioCadastrar">
+            <div  id="funcionario" class="cardFuncionarioCadastrar">
                 <div class="box"></div>
-                <h1 class="funcionario_titulo">Cadastrar Funcionário
-                </h1>
-
+                <h1 class="funcionario_titulo">Cadastrar Funcionário</h1>
+                
                 <div class="container_funcionariosCadastrar">
-
+                    <button class="botao" onclick="trocarCard()">Cargos</button>
                     <div class="removeId"><h1 class="funcionario_titulo">Remover Funcionário</h1>
                         
                         <div class="input-group">
@@ -117,8 +114,47 @@
                         </select>
 
                         <button onclick="cadastrarUsuario()" class="botao">Adicionar</button>
+
                 </div>
             </div>
+            <div id="cargoDiv" class="cardFuncionarioCadastrar">
+                <div class="box"></div>
+                <h1 class="funcionario_titulo">Cadastrar Cargo</h1>
+                
+                <div class="container_funcionariosCadastrar">
+                    <button class="botao" onclick="trocarCard()">Funcionarios</button>
+
+                    <h2 class="funcionario_titulo">Cadastrar Cargo</h2>
+                    <div class="input-group">
+                        <input type="text" id="nomeCargo_input" class="input-group__input" required />
+                        <label for="cnpj_input" class="input-group__label">Nome:</label>
+                      </div>
+                      <div class="input-group">
+                        Permissão de adicionar funcionario:
+                        <select id="permissoes1">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                      </div>
+                      <div class="input-group">
+                        Permissão de ver historicos:
+                        <select id="permissoes2">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                      </div>
+                      <div class="input-group">
+                        Permissão de adm:
+                        <select id="permissoes2">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                      </div>
+
+                        <button onclick="cadastrarargo()" class="botao">Criar cargo</button>
+                </div>
+            </div>
+        </div>
 
             <!-- <div class="crud">
                 <span class="crudInput"><span class="titulo">Remover Funcionarios: </span>Insira o id: <input
@@ -142,6 +178,25 @@
         </div>
 
 </html>
+<script>
+    var card = 0
+    var funcionario = document.getElementById('funcionario');
+    var divCargo = document.getElementById('cargoDiv');
+
+    divCargo.style.display = "none"
+
+    function trocarCard(){
+        if(card == 0){
+            card += 1
+            funcionario.style.display = "none"
+            divCargo.style.display = "block"
+        } else{
+            card = 0
+            funcionario.style.display = "block"
+            divCargo.style.display = "none"
+        }
+    }
+</script>
 <script>
     function btnPlanos() {
         window.location.href = "../planos.html"
@@ -312,5 +367,47 @@
         })
 
         return false;
+    }
+
+    function cadastrarCargo() {
+        var nome = nomeCargo_input.value
+        var hist = document.getElementById("permissoes2").value
+        var add = document.getElementById("permissoes1").value
+        var adm = document.getElementById("permissoes3").value
+        var fkEmpresa = sessionStorage.getItem('idEmpresa')
+
+        fetch("/usuarios/cadastrarCargo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                histServer: hist,
+                addServer: add,
+                admServer: adm,
+                fkEmpresaServer: fkEmpresa
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN do Cadastrar Usuario!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    listarFuncionario()
+                });
+            } else {
+                console.log("Houve um erro ao tentar cadastrar o usuario!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
     }
 </script>
