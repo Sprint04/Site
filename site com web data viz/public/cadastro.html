@@ -579,44 +579,73 @@
     return false;
   }
 
-  function recuperarToken(token){
+  // function recuperarToken(token){
   
-    fetch("/empresas/recuperarToken", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        tokenServer: token
-      })
-    }).then(function (resposta) {
-      console.log("ESTOU NO THEN do Recuperar Token!")
+  //   fetch("/empresas/recuperarToken/", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       tokenServer: token
+  //     })
+  //   }).then(function (resposta) {
+  //     console.log("ESTOU NO THEN do Recuperar Token!")
 
-      if (resposta.ok) {
-        console.log(resposta);
+  //     if (resposta.ok) {
+  //       console.log(resposta);
 
-        resposta.json().then(json => {
-          console.log(json);
-          console.log(JSON.stringify(json));
+  //       resposta.json().then(json => {
+  //         console.log(json);
+  //         console.log(JSON.stringify(json));
 
-          var idToken = JSON.stringify(json[0].idToken);
-          sessionStorage.setItem('idToken', JSON.stringify(json[0].idToken));
-          console.log(sessionStorage.getItem('idToken'));
-          console.log(idToken)
-        });
-      } else {
-        console.log("Houve um erro ao tentar recuperar o id token!");
+  //         var idToken = JSON.stringify(json[0].idToken);
+  //         sessionStorage.setItem('idToken', JSON.stringify(json[0].idToken));
+  //         console.log(sessionStorage.getItem('idToken'));
+  //         console.log(idToken)
+  //       });
+  //     } else {
+  //       console.log("Houve um erro ao tentar recuperar o id token!");
 
-        resposta.text().then(texto => {
-          console.error(texto);
+  //       resposta.text().then(texto => {
+  //         console.error(texto);
+  //       })
+  //     }
+  //   }).catch(function (erro) {
+  //     console.log(erro);
+  //   })
+
+  //   return false;
+  // }
+  function recuperarToken(token) {
+        fetch(`/empresas/recuperarToken/${token}`
+        ).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    sessionStorage.setItem('idToken', JSON.stringify(resposta[0].idToken));
+                    console.log(sessionStorage.getItem('idToken'));
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o listar!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
         })
-      }
-    }).catch(function (erro) {
-      console.log(erro);
-    })
 
-    return false;
-  }
+        return false;
+    }
 
   function recuperarEmpresa() {
     var cnpj = cnpj_input.value;

@@ -95,7 +95,7 @@ function criarToken(req, res) {
 }
 
 function recuperarToken(req, res) {
-  var token = req.body.tokenServer;
+  var token = req.params.token;
   if (token == undefined) {
     res.status(400).send("Seu TOKEN está undefined!");
   } else {

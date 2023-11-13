@@ -24,7 +24,7 @@ router.post("/criarToken", function (req, res) {
   empresaController.criarToken(req, res);
 });
 
-router.post("/recuperarToken", function (req, res) {
+router.post("/recuperarToken/:token", function (req, res) {
   empresaController.recuperarToken(req, res);
 });
 
