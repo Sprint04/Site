@@ -259,7 +259,7 @@
 
   function verificarEndereco(idRecuperado) {
     if (idRecuperado == 0) {
-      setTimeout(cadastroEndereco, 1000)
+      setTimeout(cadastroEndereco, 250)
     } else {
       alert("Tudo Certo!")
     }
@@ -268,10 +268,10 @@
   function cadastrar() {
     cadastrarComplemento();
     criacaoToken()
-    setTimeout(cadastrarEmpresa, 500)
-    setTimeout(cadastrarUsuario, 1000)
-    setTimeout(cadastrarTelefone, 1500)
-    setTimeout(alert('O cadastro foi realizado, faça seu login!!!'), 2000)
+    setTimeout(cadastrarEmpresa, 1000)
+    setTimeout(cadastrarUsuario, 2000)
+    setTimeout(cadastrarTelefone, 2500)
+    setTimeout(alert('O cadastro foi realizado, faça seu login!!!'), 4000)
   }
   function sumirMensagem() {
     cardErro.style.display = "none";
@@ -328,7 +328,7 @@
             console.log(erro)
           }
         )
-      setTimeout(recuperarEndereco(idRecuperado), 1000)
+      setTimeout(recuperarEndereco(idRecuperado), 250)
     }
   }
 
@@ -369,7 +369,7 @@
       console.log(erro);
     })
 
-    setTimeout(verificarEndereco(idRecuperado), 2000)
+    setTimeout(verificarEndereco(idRecuperado), 250)
     return false
   }
 
@@ -413,7 +413,7 @@
     }).catch(function (erro) {
       console.log(erro);
     })
-    setTimeout(recuperarEndereco, 1000)
+    setTimeout(recuperarEndereco, 250)
     return false;
   }
 
@@ -533,7 +533,7 @@
     }).catch(function (erro) {
       console.log(erro);
     })
-    setTimeout(recuperarToken(token), 2000)
+    setTimeout(recuperarToken(token), 250)
     return false;
   }
 
@@ -542,6 +542,7 @@
     var cnpj = cnpj_input.value;
     var fkEnderecoComplemento = sessionStorage.getItem('idComplemento')
     var fkToken = sessionStorage.getItem('idToken')
+    console.log(fkToken)
 
     fetch("/empresas/cadastrarEmpresa", {
       method: "POST",

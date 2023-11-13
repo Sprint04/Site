@@ -41,7 +41,7 @@ function cadastrarEmpresa(req, res) {
   var nome = req.body.nomeServer;
   var cnpj = req.body.cnpjServer;
   var fkEnderecoComplemento = req.body.fkEnderecoComplementoServer;
-  var fkToken = req.body.fkToken;
+  var fkToken = req.body.fkTokenServer;
 
   if (nome == undefined) {
     res.status(400).send("Seu NOME DA EMPRESA está undefined!");
