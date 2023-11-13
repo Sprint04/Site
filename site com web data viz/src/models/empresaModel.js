@@ -22,25 +22,40 @@ function buscarPorCnpj(cnpj) {
   return database.executar(query);
 }
 
-function cadastrarEmpresa(nome, cnpj, fkEnderecoComplemento) {
-  console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credencias de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", nome, cnpj, fkEnderecoComplemento)
+function cadastrarEmpresa(nome, cnpj, fkEnderecoComplemento, fkToken) {
+  console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credencias de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", nome, cnpj, fkEnderecoComplemento, fkToken)
   var instrucao = `
-    insert into Empresa (idEmpresa, nome, CNPJ, fkEnderecoComplemento, fkPlano, fkToken) values
-    (null, "${nome}", "${cnpj}", ${fkEnderecoComplemento}, 1, (select max(idToken) from tokens));
+    insert into empresa (nome, CNPJ, fkEnderecoComplemento, fkPlano, fkToken) values
+    ("${nome}", "${cnpj}", ${fkEnderecoComplemento}, 1, ${fkToken});
     `
-  var token = ""
-  var op = ["1","2","3","4","5","6","7","8","9","a",'b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-  for (i = 0; token.length < 15; i++){
-    letra = Math.floor(Math.random() * 35)
-    token += op[letra]
-  }
-  var instrucao2 = `
+
+  console.log("Executando a instrução SQL: \n" + instrucao);
+
+  return database.executar(instrucao);
+}
+
+function criarToken(token) {
+  console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretament. \n \n function criarToken(): ", token)
+
+  var instrucao = `
   insert into Tokens (chaveAtivacao, fkSituacao) value
      ('${token}', 1)
+
+  `
+  console.log("Executando a instrução SQL: \n" + instrucao);
+
+  return database.executar(instrucao);
+}
+
+function recuperarToken(token){
+  console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretament. \n \n function recuperarToken(",token,"): ")
+  
+  var instrucao = `
+  select idToken from tokens where chaveAtivacao = "${token}";
   `
 
   console.log("Executando a instrução SQL: \n" + instrucao);
-  database.executar(instrucao2);
+
   return database.executar(instrucao);
 }
 
@@ -48,5 +63,7 @@ module.exports = {
   buscarPorCnpj,
   buscarPorId,
   cadastrarEmpresa,
-  recuperarEmpresa
+  recuperarEmpresa,
+  criarToken,
+  recuperarToken
 };

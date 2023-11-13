@@ -267,7 +267,7 @@
 
   function cadastrar() {
     cadastrarComplemento();
-    var fkComplemento = sessionStorage.getItem('idComplemento')
+    criacaoToken()
     setTimeout(cadastrarEmpresa, 500)
     setTimeout(cadastrarUsuario, 1000)
     setTimeout(cadastrarTelefone, 1500)
@@ -354,7 +354,7 @@
         resposta.json().then(json => {
           console.log(json);
           console.log(JSON.stringify(json));
-          // sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
+          sessionStorage.setItem('idEndereco', JSON.stringify(json.idEndereco));
           idRecuperado = Number(json.idEndereco);
           console.log(idRecuperado);
         });
@@ -496,10 +496,52 @@
     return false;
   }
 
+  function criacaoToken() {
+    var token = ""
+    var op = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "a", 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    for (i = 0; token.length < 15; i++) {
+      letra = Math.floor(Math.random() * 34)
+      token += op[letra]
+    }
+
+    fetch("/empresas/criarToken",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        tokenServer: token
+      })
+    }).then(function (resposta) {
+      console.log("Estou no then da criação de token!")
+
+      if(resposta.ok){
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+        });
+      } else {
+        console.log("Houve um erro ao tentar criar o token!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+    setTimeout(recuperarToken(token), 2000)
+    return false;
+  }
+
   function cadastrarEmpresa() {
     var nome = nomeEmpresa_input.value;
     var cnpj = cnpj_input.value;
     var fkEnderecoComplemento = sessionStorage.getItem('idComplemento')
+    var fkToken = sessionStorage.getItem('idToken')
 
     fetch("/empresas/cadastrarEmpresa", {
       method: "POST",
@@ -509,7 +551,8 @@
       body: JSON.stringify({
         nomeServer: nome,
         cnpjServer: cnpj,
-        fkEnderecoComplementoServer: fkEnderecoComplemento
+        fkEnderecoComplementoServer: fkEnderecoComplemento,
+        fkTokenServer: fkToken
       })
     }).then(function (resposta) {
       console.log("ESTOU NO THEN do Cadastrar Empresa!")
@@ -533,6 +576,45 @@
       console.log(erro);
     })
     setTimeout(recuperarEmpresa, 250)
+    return false;
+  }
+
+  function recuperarToken(token){
+  
+    fetch("/empresas/recuperarToken", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        tokenServer: token
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN do Recuperar Token!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          var idToken = JSON.stringify(json[0].idToken);
+          sessionStorage.setItem('idToken', JSON.stringify(json[0].idToken));
+          console.log(sessionStorage.getItem('idToken'));
+          console.log(idToken)
+        });
+      } else {
+        console.log("Houve um erro ao tentar recuperar o id token!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        })
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
     return false;
   }
 

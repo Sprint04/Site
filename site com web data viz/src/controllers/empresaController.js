@@ -41,6 +41,7 @@ function cadastrarEmpresa(req, res) {
   var nome = req.body.nomeServer;
   var cnpj = req.body.cnpjServer;
   var fkEnderecoComplemento = req.body.fkEnderecoComplementoServer;
+  var fkToken = req.body.fkToken;
 
   if (nome == undefined) {
     res.status(400).send("Seu NOME DA EMPRESA está undefined!");
@@ -48,8 +49,10 @@ function cadastrarEmpresa(req, res) {
     res.status(400).send("Seu CNPJ está undefined!");
   } else if (fkEnderecoComplemento == undefined) {
     res.status(400).send("Seu fkEnderecoComplemento está undefined!");
+  } else if (fkToken == undefined) {
+    res.status(400).send("Seu fkToken está undefined!");
   } else {
-    empresaModel.cadastrarEmpresa(nome, cnpj, fkEnderecoComplemento)
+    empresaModel.cadastrarEmpresa(nome, cnpj, fkEnderecoComplemento, fkToken)
       .then(
         function (resultado) {
           res.json(resultado);
@@ -67,9 +70,58 @@ function cadastrarEmpresa(req, res) {
   }
 }
 
+function criarToken(req, res) {
+  var token = req.body.tokenServer;
+
+  if (token == undefined) {
+    res.status(400).send("Seu token está undefined!")
+  } else {
+    empresaModel.criarToken(token)
+      .then(
+        function (resultado) {
+          res.json(resultado)
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a criação do token! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }
+}
+
+function recuperarToken(req, res) {
+  var token = req.body.tokenServer;
+  if (token == undefined) {
+    res.status(400).send("Seu TOKEN está undefined!");
+  } else {
+    empresaModel.recuperarToken(token)
+      .then(
+        function (resultado) {
+          res.json(resultado)
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a recuperação do token! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }
+}
+
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
   cadastrarEmpresa,
-  recuperarEmpresa
+  recuperarEmpresa,
+  criarToken,
+  recuperarToken
 };

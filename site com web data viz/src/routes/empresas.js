@@ -20,6 +20,14 @@ router.post("/recuperarEmpresa", function (req, res) {
   empresaController.recuperarEmpresa(req, res);
 });
 
+router.post("/criarToken", function (req, res) {
+  empresaController.criarToken(req, res);
+});
+
+router.post("/recuperarToken", function (req, res) {
+  empresaController.recuperarToken(req, res);
+});
+
 
 
 module.exports = router;
