@@ -129,19 +129,73 @@
 <!-- parte do GU -->
 <script>
 
+function buscarCargo(){
+    var idCargo = sessionStorage.getItem("ID_CARGO")
+    fetch(`/empresas/buscarCargo/${idCargo}`
+        ).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    sessionStorage.setItem('Add', JSON.stringify(resposta[0].add));
+                    sessionStorage.setItem('Hist', JSON.stringify(resposta[0].hist));
+                    sessionStorage.setItem('ADM', JSON.stringify(resposta[0].adm));
+                    console.log(sessionStorage.getItem('Add'));
+                    console.log(sessionStorage.getItem('Hist'));
+                    console.log(sessionStorage.getItem('ADM'));
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o listar!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    window.onload = buscarCargo()
+
+    var add = sessionStorage.Add
+    var adm = sessionStorage.ADM
+    var hist = sessionStorage.Hist
+
     function btnPlanos() {
-        window.location.href = "../planos.html"
+        if(adm == 1){
+          window.location.href = "../planos.html"  
+        } else {
+            alert("Você não ter permissão para entrar ai")
+        }
+
     }
 
     function btnChamado() {
         window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
     }
     function btnHistorico() {
+        if(hist == 1){
         window.location.href = "historico.html"
+    }else {
+            alert("Você não ter permissão para entrar ai")
+        }
     }
 
     function btnFuncionarios() {
+        if(add == 1){
         window.location.href = "funcionario.html"
+        }else {
+            alert("Você não ter permissão para entrar ai")
+        }
     }
 
     function btnDashboard() {
@@ -151,9 +205,7 @@
 
 <!-- script config do Grafico, fetch & plot -->
 <script>
-
-   sessionStorage.NOME_EMPRESA = "Trackware"
-   sessionStorage.NOME_USUARIO = "Cesar"
+    
     var dadoCPU = 0;
     var dadoRAM = 0;
     var dadoDISCO = 0;

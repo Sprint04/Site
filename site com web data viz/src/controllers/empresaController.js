@@ -117,11 +117,35 @@ function recuperarToken(req, res) {
   }
 }
 
+function buscarCargo(req, res) {
+  var id = req.params.idCargo;
+  if (id == undefined) {
+    res.status(400).send("Seu idCargo está undefined!");
+  } else {
+    empresaModel.buscarCargo(id)
+      .then(
+        function (resultado) {
+          res.json(resultado)
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a recuperação as permissões! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }
+}
+
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
   cadastrarEmpresa,
   recuperarEmpresa,
   criarToken,
-  recuperarToken
+  recuperarToken,
+  buscarCargo
 };

@@ -28,6 +28,10 @@ router.get("/recuperarToken/:token", function (req, res) {
   empresaController.recuperarToken(req, res);
 });
 
+router.get("/buscarCargo/:idCargo", function (req, res) {
+  empresaController.buscarCargo(req, res);
+});
+
 
 
 module.exports = router;
