@@ -5,8 +5,8 @@ var sql = require('mssql');
 var sqlServerConfig = {
     server: "localhost",
     database: "trackware",
-    user: "testes",
-    password: "12345678",
+    user: "sa",
+    password: "#Gfsptech",
     pool: {
         max: 10,
         min: 0,
