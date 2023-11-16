@@ -3,17 +3,15 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "localhost",
-    database: "trackware",
+    port: parseInt("1433", 10),
+    server: "44.197.21.59",
     user: "sa",
     password: "#Gfsptech",
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    },
+    database: "trackware",
     options: {
-        encrypt: true, // for azure
+        encrypt: false,
+        trustServerCertificate: true,
+        stream: false
     }
 }
 
