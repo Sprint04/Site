@@ -4,7 +4,7 @@ var sql = require('mssql');
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
     port: parseInt("1433", 10),
-    server: "44.197.21.59",
+    server: "54.144.73.127",
     user: "sa",
     password: "#Gfsptech",
     database: "trackware",
