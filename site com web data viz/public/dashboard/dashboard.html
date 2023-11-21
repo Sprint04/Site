@@ -171,7 +171,7 @@ function buscarCargo(){
     var hist = sessionStorage.getItem('Hist')
 
     function btnPlanos() {
-        if(adm == true){
+        if(sessionStorage.getItem('ADM') == true){
           window.location.href = "../planos.html"  
         } else {
             alert("Você não ter permissão para entrar ai")
@@ -183,7 +183,7 @@ function buscarCargo(){
         window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
     }
     function btnHistorico() {
-        if(hist == true){
+        if(sessionStorage.getItem('Hist') == true){
         window.location.href = "historico.html"
     }else {
             alert("Você não ter permissão para entrar ai")
@@ -191,7 +191,8 @@ function buscarCargo(){
     }
 
     function btnFuncionarios() {
-        if(add == true){
+        window.location.href = "funcionario.html"
+        if(sessionStorage.getItem('Add') == true){
         window.location.href = "funcionario.html"
         }else {
             alert("Você não ter permissão para entrar ai")
