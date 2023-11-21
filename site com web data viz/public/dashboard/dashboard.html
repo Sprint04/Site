@@ -166,9 +166,9 @@ function buscarCargo(){
 
     window.onload = buscarCargo()
 
-    var add = sessionStorage.Add
-    var adm = sessionStorage.ADM
-    var hist = sessionStorage.Hist
+    var add = sessionStorage.getItem('Add')
+    var adm = sessionStorage.getItem('ADM')
+    var hist = sessionStorage.getItem('Hist')
 
     function btnPlanos() {
         if(adm == true){
