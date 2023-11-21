@@ -13,8 +13,8 @@ function recuperarUsuario(cpf) {
 function cadastrarUsuario(nome, sobrenome, cpf, email, senha, fkEmpresa, cargo) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, sobrenome, cpf, email, senha, fkEmpresa);
     var instrucao = `
-    insert into usuario values
-    (null, "${nome}", "${sobrenome}", "${cpf}", "${email}", "${senha}", ${cargo}, ${fkEmpresa});    
+    insert into usuario(nome, sobrenome, cpf, emailCorporativo, senha, fkCargo, fkEmpresa) values
+    ("${nome}", "${sobrenome}", "${cpf}", "${email}", "${senha}", ${cargo}, ${fkEmpresa});    
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -23,14 +23,14 @@ function cadastrarUsuario(nome, sobrenome, cpf, email, senha, fkEmpresa, cargo) 
 function cadastrarCargo(nome, hist, add, adm, fkEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",);
     var instrucao = `
-    insert into cargo values
-    (null, ${fkEmpresa}, '${nome}', 'Um cargo adicionado pela empresa')   
+    insert into cargo(fkEmpresa, nome, funcao) values
+    (${fkEmpresa}, '${nome}', 'Um cargo adicionado pela empresa')   
     `
     var instrucao2 = `
-    insert into permissionamento values
-    (null, (select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 1, ${hist})
-    (null, (select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 2, ${add})
-    (null, (select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 3, ${adm})
+    insert into permissionamento(fkCargo, fkPermissao,Permitido) values
+    ((select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 1, ${hist})
+    ((select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 2, ${add})
+    ((select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 3, ${adm})
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     database.executar(instrucao);
@@ -40,9 +40,9 @@ function cadastrarCargo(nome, hist, add, adm, fkEmpresa) {
 function cadastrarTelefone(telCel, telFixo, fkUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", telCel, telFixo, fkUsuario);
     var instrucao = `
-    insert into telefone values
-    (null, ${fkUsuario}, 1,'${telCel}'),
-    (null, ${fkUsuario}, 2,'${telFixo}');
+    insert into telefone(fkUsuario, fkTipo, numero) values
+    (${fkUsuario}, 1,'${telCel}'),
+    (${fkUsuario}, 2,'${telFixo}');
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
