@@ -310,7 +310,7 @@
         var cpf = cpf_input.value
         var email = email_input.value
         var senha = senha_input.value
-        var fkEmpresa = sessionStorage.getItem('ID_EMPRESA')
+        var fkEmpresa = sessionStorage.ID_EMPRESA
         var cargo = document.getElementById("cargo").value
         if (cargo == 0) {
             cargo = undefined
@@ -388,7 +388,7 @@
         var hist = document.getElementById("permissoes2").value
         var add = document.getElementById("permissoes1").value
         var adm = document.getElementById("permissoes3").value
-        var fkEmpresa = sessionStorage.getItem('idEmpresa')
+        var fkEmpresa = sessionStorage.ID_EMPRESA
 
         fetch("/usuarios/cadastrarCargo", {
             method: "POST",
@@ -412,6 +412,7 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
                     listarFuncionario()
+                    listarCargo()
                 });
             } else {
                 console.log("Houve um erro ao tentar cadastrar o usuario!");

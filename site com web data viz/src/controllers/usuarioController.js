@@ -68,7 +68,7 @@ function cadastrarUsuario(req, res) {
 function cadastrarCargo(req, res) {
     var nome = req.body.nomeServer;
     var fkEmpresa = req.body.fkEmpresaServer;
-    var hist = req.body.cargoServer;
+    var hist = req.body.histServer;
     var add = req.body.addServer;
     var adm = req.body.admServer;
 

@@ -27,10 +27,10 @@ function cadastrarCargo(nome, hist, add, adm, fkEmpresa) {
     (${fkEmpresa}, '${nome}', 'Um cargo adicionado pela empresa')   
     `
     var instrucao2 = `
-    insert into permissionamento(fkCargo, fkPermissao,Permitido) values
-    ((select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 1, ${hist})
-    ((select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 2, ${add})
-    ((select idCargo from cargo where nome = ${nome} and fkEmpresa = ${fkEmpresa} order by idCargo desc limit 1;), 3, ${adm})
+    insert into permissionamento(fkCargo, fkPermissao, Permitido) values
+    ((select idCargo from cargo where nome = '${nome}' and fkEmpresa = ${fkEmpresa} limit 1), 1, ${hist}),
+    ((select idCargo from cargo where nome = '${nome}' and fkEmpresa = ${fkEmpresa} limit 1), 2, ${add}),
+    ((select idCargo from cargo where nome = '${nome}' and fkEmpresa = ${fkEmpresa} limit 1), 3, ${adm});
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     database.executar(instrucao);
