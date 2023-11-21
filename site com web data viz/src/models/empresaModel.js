@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 function buscarPorId(id) {
-  var query = `select * from empresa where id = '${id}'`;
+  var query = `select * from empresa where id = ${id}`;
 
   return database.executar(query);
 }
@@ -17,7 +17,7 @@ function recuperarEmpresa(cnpj) {
 }
 
 function buscarPorCnpj(cnpj) {
-  var query = `select * from empresa where cnpj = '${cnpj}'`;
+  var query = `select * from empresa where cnpj = "${cnpj}"`;
 
   return database.executar(query);
 }
@@ -39,7 +39,7 @@ function criarToken(token) {
 
   var instrucao = `
   insert into Tokens (chaveAtivacao, fkSituacao) value
-     ('${token}', 1)
+     ("${token}", 1)
 
   `
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -62,9 +62,9 @@ function buscarCargo(id){
   console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretament. \n \n function recuperarToken(",id,"): ")
   
   var instrucao = `
-  select permitido as 'hist', (select permitido from permissionamento join permissao on fkPermissao = idPermissao where nome = 'Adicionar Cargos e Funcionarios' and fkCargo = ${id}) as 'add',
-	(select permitido from permissionamento join permissao on fkPermissao = idPermissao where nome = 'Editar Planos' and fkCargo = ${id}) as 'adm'
-	from permissionamento join permissao on fkPermissao = idPermissao where nome = 'Acessar Histórico' and fkCargo = ${id}; 
+  select permitido as "hist", (select permitido from permissionamento join permissao on fkPermissao = idPermissao where nome = "Adicionar Cargos e Funcionarios" and fkCargo = ${id}) as "add",
+	(select permitido from permissionamento join permissao on fkPermissao = idPermissao where nome = "Editar Planos" and fkCargo = ${id}) as "adm"
+	from permissionamento join permissao on fkPermissao = idPermissao where nome = "Acessar Histórico" and fkCargo = ${id}; 
   `
 
   console.log("Executando a instrução SQL: \n" + instrucao);

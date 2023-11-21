@@ -24,13 +24,13 @@ function cadastrarCargo(nome, hist, add, adm, fkEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",);
     var instrucao = `
     insert into cargo(fkEmpresa, nome, funcao) values
-    (${fkEmpresa}, '${nome}', 'Um cargo adicionado pela empresa')   
+    (${fkEmpresa}, "${nome}", "Um cargo adicionado pela empresa")   
     `
     var instrucao2 = `
     insert into permissionamento(fkCargo, fkPermissao, Permitido) values
-    ((select idCargo from cargo where nome = '${nome}' and fkEmpresa = ${fkEmpresa} limit 1), 1, ${hist}),
-    ((select idCargo from cargo where nome = '${nome}' and fkEmpresa = ${fkEmpresa} limit 1), 2, ${add}),
-    ((select idCargo from cargo where nome = '${nome}' and fkEmpresa = ${fkEmpresa} limit 1), 3, ${adm});
+    ((select idCargo from cargo where nome = "${nome}" and fkEmpresa = ${fkEmpresa} limit 1), 1, ${hist}),
+    ((select idCargo from cargo where nome = "${nome}" and fkEmpresa = ${fkEmpresa} limit 1), 2, ${add}),
+    ((select idCargo from cargo where nome = "${nome}" and fkEmpresa = ${fkEmpresa} limit 1), 3, ${adm});
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     database.executar(instrucao);
@@ -41,8 +41,8 @@ function cadastrarTelefone(telCel, telFixo, fkUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", telCel, telFixo, fkUsuario);
     var instrucao = `
     insert into telefone(fkUsuario, fkTipo, numero) values
-    (${fkUsuario}, 1,'${telCel}'),
-    (${fkUsuario}, 2,'${telFixo}');
+    (${fkUsuario}, 1,"${telCel}"),
+    (${fkUsuario}, 2,"${telFixo}");
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -60,7 +60,7 @@ e.nome AS nomeEmpresa,
 c.idCargo,
 c.nome AS nomeCargo FROM usuario as u JOIN empresa as e ON u.fkEmpresa = e.idEmpresa
 	JOIN cargo as c ON c.idCargo = u.fkCargo
-		WHERE email_Corporativo = '${email}' AND senha = '${senha}';
+		WHERE email_Corporativo = "${email}" AND senha = "${senha}";
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

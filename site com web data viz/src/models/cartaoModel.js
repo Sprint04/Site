@@ -3,7 +3,7 @@ var database = require("../database/config")
 function recuperarIDCartao(numero) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()", numero);
     var instrucao = `
-        select * from cartao where numero = '${numero}';
+        select * from cartao where numero = "${numero}";
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -15,7 +15,7 @@ function cadastrar(nome, numero, data_expiracao, codigo_seguranca, fkTipoCartao,
     
     var instrucao1 = `
         INSERT INTO Cartao (nomeTitular, numero, dtExpiracao, numSeguranca, fkTipoCartao, fkBandeiraCartao
-            ) VALUES ('${nome}', ${numero}, ${data_expiracao},${codigo_seguranca},${fkTipoCartao}, ${fkBandeiraCartao});
+            ) VALUES ("${nome}", ${numero}, ${data_expiracao},${codigo_seguranca},${fkTipoCartao}, ${fkBandeiraCartao});
     `;
     // console.log("Executando a instrução SQL: \n" + instrucao1, instrucao2);
     return database.executar(instrucao1);

@@ -33,7 +33,7 @@ function cadastrarComplemento(numero, complemento, fkEndereco){
 function recuperarComplemento(numero, complemento){
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credencias de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", numero, complemento) 
     var instrucao = `
-    select * from complemento WHERE numero = '${numero}' AND complemento = '${complemento}';
+    select * from complemento WHERE numero = "${numero}" AND complemento = "${complemento}";
     `         
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
