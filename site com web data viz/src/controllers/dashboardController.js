@@ -45,6 +45,49 @@ function buscarUltimasMedidasDISCO(res, res) {
     });
 }
 
+function buscarTempoRealDisco(res, res) {
+
+    dashboardModel.buscarTempoRealDisco().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+function buscarTempoRealRam(res, res) {
+
+    dashboardModel.buscarTempoRealRam().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+function buscarTempoRealCpu(res, res) {
+
+    dashboardModel.buscarTempoRealCpu().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 // function buscarMedidasEmTempoReal(req, res) {
 
 //     var idAquario = req.params.idAquario;
@@ -67,7 +110,10 @@ function buscarUltimasMedidasDISCO(res, res) {
 module.exports = {
     buscarUltimasMedidasCPU,
     buscarUltimasMedidasRAM,
-    buscarUltimasMedidasDISCO
+    buscarUltimasMedidasDISCO,
+    buscarTempoRealDisco,
+    buscarTempoRealRam,
+    buscarTempoRealCpu
     // buscarMedidasEmTempoReal
 
 }

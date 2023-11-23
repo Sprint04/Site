@@ -14,5 +14,14 @@ router.get("/obterDadosGraficoRAM/", function (req, res) {
 router.get("/obterDadosGraficoDISCO/", function (req, res) {
     dashboardController.buscarUltimasMedidasDISCO(req, res);
 })
+router.get("/disco_tempo-real/", function (req, res) {
+    dashboardController.buscarTempoRealDisco(req, res);
+})
+router.get("/cpu_tempo-real/", function (req, res) {
+    dashboardController.buscarTempoRealCpu(req, res);
+})
+router.get("/ram_tempo-real/", function (req, res) {
+    dashboardController.buscarTempoRealRam(req, res);
+})
 
 module.exports = router;

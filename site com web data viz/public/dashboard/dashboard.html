@@ -376,10 +376,59 @@ function buscarCargo(){
             console.log('----------------------------------------------')
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
             console.log(resposta)
+
+            setTimeout(() => atualizarGraficoCpu(data, Grafico_Cpu), 2000);
         }
 
         // setInterval(plotarGrafico, 3000);
     }
+    function atualizarGraficoCpu(dados, myChart) {
+
+
+
+fetch(`/dashboard/cpu_tempo-real/`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (novoRegistro) {
+
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados);
+
+
+            if (novoRegistro[0].dtHora == dados.labels[dados.labels.length - 1]) {
+                console.log("---------------------------------------------------------------")
+                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                console.log("Horário do novo dado capturado:")
+                console.log(novoRegistro[0].dtHora)
+                console.log("Horário do último dado capturado:")
+                console.log(dados.labels[dados.labels.length - 1])
+                console.log("---------------------------------------------------------------")
+            } else {
+                dados.labels.shift();
+                console.log(dados.label)
+                dados.labels.push(novoRegistro[0].dtHora);
+
+                dados.datasets[0].data.shift();
+                console.log(dados.datasets[0].data)
+                dados.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+                myChart.update();
+            }
+
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(() => atualizarGraficoCpu(dados, myChart), 2000);
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGraficoCpu(dados, myChart), 2000);
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+
+}
 
     function plotar_grafico_ram() {
         console.log("oi césar")
@@ -447,10 +496,60 @@ function buscarCargo(){
             console.log('----------------------------------------------')
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
             console.log(resposta)
+
+            setTimeout(() => atualizarGraficoRam(data, Grafico_Ram), 2000);
         }
 
         // setInterval(plotarGrafico, 3000);
     }
+
+    function atualizarGraficoRam(dados, myChart) {
+
+
+
+fetch(`/dashboard/ram_tempo-real/`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (novoRegistro) {
+
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados);
+
+
+            if (novoRegistro[0].dtHora == dados.labels[dados.labels.length - 1]) {
+                console.log("---------------------------------------------------------------")
+                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                console.log("Horário do novo dado capturado:")
+                console.log(novoRegistro[0].dtHora)
+                console.log("Horário do último dado capturado:")
+                console.log(dados.labels[dados.labels.length - 1])
+                console.log("---------------------------------------------------------------")
+            } else {
+                dados.labels.shift();
+                console.log(dados.label)
+                dados.labels.push(novoRegistro[0].dtHora);
+
+                dados.datasets[0].data.shift();
+                console.log(dados.datasets[0].data)
+                dados.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+                myChart.update();
+            }
+
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(() => atualizarGraficoRam(dados, myChart), 2000);
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGraficoRam(dados, myChart), 2000);
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+
+}
 
     function plotar_grafico_disco() {
         console.log("oi césar")
@@ -518,7 +617,56 @@ function buscarCargo(){
             console.log('----------------------------------------------')
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
             console.log(resposta)
+            
+            setTimeout(() => atualizarGraficoDisco(data, Grafico_Disco), 2000);
         }
+function atualizarGraficoDisco(dados, myChart) {
+
+
+
+fetch(`/dashboard/disco_tempo-real/`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (novoRegistro) {
+
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados);
+
+
+            if (novoRegistro[0].dtHora == dados.labels[dados.labels.length - 1]) {
+                console.log("---------------------------------------------------------------")
+                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                console.log("Horário do novo dado capturado:")
+                console.log(novoRegistro[0].dtHora)
+                console.log("Horário do último dado capturado:")
+                console.log(dados.labels[dados.labels.length - 1])
+                console.log("---------------------------------------------------------------")
+            } else {
+                dados.labels.shift();
+                console.log(dados.label)
+                dados.labels.push(novoRegistro[0].dtHora);
+
+                dados.datasets[0].data.shift();
+                console.log(dados.datasets[0].data)
+                dados.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+                myChart.update();
+            }
+
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(() => atualizarGraficoDisco(dados, myChart), 2000);
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGraficoDisco(dados, myChart), 2000);
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+
+}
 
         // setInterval(plotarGrafico, 3000);
     }
