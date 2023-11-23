@@ -39,10 +39,23 @@ function removerFuncionario(id,id2) {
     database.executar(instrucao2)
     return database.executar(instrucao);
 }
+function recuperarUser(id) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function recuperarHistorico()", id);
+    var instrucao = `
+    select u.idUsuario, u.nome, u.sobrenome, u.cpf, u.email_Corporativo as email, c.nome as cargo, e.nome as empresa, chaveAtivacao as token from usuario as u
+	join cargo as c on fkCargo = idCargo
+		join empresa as e on u.fkEmpresa = idEmpresa
+			join tokens as t on fkToken = idToken
+				where idUsuario = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
     recuperarHistorico,
     recuperarFuncionario,
     removerFuncionario,
-    recuperarCargo
+    recuperarCargo,
+    recuperarUser
 }

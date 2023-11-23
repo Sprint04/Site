@@ -15,5 +15,8 @@ router.get("/removerFuncionario/:id/:id2", function (req, res) {
 router.get("/cargo/:id", function (req, res) {
     historicoController.cargo(req, res);
 })
+router.get("/user/:id", function (req, res) {
+    historicoController.user(req, res);
+})
 
 module.exports = router;

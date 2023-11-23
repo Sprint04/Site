@@ -22,7 +22,7 @@
             </div>
             <div class="opcoes_menu_dashboard">
                 <button onclick="btnDashboard()">Dashboards</button>
-                <button>Usuário</button>
+                <button onclick="btnUsuario()">Usuário</button>
                 <button onclick="btnFuncionarios()" class="button_selecionado">Funcionários</button>
                 <button onclick="btnPlanos()">Planos</button>
                 <button>Monitoramento</button>
@@ -199,8 +199,9 @@
 </script>
 <script>
  
-    function btnPlanos() {
-        if(adm == true){
+ function btnPlanos() {
+        var adm = sessionStorage.getItem('ADM')
+        if(sessionStorage.getItem('ADM') == true){
           window.location.href = "../planos.html"  
         } else {
             alert("Você não ter permissão para entrar ai")
@@ -212,6 +213,7 @@
         window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
     }
     function btnHistorico() {
+        var hist = sessionStorage.getItem('Hist')
         if(hist == true){
         window.location.href = "historico.html"
     }else {
@@ -220,15 +222,18 @@
     }
 
     function btnFuncionarios() {
+        var add = sessionStorage.getItem('Add')
         if(add == true){
-        window.location.href = "funcionario.html"
+        window.location = "funcionario.html"
         }else {
             alert("Você não ter permissão para entrar ai")
         }
     }
-
     function btnDashboard() {
-        window.location.href = "dashboard.html"
+        window.location = "dashboard.html"
+    }
+    function btnUsuario() {
+        window.location = "usuario.html"
     }
 </script>
 <script>
