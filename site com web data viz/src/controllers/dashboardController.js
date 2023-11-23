@@ -1,8 +1,10 @@
 var dashboardModel = require("../models/dashboardModel");
 
-function buscarUltimasMedidasCPU(res, res) {
+function buscarUltimasMedidasCPU(req, res) {
 
-    dashboardModel.buscarUltimasMedidasCPU().then(function (resultado) {
+    var id = req.params.idEmpresa;
+
+    dashboardModel.buscarUltimasMedidasCPU(id).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -15,9 +17,11 @@ function buscarUltimasMedidasCPU(res, res) {
     });
 }
 
-function buscarUltimasMedidasRAM(res, res) {
+function buscarUltimasMedidasRAM(req, res) {
 
-    dashboardModel.buscarUltimasMedidasRAM().then(function (resultado) {
+    var id = req.params.idEmpresa;
+
+    dashboardModel.buscarUltimasMedidasRAM(id).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -30,9 +34,11 @@ function buscarUltimasMedidasRAM(res, res) {
     });
 }
 
-function buscarUltimasMedidasDISCO(res, res) {
+function buscarUltimasMedidasDISCO(req, res) {
 
-    dashboardModel.buscarUltimasMedidasDISCO().then(function (resultado) {
+    var id = req.params.idEmpresa;
+
+    dashboardModel.buscarUltimasMedidasDISCO(id).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -45,9 +51,11 @@ function buscarUltimasMedidasDISCO(res, res) {
     });
 }
 
-function buscarTempoRealDisco(res, res) {
+function buscarTempoRealDisco(req, res) {
 
-    dashboardModel.buscarTempoRealDisco().then(function (resultado) {
+    var id = req.params.idEmpresa;
+
+    dashboardModel.buscarTempoRealDisco(id).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -59,9 +67,11 @@ function buscarTempoRealDisco(res, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-function buscarTempoRealRam(res, res) {
+function buscarTempoRealRam(req, res) {
 
-    dashboardModel.buscarTempoRealRam().then(function (resultado) {
+    var id = req.params.idEmpresa;
+
+    dashboardModel.buscarTempoRealRam(id).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -73,9 +83,11 @@ function buscarTempoRealRam(res, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-function buscarTempoRealCpu(res, res) {
+function buscarTempoRealCpu(req, res) {
 
-    dashboardModel.buscarTempoRealCpu().then(function (resultado) {
+    var id = req.params.idEmpresa;
+
+    dashboardModel.buscarTempoRealCpu(id).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

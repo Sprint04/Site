@@ -214,6 +214,8 @@ function buscarCargo(){
     usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
     empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
 
+    var idEmpresa = sessionStorage.ID_EMPRESA
+
     plotar_grafico_cpu()
     plotar_grafico_ram()
     plotar_grafico_disco()
@@ -313,7 +315,7 @@ function buscarCargo(){
         obterDadosGraficoCPU()
 
         function obterDadosGraficoCPU() {
-            fetch(`/dashboard/obterDadosGraficoCPU`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dashboard/obterDadosGraficoCPU/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -386,7 +388,7 @@ function buscarCargo(){
 
 
 
-fetch(`/dashboard/cpu_tempo-real/`, { cache: 'no-store' }).then(function (response) {
+fetch(`/dashboard/cpu_tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
         response.json().then(function (novoRegistro) {
 
@@ -435,7 +437,7 @@ fetch(`/dashboard/cpu_tempo-real/`, { cache: 'no-store' }).then(function (respon
         obterDadosGraficoRAM()
 
         function obterDadosGraficoRAM() {
-            fetch(`/dashboard/obterDadosGraficoRAM`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dashboard/obterDadosGraficoRAM/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -507,7 +509,7 @@ fetch(`/dashboard/cpu_tempo-real/`, { cache: 'no-store' }).then(function (respon
 
 
 
-fetch(`/dashboard/ram_tempo-real/`, { cache: 'no-store' }).then(function (response) {
+fetch(`/dashboard/ram_tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
         response.json().then(function (novoRegistro) {
 
@@ -556,7 +558,7 @@ fetch(`/dashboard/ram_tempo-real/`, { cache: 'no-store' }).then(function (respon
         obterDadosGraficoDISCO()
 
         function obterDadosGraficoDISCO() {
-            fetch(`/dashboard/obterDadosGraficoDISCO`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dashboard/obterDadosGraficoDISCO/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -624,7 +626,7 @@ function atualizarGraficoDisco(dados, myChart) {
 
 
 
-fetch(`/dashboard/disco_tempo-real/`, { cache: 'no-store' }).then(function (response) {
+fetch(`/dashboard/disco_tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
         response.json().then(function (novoRegistro) {
 
