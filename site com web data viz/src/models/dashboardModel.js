@@ -128,11 +128,24 @@ ORDER BY
     return database.executar(instrucao);
 }
 
+function buscarUltimasMedidasNathan(id) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ")
+    var instrucao = `
+    SELECT TOP 12 (select count(idOcorrencias) from ocorrencia join dispositivo on fkDispositivo = idDispositivo where fkEmpresa = ${id}) as ocorrencia, CAST(dtHora as DATE) as data from ocorrencia 
+        join dispositivo on fkDispositivo = idDispositivo where fkEmpresa = ${id}
+
+    ;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarUltimasMedidasCPU,
     buscarUltimasMedidasRAM,
     buscarUltimasMedidasDISCO,
+    buscarUltimasMedidasNathan,
     buscarTempoRealDisco,
     buscarTempoRealRam,
-    buscarTempoRealCpu
+    buscarTempoRealCpu,
 };

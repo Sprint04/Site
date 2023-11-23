@@ -168,8 +168,8 @@ function buscarCargo(){
 
     function btnPlanos() {
         var adm = sessionStorage.getItem('ADM')
-        if(sessionStorage.getItem('ADM') == true){
-          window.location.href = "../planos.html"  
+        if(sessionStorage.getItem('ADM') == 'true'){
+          window.location = "../planos.html"  
         } else {
             alert("Você não ter permissão para entrar ai")
         }
@@ -181,16 +181,17 @@ function buscarCargo(){
     }
     function btnHistorico() {
         var hist = sessionStorage.getItem('Hist')
-        if(hist == true){
-        window.location.href = "historico.html"
-    }else {
+        console.log(hist)
+        if(hist == 'true'){
+        window.location = "historico.html"
+        }else {
             alert("Você não ter permissão para entrar ai")
         }
     }
 
     function btnFuncionarios() {
         var add = sessionStorage.getItem('Add')
-        if(add == true){
+        if(add == 'true'){
         window.location = "funcionario.html"
         }else {
             alert("Você não ter permissão para entrar ai")

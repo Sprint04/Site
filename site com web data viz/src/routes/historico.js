@@ -18,5 +18,17 @@ router.get("/cargo/:id", function (req, res) {
 router.get("/user/:id", function (req, res) {
     historicoController.user(req, res);
 })
+router.get("/processo/:id", function (req, res) {
+    historicoController.processo(req, res);
+})
+router.get("/ocorrencia/:id", function (req, res) {
+    historicoController.ocorrencia(req, res);
+})
+router.get("/removerProcesso/:nome/:id", function (req, res) {
+    historicoController.removerProcesso(req, res);
+})
+router.post("/adicionarProcesso", function (req, res) {
+    historicoController.adicionarProcesso(req, res);
+})
 
 module.exports = router;

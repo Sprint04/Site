@@ -23,5 +23,8 @@ router.get("/cpu_tempo-real/:idEmpresa", function (req, res) {
 router.get("/ram_tempo-real/:idEmpresa", function (req, res) {
     dashboardController.buscarTempoRealRam(req, res);
 })
+router.get("/obterDadosGraficoNathan/:idEmpresa", function (req, res) {
+    dashboardController.buscarUltimasMedidasNathan(req, res);
+})
 
 module.exports = router;

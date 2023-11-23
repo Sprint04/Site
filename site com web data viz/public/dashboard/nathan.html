@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="imagex/png" href="../assets/logo-icon.png">
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/historico.css">
+    <title>Trackware - Processos - Monitoramento</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<html>
+
+<style>
+    .help-button {
+      position: relative;
+      display: inline-block;
+      border: none;
+      background-color: transparent;
+      text-align: center;
+      cursor: pointer;
+      outline: none;
+    }
+    
+    .help-button .texto_ajuda {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; 
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    </style>
+
+<body onload="plotar_grafico(); listarProcessos(); listarOcorrencias()">
+    <div class="container_pagina">
+        <div class="menu_dashboard">
+            <div class="container_logo_menu_dashboard">
+                <div class="logo_menu_dashboard">
+                    <img src="../assets/logo-icon.png" alt="logo_menu">
+                </div>
+            </div>
+            <div class="opcoes_menu_dashboard">
+                <button onclick="btnDashboard()">Dashboards</button>
+                <button onclick="btnUsuario()">Usuário</button>
+                <button onclick="btnFuncionarios()">Funcionários</button>
+                <button onclick="btnPlanos()">Planos</button>
+                <button class="button_selecionado">Monitoramento</button>
+                <button>Alertas</button>
+                <button onclick="btnChamado()">Chamados</button>
+                <button onclick="btnHistorico()">Históricos</button>
+            </div>
+        </div>
+        <div class="tela_dashboard">
+            <div class="container_mensagem_botao">
+                <div class="container_mensagem_usuario">
+                    <div class="img_usuario">
+                        <img src="../assets/perfil.png" alt="">
+                    </div>
+                    <div class="mensagem_usuario">
+                        Nome: <span id="usuarioNome"></span>
+                        <br>
+                        Empresa: <span id="empresaNome"></span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div style="border: solid 1px black; width: 10.9%; position: absolute; top: 22%; left: 20.5%; padding: .3%;">
+                <span>Processos:</span><button class="help-button" onclick="botaoAjuda()">💡<span class="texto_ajuda">
+                    Insira o processo aqui para adicionar ou remover da lista de bloqueados</span></button>
+                <input id="processo_input" placeholder="Nome do Processo"><br><button onclick="adicionarProcesso()">Adicionar</button><button onclick="removerProcesso()">Remover</button>
+            </div>
+            <div style="border: solid 1px black; width: 10.5%; height: 19%; position: absolute; top: 30%; left: 20.5%; text-align: center; padding: .5%; overflow-y: auto;">
+                <span style="position: fixed; left: 21.5%; background-color: black; color: white; padding: .2%;">Processos Bloqueados:</span>
+                <br><br><span id="lista_processos"></span></div>
+            <div style="border: solid 1px black; width: 10.5%; height: 30%; position: absolute; top: 52%; left: 20.5%; text-align: start; padding: .5%; overflow-y: auto;">
+                <span style="position: fixed; left: 21.5%; background-color: black; color: white; padding: .2%;">Lista de Ocorrencias:</span>
+                <br><br><span id="lista_ocorrencias"></span></div>
+
+            <div class="container_grafico">
+                <div class="grafico">
+                    <canvas id="Grafico" width="600" height="350">
+                    </canvas>
+
+
+
+</html>
+<script>
+
+function botaoAjuda() {
+  var Texto = document.querySelector('.texto_ajuda');
+  if (Texto.style.visibility === "hidden") {
+    Texto.style.visibility = "visible";
+    Texto.style.opacity = 1;
+  } else {
+    Texto.style.visibility = "hidden";
+    Texto.style.opacity = 0;
+  }
+}
+
+function btnPlanos() {
+        var adm = sessionStorage.getItem('ADM')
+        if(sessionStorage.getItem('ADM') == true){
+          window.location.href = "../planos.html"  
+        } else {
+            alert("Você não ter permissão para entrar ai")
+        }
+
+    }
+
+    function btnChamado() {
+        window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
+    }
+    function btnHistorico() {
+        var hist = sessionStorage.getItem('Hist')
+        if(hist == true){
+        window.location.href = "historico.html"
+    }else {
+            alert("Você não ter permissão para entrar ai")
+        }
+    }
+
+    function btnFuncionarios() {
+        var add = sessionStorage.getItem('Add')
+        if(add == true){
+        window.location = "funcionario.html"
+        }else {
+            alert("Você não ter permissão para entrar ai")
+        }
+    }
+
+    function btnDashboard() {
+        window.location = "dashboard.html"
+    }
+    function btnUsuario() {
+        window.location = "usuario.html"
+    }
+
+    usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
+    empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
+    var idEmpresa = sessionStorage.ID_EMPRESA
+
+    function listarProcessos() {
+        fetch(`/historico/processo/${idEmpresa}`
+        ).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    lista_processos.innerHTML = ""
+
+                    for (i = 0; i < resposta.length; i++) {
+                        var pross = resposta[i];
+                        lista_processos.innerHTML += `<p>${i + 1} - ${pross.nome}</p><br>`
+                    }
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o listar!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+    function listarOcorrencias() {
+        fetch(`/historico/ocorrencia/${idEmpresa}`
+        ).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    lista_ocorrencias.innerHTML = ""
+
+                    for (i = 0; i < resposta.length; i++) {
+                        var oco = resposta[i];
+                        lista_ocorrencias.innerHTML += `<p>${i + 1} - ${oco.nomeProcesso}<br><b>MAC Dispositivo:</b> ${oco.IP}<br><b>Data e Hora do acesso:</b> ${oco.dtHoraFormat}</p><br>`
+                    }
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o listar!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function plotar_grafico() {
+        obterDadosGrafico()
+
+        function obterDadosGrafico() {
+            fetch(`/dashboard/obterDadosGraficoNathan/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
+                        plotarGraficoProcess(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        function plotarGraficoProcess(resposta) {
+            // Criando estrutura para plotar gráfico - labels
+            let labels = [];
+let data = {
+    labels: labels,
+    datasets: [{
+        label: 'Process Ocorrences',
+        data: [],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)', // fundo translúcido
+        borderColor: 'rgb(255, 99, 132)', // linha vermelha
+        borderWidth: 1
+    }]
+};
+
+const config = {
+    type: 'line',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Gráfico de Ocorrências de Processos' // Título do gráfico
+            },
+            legend: {
+                labels: {
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Data' // Rótulo do eixo X
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Ocorrências' // Rótulo do eixo Y
+                }
+            }
+        }
+    }
+};
+
+console.log('iniciando plotagem do gráfico...');
+const Grafico_Cpu = new Chart(
+    document.getElementById('Grafico'),
+    config
+);
+
+
+            // Inserindo valores recebidos em estrutura para plotar o gráfico
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                // labels.push(registro.Novo_Testamento);
+                let date = new Date(registro.data)
+                let dataFormatada = date.toLocaleDateString()
+                labels.push(dataFormatada);
+                data.datasets[0].data.push(registro.ocorrencia); // dadoCapturado é o nome da coluna do mySQL
+                // dados.datasets[0].data.push(registro.Novo_Testamento);
+                // dados.datasets[1].data.push(registro.temperatura);
+            }
+            
+
+            console.log('----------------------------------------------')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log(resposta)
+
+        }
+
+        // setInterval(plotarGrafico, 3000);
+    }
+
+    function adicionarProcesso(){
+        var nome = processo_input.value
+        var fkEmpresa = sessionStorage.ID_EMPRESA
+
+        fetch("/historico/adicionarProcesso", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeProcessoServer: nome,
+                fkEmpresaServer: fkEmpresa,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN do Cadastrar Processo!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                });
+                listarProcessos()
+            } else {
+                console.log("Houve um erro ao tentar cadastrar o Processo!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function removerProcesso(){
+        var nomeProcessoVar = processo_input.value
+        fetch(`/historico/removerProcesso/${nomeProcessoVar}/${idEmpresa}`
+        ).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                console.log(resposta);
+                listarProcessos()
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o removerProcesso!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>
