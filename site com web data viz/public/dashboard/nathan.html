@@ -298,6 +298,7 @@ const Grafico_Cpu = new Chart(
                 var registro = resposta[i];
                 // labels.push(registro.Novo_Testamento);
                 let date = new Date(registro.data)
+                date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
                 let dataFormatada = date.toLocaleDateString()
                 labels.push(dataFormatada);
                 data.datasets[0].data.push(registro.ocorrencia); // dadoCapturado é o nome da coluna do mySQL
