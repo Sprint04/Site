@@ -18,6 +18,7 @@ var empresasRouter = require("./src/routes/empresas");
 var dashboardRouter = require("./src/routes/dashboard");
 var cartaoRouter = require("./src/routes/cartao");
 var historicoRouter = require("./src/routes/historico");
+var geolocalizacaoRouter = require("./src/routes/geolocalizacao");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +36,7 @@ app.use("/empresas", empresasRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/cartao", cartaoRouter);
 app.use("/historico", historicoRouter);
+app.use("/geolocalizacao", geolocalizacaoRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

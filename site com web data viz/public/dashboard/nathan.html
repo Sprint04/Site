@@ -109,42 +109,42 @@ function botaoAjuda() {
 }
 
 function btnPlanos() {
-        var adm = sessionStorage.getItem('ADM')
-        if(sessionStorage.getItem('ADM') == true){
-          window.location.href = "../planos.html"  
-        } else {
-            alert("Você não ter permissão para entrar ai")
-        }
-
+    var adm = sessionStorage.getItem('ADM')
+    if(sessionStorage.getItem('ADM') == 'true'){
+      window.location = "../planos.html"  
+    } else {
+        alert("Você não ter permissão para entrar ai")
     }
 
-    function btnChamado() {
-        window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
-    }
-    function btnHistorico() {
-        var hist = sessionStorage.getItem('Hist')
-        if(hist == true){
-        window.location.href = "historico.html"
+}
+
+function btnChamado() {
+    window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
+}
+function btnHistorico() {
+    var hist = sessionStorage.getItem('Hist')
+    console.log(hist)
+    if(hist == 'true'){
+    window.location = "historico.html"
     }else {
-            alert("Você não ter permissão para entrar ai")
-        }
+        alert("Você não ter permissão para entrar ai")
     }
+}
 
-    function btnFuncionarios() {
-        var add = sessionStorage.getItem('Add')
-        if(add == true){
-        window.location = "funcionario.html"
-        }else {
-            alert("Você não ter permissão para entrar ai")
-        }
+function btnFuncionarios() {
+    var add = sessionStorage.getItem('Add')
+    if(add == 'true'){
+    window.location = "funcionario.html"
+    }else {
+        alert("Você não ter permissão para entrar ai")
     }
-
-    function btnDashboard() {
-        window.location = "dashboard.html"
-    }
-    function btnUsuario() {
-        window.location = "usuario.html"
-    }
+}
+function btnDashboard() {
+    window.location = "dashboard.html"
+}
+function btnUsuario() {
+    window.location = "usuario.html"
+}
 
     usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
     empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
