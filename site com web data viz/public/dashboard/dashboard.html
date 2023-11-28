@@ -487,30 +487,39 @@
         console.log('Iniciando plotagem do gráfico de rede...');
 
         let labels_rede = [];
-
         let dados_rede = {
-            labels: labels_rede,
-            datasets: [{
-                label: 'KiloBytes recebidos pela Rede',
+        labels: labels_rede,
+        datasets: [
+            {
+                label: 'KiloBytes recebidos pela Rede (Enviada)',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(69, 255, 0)',
                 tension: 0.1
-            }]
-        };
+            },
+            {
+                label: 'KiloBytes recebidos pela Rede (Recebida)',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(0, 69, 255)',
+                tension: 0.1
+            }
+        ]
+    };
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela função "obter_dados_rede()" e passados para "plotarGrafico_rede()":')
         console.log(resposta)
 
         for (let i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            let dataHora = new Date(registro.dtHora);
-            let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
-            labels_rede.push(dataFormatada);
+        var registro = resposta[i];
+        let dataHora = new Date(registro.dtHora);
+        let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
+        labels_rede.push(dataFormatada);
 
-            dados_rede.datasets[0].data.push(registro.dadoCapturado);
-        }
+        dados_rede.datasets[0].data.push(registro.dadoCapturado2);
+        dados_rede.datasets[1].data.push(registro.dadoCapturado);
+    }
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -691,7 +700,10 @@
                         dados_rede.labels.push(dataFormatada);
 
                         dados_rede.datasets[0].data.shift();
-                        dados_rede.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+                        dados_rede.datasets[0].data.push(novoRegistro[0].dadoCapturado2);
+
+                        dados_rede.datasets[1].data.shift();
+                        dados_rede.datasets[1].data.push(novoRegistro[0].dadoCapturado);
 
                         Grafico_Rede.update();
                     }
