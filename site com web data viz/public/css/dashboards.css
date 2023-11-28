@@ -199,9 +199,14 @@
 }
 
 .dado_monitoramento{
-  font-size: 150%;
+  width: fit-content;
+  font-size: 140%;
   display: flex;
   flex-direction: column;
+}
+
+.valor_dados{
+  display: flex;
 }
 
 .card_grafico{
@@ -257,7 +262,7 @@ canvas{
 #Grafico_Principal{
   border-radius: 20px;
   width: 100%;
-  height: 60vh;
+  height: 72vh;
   background-color: #370854;
   display: flex;
   border: dashed purple 5px;

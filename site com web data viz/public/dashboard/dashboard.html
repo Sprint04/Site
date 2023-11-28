@@ -52,30 +52,39 @@
             </div>
 
             <div class="container_cards_monitoramento">
-                <button class="card" onclick="chamar_grafico_cpu()">
+                <button class="card" onclick="chamarGrafico('CPU')">
                     <div class="container_dados_botao">
                         <span class="tipo_componente">CPU</span>
                         <div class="dado_monitoramento">
-                            <span id="dado_CPU">0%</span>
+                            <div class="valor_dado"><span id="dado_CPU">0</span>%</div>
                             <span class="tipo_utilizacao">Utilizado</span>
                         </div>
                     </div>
                 </button>
-                <button class="card" onclick="chamar_grafico_ram()">
+                <button class="card" onclick="chamarGrafico('RAM')">
                     <div class="container_dados_botao">
                         <span class="tipo_componente">RAM</span>
                         <div class="dado_monitoramento">
-                            <span id="dado_RAM">0%</span>
+                            <div class="valor_dado"><span id="dado_RAM">0</span>%</div>
                             <span class="tipo_utilizacao">Utilizada</span>
                         </div>
                     </div>
                 </button>
-                <button class="card" onclick="chamar_grafico_disco()">
+                <button class="card" onclick="chamarGrafico('DISCO')">
                     <div class="container_dados_botao">
                         <span class="tipo_componente">DISCO</span>
                         <div class="dado_monitoramento">
-                            <span id="dado_DISCO">0%</span>
+                            <div class="valor_dado"><span id="dado_DISCO">0</span>%</div>
                             <span class="tipo_utilizacao">Utilizado</span>
+                        </div>
+                    </div>
+                </button>
+                <button class="card" onclick="chamarGrafico('REDE')">
+                    <div class="container_dados_botao">
+                        <span class="tipo_componente">REDE</span>
+                        <div class="dado_monitoramento">
+                            <span id="dado_REDE">0</span>
+                            <span class="tipo_utilizacao">Bytes Recebidos</span>
                         </div>
                     </div>
                 </button>
@@ -111,14 +120,18 @@
                                     representando últimos dados capturados referente ao DISCO da máquina selecionada.
                                 </p>
                             </div>
+                            <div class="texto_informacao">
+                                <p>REDE: ao clicar no botão irá aparecer um gráfico
+                                    representando últimos dados capturados referente a bytes recebidos pela REDE da
+                                    máquina selecionada.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <canvas id="Grafico_Cpu" style="display: none;">
-                    </canvas>
-                    <canvas id="Grafico_Ram" style="display: none;">
-                    </canvas>
-                    <canvas id="Grafico_Disco" style="display: none;">
-                    </canvas>
+                    <canvas id="Grafico_Cpu" style="display: none;"></canvas>
+                    <canvas id="Grafico_Ram" style="display: none;"></canvas>
+                    <canvas id="Grafico_Disco" style="display: none;"></canvas>
+                    <canvas id="Grafico_Rede" style="display: none;"></canvas>
                 </div>
             </div>
         </div>
@@ -128,10 +141,14 @@
 </html>
 <!-- parte do GU -->
 <script>
+    var idEmpresa = sessionStorage.ID_EMPRESA
 
-function buscarCargo(){
-    var idCargo = sessionStorage.getItem("ID_CARGO")
-    fetch(`/empresas/buscarCargo/${idCargo}`
+    usuarioNome.innerHTML = sessionStorage.NOME_USUARIO
+    empresaNome.innerHTML = sessionStorage.NOME_EMPRESA
+
+    function buscarCargo() {
+        var idCargo = sessionStorage.getItem("ID_CARGO")
+        fetch(`/empresas/buscarCargo/${idCargo}`
         ).then(function (resposta) {
 
             if (resposta.ok) {
@@ -168,8 +185,8 @@ function buscarCargo(){
 
     function btnPlanos() {
         var adm = sessionStorage.getItem('ADM')
-        if(sessionStorage.getItem('ADM') == 'true'){
-          window.location = "../planos.html"  
+        if (sessionStorage.getItem('ADM') == 'true') {
+            window.location = "../planos.html"
         } else {
             alert("Você não ter permissão para entrar ai")
         }
@@ -182,18 +199,18 @@ function buscarCargo(){
     function btnHistorico() {
         var hist = sessionStorage.getItem('Hist')
         console.log(hist)
-        if(hist == 'true'){
-        window.location = "historico.html"
-        }else {
+        if (hist == 'true') {
+            window.location = "historico.html"
+        } else {
             alert("Você não ter permissão para entrar ai")
         }
     }
 
     function btnFuncionarios() {
         var add = sessionStorage.getItem('Add')
-        if(add == 'true'){
-        window.location = "funcionario.html"
-        }else {
+        if (add == 'true') {
+            window.location = "funcionario.html"
+        } else {
             alert("Você não ter permissão para entrar ai")
         }
     }
@@ -203,549 +220,342 @@ function buscarCargo(){
     function btnUsuario() {
         window.location = "usuario.html"
     }
+
 </script>
 
-<!-- script config do Grafico, fetch & plot -->
 <script>
-    
+
+    let proximaAtualizacaoRede;
+    let proximaAtualizacaoCpu;
+    let proximaAtualizaçãoRam;
+    let proximaAtualizacaoDisco;
+    let proximaAtualizacaoValores;
+
     var dadoCPU = 0;
     var dadoRAM = 0;
     var dadoDISCO = 0;
+    var dadoREDE = 0;
 
-    usuarioNome.innerHTML += sessionStorage.NOME_USUARIO
-    empresaNome.innerHTML += sessionStorage.NOME_EMPRESA
+    // plotar_grafico_cpu()
+    // plotar_grafico_ram()
+    // plotar_grafico_disco()
 
-    var idEmpresa = sessionStorage.ID_EMPRESA
+    window.onload = obter_dados_cpu(), atualizarValores(), obter_dados_cpu(), obter_dados_ram(), obter_dados_disco()
 
-    plotar_grafico_cpu()
-    plotar_grafico_ram()
-    plotar_grafico_disco()
+    var graficos = {
+        principal: { ativado: 1, element: document.getElementById('Grafico_Principal') },
+        cpu: { ativado: 0, element: document.getElementById('Grafico_Cpu') },
+        ram: { ativado: 0, element: document.getElementById('Grafico_Ram') },
+        disco: { ativado: 0, element: document.getElementById('Grafico_Disco') },
+        rede: { ativado: 0, element: document.getElementById('Grafico_Rede') }
+    };
 
-    var grafico_principal_ativado = 1;
-    var grafico_cpu_ativado = 0;
-    var grafico_ram_ativado = 0;
-    var grafico_disco_ativado = 0;
-
-    function chamar_grafico_cpu() {
-        if (grafico_cpu_ativado == 0) {
-            grafico_cpu_ativado = 1;
-            Grafico_Cpu.style.display = "block"
-
-            grafico_principal_ativado = 0;
-            Grafico_Principal.style.display = "none"
-
-            grafico_ram_ativado = 0;
-            Grafico_Ram.style.display = "none"
-
-            grafico_disco_ativado = 0;
-            Grafico_Disco.style.display = "none"
-
-        } else {
-            grafico_principal_ativado = 1;
-            Grafico_Principal.style.display = "block flex"
-
-            grafico_cpu_ativado = 0;
-            Grafico_Cpu.style.display = "none"
-
-            grafico_ram_ativado = 0;
-            Grafico_Ram.style.display = "none"
-
-            grafico_disco_ativado = 0;
-            Grafico_Disco.style.display = "none"
-        }
-    }
-
-    function chamar_grafico_ram() {
-        if (grafico_ram_ativado == 0) {
-            grafico_cpu_ativado = 0;
-            Grafico_Cpu.style.display = "none"
-
-            grafico_principal_ativado = 0;
-            Grafico_Principal.style.display = "none"
-
-            grafico_ram_ativado = 1;
-            Grafico_Ram.style.display = "block"
-
-            grafico_disco_ativado = 0;
-            Grafico_Disco.style.display = "none"
-        } else {
-            grafico_principal_ativado = 1;
-            Grafico_Principal.style.display = "block flex"
-
-            grafico_cpu_ativado = 0;
-            Grafico_Cpu.style.display = "none"
-
-            grafico_ram_ativado = 0;
-            Grafico_Ram.style.display = "none"
-
-            grafico_disco_ativado = 0;
-            Grafico_Disco.style.display = "none"
-        }
-    }
-
-    function chamar_grafico_disco() {
-        if (grafico_disco_ativado == 0) {
-            grafico_cpu_ativado = 0;
-            Grafico_Cpu.style.display = "none"
-
-            grafico_principal_ativado = 0;
-            Grafico_Principal.style.display = "none"
-
-            grafico_ram_ativado = 0;
-            Grafico_Ram.style.display = "none"
-
-            grafico_disco_ativado = 1;
-            Grafico_Disco.style.display = "block"
-        } else {
-            grafico_principal_ativado = 1;
-            Grafico_Principal.style.display = "block flex"
-
-            grafico_cpu_ativado = 0;
-            Grafico_Cpu.style.display = "none"
-
-            grafico_ram_ativado = 0;
-            Grafico_Ram.style.display = "none"
-
-            grafico_disco_ativado = 0;
-            Grafico_Disco.style.display = "none"
-        }
-    }
-
-    function plotar_grafico_cpu() {
-        console.log("oi césar")
-        obterDadosGraficoCPU()
-
-        function obterDadosGraficoCPU() {
-            fetch(`/dashboard/obterDadosGraficoCPU/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-                        // sessionStorage.DADO_CPU = json.dadoCapturado;
-                        // console.log(sessionStorage.DADO_CPU)
-                        plotarGrafico_CPU(resposta);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
+    function chamarGrafico(tipo) {
+        for (const key in graficos) {
+            graficos[key].ativado = 0;
+            graficos[key].element.style.display = "none";
         }
 
-        function plotarGrafico_CPU(resposta) {
-            // Criando estrutura para plotar gráfico - labels
-            let labels = [];
-            // 
-            // Criando estrutura para plotar gráfico - dados
-            let data = {
-                labels: labels,
-                datasets: [{
-                    label: 'CPU usage',
-                    data: [],
-                    backgroundColor: ['rgb(0, 99, 140)', 'rgb(0, 99, 90)'],
-                    borderColor: 'blue',
-                    borderwidth: 1
-                }]
-            };
+        graficos[tipo.toLowerCase()].ativado = 1;
+        graficos[tipo.toLowerCase()].element.style.display = "block";
+    }
 
-            const config = {
-                type: 'line',
-                data: data,
-            };
-
-            console.log('iniciando plotagem do gráfico...');
-            const Grafico_Cpu = new Chart(
-                document.getElementById('Grafico_Cpu'),
-                config
-            );
-
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
-            for (i = 0; i < resposta.length; i++) {
-                var registro = resposta[i];
-                // labels.push(registro.Novo_Testamento);
-                labels.push(registro.dtHora);
-                data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
-                // dados.datasets[0].data.push(registro.Novo_Testamento);
-                // dados.datasets[1].data.push(registro.temperatura);
-            }
-
-            var dadoCapturadoCPU = resposta[resposta.length - 1];
-            dadoCPU = dadoCapturadoCPU.dadoCapturado;
-            dado_CPU.innerHTML = `${dadoCPU}%`
-            
-
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-            console.log(resposta)
-
-            setTimeout(() => atualizarGraficoCpu(data, Grafico_Cpu), 2000);
+    function obter_dados_cpu() {
+        if (proximaAtualizacaoCpu != undefined) {
+            clearTimeout(proximaAtualizacaoCpu);
         }
 
-        // setInterval(plotarGrafico, 3000);
-    }
-    function atualizarGraficoCpu(dados, myChart) {
-
-
-
-fetch(`/dashboard/cpu_tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (novoRegistro) {
-
-            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            console.log(`Dados atuais do gráfico:`);
-            console.log(dados);
-
-
-            if (novoRegistro[0].dtHora == dados.labels[dados.labels.length - 1]) {
-                console.log("---------------------------------------------------------------")
-                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                console.log("Horário do novo dado capturado:")
-                console.log(novoRegistro[0].dtHora)
-                console.log("Horário do último dado capturado:")
-                console.log(dados.labels[dados.labels.length - 1])
-                console.log("---------------------------------------------------------------")
-            } else {
-                dados.labels.shift();
-                console.log(dados.label)
-                dados.labels.push(novoRegistro[0].dtHora);
-
-                dados.datasets[0].data.shift();
-                console.log(dados.datasets[0].data)
-                dados.datasets[0].data.push(novoRegistro[0].dadoCapturado);
-
-                myChart.update();
-            }
-
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGraficoCpu(dados, myChart), 2000);
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGraficoCpu(dados, myChart), 2000);
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-
-}
-
-    function plotar_grafico_ram() {
-        console.log("oi césar")
-        obterDadosGraficoRAM()
-
-        function obterDadosGraficoRAM() {
-            fetch(`/dashboard/obterDadosGraficoRAM/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-
-                        plotarGrafico_RAM(resposta);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
-
-        function plotarGrafico_RAM(resposta) {
-            // Criando estrutura para plotar gráfico - labels
-            let labels = [];
-            // 
-            // Criando estrutura para plotar gráfico - dados
-            let data = {
-                labels: labels,
-                datasets: [{
-                    label: 'RAM usage',
-                    data: [],
-                    backgroundColor: ['rgb(120, 20, 20)', 'rgb(150, 20, 10)'],
-                    borderColor: 'red',
-                    borderwidth: 1
-                }]
-            };
-
-            const config = {
-                type: 'line',
-                data: data,
-            };
-
-            console.log('iniciando plotagem do gráfico...');
-            const Grafico_Ram = new Chart(
-                document.getElementById('Grafico_Ram'),
-                config
-            );
-
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
-            for (i = 0; i < resposta.length; i++) {
-                var registro = resposta[i];
-                // labels.push(registro.Novo_Testamento);
-                labels.push(registro.dtHora);
-                data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
-                // dados.datasets[0].data.push(registro.Novo_Testamento);
-                // dados.datasets[1].data.push(registro.temperatura);
-            }
-
-            var dadoCapturadoRAM = resposta[resposta.length - 1];
-            dadoRAM = dadoCapturadoRAM.dadoCapturado;
-            dado_RAM.innerHTML = `${dadoRAM}%`
-
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-            console.log(resposta)
-
-            setTimeout(() => atualizarGraficoRam(data, Grafico_Ram), 2000);
-        }
-
-        // setInterval(plotarGrafico, 3000);
-    }
-
-    function atualizarGraficoRam(dados, myChart) {
-
-
-
-fetch(`/dashboard/ram_tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (novoRegistro) {
-
-            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            console.log(`Dados atuais do gráfico:`);
-            console.log(dados);
-
-
-            if (novoRegistro[0].dtHora == dados.labels[dados.labels.length - 1]) {
-                console.log("---------------------------------------------------------------")
-                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                console.log("Horário do novo dado capturado:")
-                console.log(novoRegistro[0].dtHora)
-                console.log("Horário do último dado capturado:")
-                console.log(dados.labels[dados.labels.length - 1])
-                console.log("---------------------------------------------------------------")
-            } else {
-                dados.labels.shift();
-                console.log(dados.label)
-                dados.labels.push(novoRegistro[0].dtHora);
-
-                dados.datasets[0].data.shift();
-                console.log(dados.datasets[0].data)
-                dados.datasets[0].data.push(novoRegistro[0].dadoCapturado);
-
-                myChart.update();
-            }
-
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGraficoRam(dados, myChart), 2000);
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGraficoRam(dados, myChart), 2000);
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-
-}
-
-    function plotar_grafico_disco() {
-        console.log("oi césar")
-        obterDadosGraficoDISCO()
-
-        function obterDadosGraficoDISCO() {
-            fetch(`/dashboard/obterDadosGraficoDISCO/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-
-                        plotarGrafico_DISCO(resposta);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
-
-        function plotarGrafico_DISCO(resposta) {
-            // Criando estrutura para plotar gráfico - labels
-            let labels = [];
-            // 
-            // Criando estrutura para plotar gráfico - dados
-            let data = {
-                labels: labels,
-                datasets: [{
-                    label: 'DISCO usage',
-                    data: [],
-                    backgroundColor: ['rgb(0, 90, 40)', 'rgb(0, 99, 90)'],
-                    borderColor: 'green',
-                    borderwidth: 1
-                }]
-            };
-
-            const config = {
-                type: 'line',
-                data: data,
-            };
-
-            console.log('iniciando plotagem do gráfico...');
-            const Grafico_Disco = new Chart(
-                document.getElementById('Grafico_Disco'),
-                config
-            );
-
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
-            for (i = 0; i < resposta.length; i++) {
-                var registro = resposta[i];
-                // labels.push(registro.Novo_Testamento);
-                labels.push(registro.dtHora);
-                data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
-                // dados.datasets[0].data.push(registro.Novo_Testamento);
-                // dados.datasets[1].data.push(registro.temperatura);
-            }
-
-            var dadoCapturadoDISCO = resposta[resposta.length - 1];
-            dadoDISCO = dadoCapturadoDISCO.dadoCapturado;
-            dado_DISCO.innerHTML = `${dadoDISCO}%`
-
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-            console.log(resposta)
-            
-            setTimeout(() => atualizarGraficoDisco(data, Grafico_Disco), 2000);
-        }
-function atualizarGraficoDisco(dados, myChart) {
-
-
-
-fetch(`/dashboard/disco_tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (novoRegistro) {
-
-            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            console.log(`Dados atuais do gráfico:`);
-            console.log(dados);
-
-
-            if (novoRegistro[0].dtHora == dados.labels[dados.labels.length - 1]) {
-                console.log("---------------------------------------------------------------")
-                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                console.log("Horário do novo dado capturado:")
-                console.log(novoRegistro[0].dtHora)
-                console.log("Horário do último dado capturado:")
-                console.log(dados.labels[dados.labels.length - 1])
-                console.log("---------------------------------------------------------------")
-            } else {
-                dados.labels.shift();
-                console.log(dados.label)
-                dados.labels.push(novoRegistro[0].dtHora);
-
-                dados.datasets[0].data.shift();
-                console.log(dados.datasets[0].data)
-                dados.datasets[0].data.push(novoRegistro[0].dadoCapturado);
-
-                myChart.update();
-            }
-
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGraficoDisco(dados, myChart), 2000);
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGraficoDisco(dados, myChart), 2000);
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-
-}
-
-        // setInterval(plotarGrafico, 3000);
-    }
-
-    // function plotar_grafico_principal() {
-    //     var ctx = document.getElementById('Grafico_Principal').getContext('2d');
-
-    //     let label_teste = [];
-
-    //     var data = {
-    //         labels: ['Atualização a cada 5 minutos'],
-    //         datasets: [{
-    //             label: 'CPU',
-    //             backgroundColor: 'green',
-    //             borderColor: 'black',
-    //             fill: false,
-    //             data: [10],
-    //             tension: 0.1
-    //         },
-
-    //         {
-    //             label: 'RAM',
-    //             backgroundColor: 'red',
-    //             borderColor: 'black',
-    //             fill: false,
-    //             data: [75],
-    //             tension: 0.1
-    //         },
-
-    //         {
-    //             label: 'DISCO',
-    //             backgroundColor: 'blue',
-    //             borderColor: 'black',
-    //             fill: false,
-    //             data: [55],
-    //             tension: 0.1
-    //         }
-    //         ]
-    //     };
-
-    //     var options = {
-    //         responsive: true,
-    //         plugins: {
-    //             title: {
-    //                 display: true,
-    //                 text: 'Monitoração dos principais componentes (Em %)',
-    //                 font: {
-    //                     size: 16,
-    //                     color: '#ff5733' // Altere a cor aqui
-    //                 }
-    //             }
-    //         }
-    //     };
-
-    //     var Grafico_Principal = new Chart(ctx, {
-    //         type: 'bar',
-    //         data: data,
-    //         options: options
-    //     });
-    // }
-</script>
-
-<!-- Meu script -->
-<!-- <script>
-
-    function obterDadosGrafico() {
-        fetch(`/dashboard/obterDadosGrafico`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboard/obter_dados_cpu`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta);
+                    plotarGrafico_cpu(resposta);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+    }
+
+    function obter_dados_ram() {
+        if (proximaAtualizaçãoRam != undefined) {
+            clearTimeout(proximaAtualizaçãoRam);
+        }
+
+        fetch(`/dashboard/obter_dados_ram`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico_ram(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+    }
+
+    function obter_dados_disco() {
+        if (proximaAtualizacaoDisco != undefined) {
+            clearTimeout(proximaAtualizacaoDisco);
+        }
+
+        fetch(`/dashboard/obter_dados_disco`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico_disco(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+    }
+
+    function obter_dados_rede() {
+        if (proximaAtualizacaoRede != undefined) {
+            clearTimeout(proximaAtualizacaoRede);
+        }
+
+        fetch(`/dashboard/obter_dados_rede`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico_rede(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+    }
+
+    function plotarGrafico_cpu(resposta) {
+        console.log('Iniciando plotagem do gráfico de rede...');
+
+        let labels_cpu = [];
+
+        let dados_cpu = {
+            labels: labels_cpu,
+            datasets: [{
+                label: 'Utilização da CPU em %',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(255, 255, 0)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela função "obter_dados_cpu()" e passados para "plotarGrafico_cpu()":')
+        console.log(resposta)
+
+        for (i = 0; i < resposta.length; i++) {
+            var registroCPU = resposta[i];
+            labels_cpu.push(registroCPU.dtHora);
+            dados_cpu.datasets[0].data.push(registroCPU.dadoCapturado);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels_cpu)
+        console.log('Dados:')
+        console.log(dados_cpu.datasets)
+        console.log('----------------------------------------------')
+
+        const config = {
+            type: 'line',
+            data: dados_cpu
+        };
+
+        let Grafico_Cpu = new Chart(
+            document.getElementById(`Grafico_Cpu`),
+            config
+        );
+
+        setTimeout(() => atualizar_grafico_cpu(dados_cpu, Grafico_Cpu), 2000);
+    }
+
+    function plotarGrafico_ram(resposta) {
+        console.log('Iniciando plotagem do gráfico de ram...');
+
+        let labels_ram = [];
+
+        let dados_ram = {
+            labels: labels_ram,
+            datasets: [{
+                label: 'Utilização da RAM em %',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(0, 100, 255)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela função "obter_dados_ram()" e passados para "plotarGrafico_ram()":')
+        console.log(resposta)
+
+        for (i = 0; i < resposta.length; i++) {
+            var registroRAM = resposta[i];
+            labels_ram.push(registroRAM.dtHora);
+            dados_ram.datasets[0].data.push(registroRAM.dadoCapturado);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels_ram)
+        console.log('Dados:')
+        console.log(dados_ram.datasets)
+        console.log('----------------------------------------------')
+
+        const config = {
+            type: 'line',
+            data: dados_ram
+        };
+
+        let Grafico_Ram = new Chart(
+            document.getElementById(`Grafico_Ram`),
+            config
+        );
+
+        setTimeout(() => atualizar_grafico_ram(dados_ram, Grafico_Ram), 2000);
+    }
+
+    function plotarGrafico_disco(resposta) {
+        console.log('Iniciando plotagem do gráfico de disco...');
+
+        let labels_disco = [];
+
+        let dados_disco = {
+            labels: labels_disco,
+            datasets: [{
+                label: 'Utilização do DISCO em %',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(150, 0, 0)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela função "obter_dados_disco()" e passados para "plotarGrafico_disco()":')
+        console.log(resposta)
+
+        for (i = 0; i < resposta.length; i++) {
+            var registroDISCO = resposta[i];
+            labels_disco.push(registroDISCO.dtHora);
+            dados_disco.datasets[0].data.push(registroDISCO.dadoCapturado);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels_disco)
+        console.log('Dados:')
+        console.log(dados_disco.datasets)
+        console.log('----------------------------------------------')
+
+        const config = {
+            type: 'line',
+            data: dados_disco
+        };
+
+        let Grafico_Disco = new Chart(
+            document.getElementById(`Grafico_Disco`),
+            config
+        );
+
+        setTimeout(() => atualizar_grafico_disco(dados_disco, Grafico_Disco), 2000);
+    }
+
+    function plotarGrafico_rede(resposta) {
+        console.log('Iniciando plotagem do gráfico de rede...');
+
+        let labels_rede = [];
+
+        let dados_rede = {
+            labels: labels_rede,
+            datasets: [{
+                label: 'Bytes recebidos pela Rede',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(69, 255, 0)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela função "obter_dados_rede()" e passados para "plotarGrafico_rede()":')
+        console.log(resposta)
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels_rede.push(registro.dtHora);
+            dados_rede.datasets[0].data.push(registro.dadoCapturado);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels_rede)
+        console.log('Dados:')
+        console.log(dados_rede.datasets)
+        console.log('----------------------------------------------')
+
+        const config = {
+            type: 'line',
+            data: dados_rede
+        };
+
+        let Grafico_Rede = new Chart(
+            document.getElementById(`Grafico_Rede`),
+            config
+        );
+
+        setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+    }
+
+    function atualizar_grafico_cpu(dados_cpu, Grafico_Cpu) {
+        fetch(`/dashboard/tempo_real_cpu`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados_cpu);
+
+                    if (novoRegistro[0].dtHora == dados_cpu.labels[dados_cpu.label.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].dtHora)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados_cpu.labels[dados_cpu.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        dados_cpu.labels.shift();
+                        dados_cpu.labels.push(novoRegistro[0].dtHora);
+
+                        dados_cpu.datasets[0].data.shift();
+                        dados_cpu.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+                        Grafico_Cpu.update();
+                    }
+
+                    proximaAtualizacaoCpu = setTimeout(() => atualizar_grafico_cpu(dados_cpu, Grafico_Cpu), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+                proximaAtualizacaoCpu = setTimeout(() => atualizar_grafico_cpu(dados_cpu, Grafico_Cpu), 2000);
             }
         })
             .catch(function (error) {
@@ -753,47 +563,282 @@ fetch(`/dashboard/disco_tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(fu
             });
     }
 
-    function plotarGrafico(resposta) {
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-        // 
-        // Criando estrutura para plotar gráfico - dados
-        let data = {
-            labels: labels,
-            datasets: [{
-                label: 'CPU usage',
-                data: [],
-                backgroundColor: ['rgb(0, 99, 140)', 'rgb(0, 99, 90)'],
-                borderColor: '#fff',
-                borderwidth: 1
-            }]
-        };
-        const config = {
-            type: 'line',
-            data: data,
-        };
+    function atualizar_grafico_ram(dados_ram, Grafico_Ram) {
+        fetch(`/dashboard/tempo_real_ram`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados_ram);
 
-        console.log('iniciando plotagem do gráfico...');
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
+                    if (novoRegistro[0].dtHora == dados_ram.labels[dados_ram.label.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].dtHora)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados_ram.labels[dados_ram.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        dados_ram.labels.shift();
+                        dados_ram.labels.push(novoRegistro[0].dtHora);
 
+                        dados_ram.datasets[0].data.shift();
+                        dados_ram.datasets[0].data.push(novoRegistro[0].dadoCapturado);
 
+                        Grafico_Ram.update();
+                    }
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            // labels.push(registro.Novo_Testamento);
-            labels.push(registro.dtHora);
-            data.datasets[0].data.push(registro.dadoCapturado); // dadoCapturado é o nome da coluna do mySQL
-            // dados.datasets[0].data.push(registro.Novo_Testamento);
-            // dados.datasets[1].data.push(registro.temperatura);
-        }
+                    proximaAtualizaçãoRam = setTimeout(() => atualizar_grafico_ram(dados_ram, Grafico_Ram), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
+                proximaAtualizaçãoRam = setTimeout(() => atualizar_grafico_ram(dados_ram, Grafico_Ram), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
-    // setInterval(plotarGrafico, 3000);
-</script> -->
+
+    function atualizar_grafico_disco(dados_disco, Grafico_Disco) {
+        fetch(`/dashboard/tempo_real_disco`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados_disco);
+
+                    if (novoRegistro[0].dtHora == dados_ram.labels[dados_disco.label.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].dtHora)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados_disco.labels[dados_disco.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        dados_disco.labels.shift();
+                        dados_disco.labels.push(novoRegistro[0].dtHora);
+
+                        dados_disco.datasets[0].data.shift();
+                        dados_disco.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+                        Grafico_Disco.update();
+                    }
+
+                    proximaAtualizacaoDisco = setTimeout(() => atualizar_grafico_disco(dados_disco, Grafico_Disco), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+                proximaAtualizacaoDisco = setTimeout(() => atualizar_grafico_disco(dados_disco, Grafico_Disco), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function atualizar_grafico_rede(dados_rede, Grafico_Rede) {
+
+        fetch(`/dashboard/tempo_real_rede`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados_rede);
+
+                    if (novoRegistro[0].dtHora == dados_rede.labels[dados_rede.label.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].dtHora)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados_rede.labels[dados_rede.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        dados_rede.labels.shift();
+                        dados_rede.labels.push(novoRegistro[0].dtHora);
+
+                        dados_rede.datasets[0].data.shift();
+                        dados_rede.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+                        Grafico_Rede.update();
+                    }
+
+                    proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+                proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function recuperarCpu() {
+
+        fetch(`/dashboard/ultimosCpu`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            })
+        }).then(function (resposta) {
+            console.log("Efetuando a recuperação de cpu")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json)
+                    console.log(JSON.stringify(json));
+
+                    dadoCPU = json[0].dadoCapturado
+                    dado_CPU.innerHTML = `${dadoCPU}`
+                    console.log(dadoCPU)
+                });
+            } else {
+                console.log("Houve um erro ao recuperar a qtd de processos")
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    }
+
+    function recuperarRam() {
+
+        fetch(`/dashboard/ultimosRam`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            })
+        }).then(function (resposta) {
+            console.log("Efetuando a recuperação de Ram")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json)
+                    console.log(JSON.stringify(json));
+
+                    dadoRAM = json[0].dadoCapturado
+                    dado_RAM.innerHTML = `${dadoRAM}`
+                    console.log(dadoRAM)
+                });
+            } else {
+                console.log("Houve um erro ao recuperar a qtd de processos")
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    }
+
+    function recuperarDisco() {
+
+        fetch(`/dashboard/ultimosDisco`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            })
+        }).then(function (resposta) {
+            console.log("Efetuando a recuperação de Disco")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json)
+                    console.log(JSON.stringify(json));
+
+                    dadoDISCO = json[0].dadoCapturado
+                    dado_DISCO.innerHTML = `${dadoDISCO}`
+                    console.log(dadoDISCO)
+                });
+            } else {
+                console.log("Houve um erro ao recuperar a qtd de processos")
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    }
+
+    function recuperarRede() {
+
+        fetch(`/dashboard/ultimosRede`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            })
+        }).then(function (resposta) {
+            console.log("Efetuando a recuperação de Rede")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json)
+                    console.log(JSON.stringify(json));
+
+                    dadoREDE = json[0].dadoCapturado
+                    dado_REDE.innerHTML = `${dadoREDE}`
+                    console.log(dadoREDE)
+                });
+            } else {
+                console.log("Houve um erro ao recuperar a qtd de processos")
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    }
+    
+    function atualizarValores() {
+        Promise.all([recuperarCpu(), recuperarDisco(), recuperarRam(), recuperarRede()])
+            .then(resultados => {
+                const dado__CPU = resultados[0][0].dadoCapturado;
+                const dado__DISCO = resultados[1][0].dadoCapturado;
+                const dado__RAM = resultados[2][0].dadoCapturado;
+                const dado__REDE = resultados[3][0].dadoCapturado;
+                
+                console.log("CPU Utilizada Recuperada: " + dado__CPU);
+                console.log("DISCO Utilizado Recuperada: " + dado__DISCO);
+                console.log("RAM Utilizada Recuperada: " + dado__RAM);
+                console.log("REDE recebida Recuperada: " + dado__REDE);
+
+                dado_CPU.innerHTML = dado__CPU;
+                dado_DISCO.innerHTML = dado__DISCO;
+                dado_RAM.innerHTML = dado__RAM;
+                dado_REDE.innerHTML = dado__REDE;
+            })
+            .catch(erro => {
+                console.error("Erro ao recuperar dados:", erro);
+            });
+
+        proximaAtualizacaoValores = setTimeout(() => atualizarValores(), 2000);
+    }
+</script>
