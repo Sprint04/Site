@@ -142,9 +142,9 @@ function buscarUltimasMedidasNathan(id) {
 function buscar_dados_rede(limite_linhas) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_rede(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
     JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "Rede(recebida)" ORDER BY idDado DESC LIMIT ${limite_linhas};
+        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Rede(recebida)' ORDER BY idDado DESC;
     `
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -153,9 +153,9 @@ function buscar_dados_rede(limite_linhas) {
 function buscar_dados_cpu(limite_linhas){
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_cpu(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "CPU" ORDER BY idDado DESC LIMIT ${limite_linhas};
+		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'CPU' ORDER BY idDado DESC;
     `
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -164,9 +164,9 @@ function buscar_dados_cpu(limite_linhas){
 function buscar_dados_ram(limite_linhas){
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_cpu(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "Memória" ORDER BY idDado DESC LIMIT ${limite_linhas};
+		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Memória' ORDER BY idDado DESC;
     `
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -175,9 +175,9 @@ function buscar_dados_ram(limite_linhas){
 function buscar_dados_disco(limite_linhas){
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_disco(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "Disco" ORDER BY idDado DESC LIMIT ${limite_linhas};
+		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Disco' ORDER BY idDado DESC;
     `
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -186,9 +186,9 @@ function buscar_dados_disco(limite_linhas){
 function tempo_real_rede() {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_rede(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "Rede(recebida)" ORDER BY idDado DESC LIMIT 1;`;
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Rede(recebida)' ORDER BY idDado DESC;`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -198,9 +198,9 @@ function tempo_real_rede() {
 function tempo_real_ram() {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_rede(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "Memória" ORDER BY idDado DESC LIMIT 1;`;
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Memória' ORDER BY idDado DESC;`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -210,9 +210,9 @@ function tempo_real_ram() {
 function tempo_real_cpu(){
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_cpu(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "CPU" ORDER BY idDado DESC LIMIT 1;`;
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'CPU' ORDER BY idDado DESC ;`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -221,9 +221,9 @@ function tempo_real_cpu(){
 function tempo_real_disco(){
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_disco(): ")
     var instrucao = `
-    select monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+    select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = "Disco" ORDER BY idDado DESC LIMIT 1;`;
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Disco' ORDER BY idDado DESC ;`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -233,13 +233,13 @@ function recuperarCpu() {
     console.log("Recuperando CPU...");
 
     var instrucao = `
-        SELECT monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
+        SELECT top 1 monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = "CPU"
+        WHERE nome = 'CPU'
         ORDER BY idDado DESC
-        LIMIT 1
+        
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -251,13 +251,13 @@ function recuperarRam() {
     console.log("Recuperando RAM...");
 
     var instrucao = `
-        SELECT monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
+        SELECT top 1 monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = "Memória"
+        WHERE nome = 'Memória'
         ORDER BY idDado DESC
-        LIMIT 1
+        
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -269,13 +269,13 @@ function recuperarDisco() {
     console.log("Recuperando Disco...");
 
     var instrucao = `
-        SELECT monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
+        SELECT top 1 monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = "Disco"
+        WHERE nome = 'Disco'
         ORDER BY idDado DESC
-        LIMIT 1
+        
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -287,13 +287,12 @@ function recuperarRede() {
     console.log("Recuperando Rede...");
 
     var instrucao = `
-        SELECT monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
+        SELECT top 1 monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = "Rede(recebida)"
+        WHERE nome = 'Rede(recebida)'
         ORDER BY idDado DESC
-        LIMIT 1
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
