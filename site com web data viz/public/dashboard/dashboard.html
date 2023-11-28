@@ -240,7 +240,7 @@
     // plotar_grafico_ram()
     // plotar_grafico_disco()
 
-    window.onload = obter_dados_cpu(), atualizarValores(), obter_dados_cpu(), obter_dados_ram(), obter_dados_disco()
+    window.onload = obter_dados_cpu(), obter_dados_rede(), obter_dados_ram(), obter_dados_disco(), atualizarValores()
 
     var graficos = {
         principal: { ativado: 1, element: document.getElementById('Grafico_Principal') },
@@ -356,7 +356,7 @@
         console.log('Estes dados foram recebidos pela função "obter_dados_cpu()" e passados para "plotarGrafico_cpu()":')
         console.log(resposta)
 
-        for (i = 0; i < resposta.length; i++) {
+        for (let i = 0; i < resposta.length; i++) {
             var registroCPU = resposta[i];
             labels_cpu.push(registroCPU.dtHora);
             dados_cpu.datasets[0].data.push(registroCPU.dadoCapturado);
@@ -403,7 +403,7 @@
         console.log('Estes dados foram recebidos pela função "obter_dados_ram()" e passados para "plotarGrafico_ram()":')
         console.log(resposta)
 
-        for (i = 0; i < resposta.length; i++) {
+        for (let i = 0; i < resposta.length; i++) {
             var registroRAM = resposta[i];
             labels_ram.push(registroRAM.dtHora);
             dados_ram.datasets[0].data.push(registroRAM.dadoCapturado);
@@ -450,7 +450,7 @@
         console.log('Estes dados foram recebidos pela função "obter_dados_disco()" e passados para "plotarGrafico_disco()":')
         console.log(resposta)
 
-        for (i = 0; i < resposta.length; i++) {
+        for (let i = 0; i < resposta.length; i++) {
             var registroDISCO = resposta[i];
             labels_disco.push(registroDISCO.dtHora);
             dados_disco.datasets[0].data.push(registroDISCO.dadoCapturado);
@@ -497,7 +497,7 @@
         console.log('Estes dados foram recebidos pela função "obter_dados_rede()" e passados para "plotarGrafico_rede()":')
         console.log(resposta)
 
-        for (i = 0; i < resposta.length; i++) {
+        for (let i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels_rede.push(registro.dtHora);
             dados_rede.datasets[0].data.push(registro.dadoCapturado);
@@ -532,7 +532,7 @@
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados_cpu);
 
-                    if (novoRegistro[0].dtHora == dados_cpu.labels[dados_cpu.label.length - 1]) {
+                    if (novoRegistro[0].dtHora == dados_cpu.labels[dados_cpu.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
                         console.log("Horário do novo dado capturado:")
@@ -571,7 +571,7 @@
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados_ram);
 
-                    if (novoRegistro[0].dtHora == dados_ram.labels[dados_ram.label.length - 1]) {
+                    if (novoRegistro[0].dtHora == dados_ram.labels[dados_ram.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
                         console.log("Horário do novo dado capturado:")
@@ -610,7 +610,7 @@
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados_disco);
 
-                    if (novoRegistro[0].dtHora == dados_ram.labels[dados_disco.label.length - 1]) {
+                    if (novoRegistro[0].dtHora == dados_ram.labels[dados_disco.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
                         console.log("Horário do novo dado capturado:")
@@ -650,7 +650,7 @@
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados_rede);
 
-                    if (novoRegistro[0].dtHora == dados_rede.labels[dados_rede.label.length - 1]) {
+                    if (novoRegistro[0].dtHora == dados_rede.labels[dados_rede.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
                         console.log("Horário do novo dado capturado:")
