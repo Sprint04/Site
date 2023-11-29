@@ -20,7 +20,7 @@
   --select-bg: var(--arrow-bg);
 }
 
-select {
+.selectOpcoes {
   /* Personalize */
   margin-bottom: 10%;
   background-color: black;
@@ -52,7 +52,7 @@ select {
   }
 }
 
-select:hover{
+.selectOpcoes:hover{
   transform: scale(1.20);
   border-left: 2px solid white;
   border-right: 2px solid white;
@@ -101,7 +101,7 @@ select:hover{
                 <button onclick="btnFuncionarios()">Funcionários</button>
                 <button onclick="btnPlanos()">Planos</button>
 
-                <select id="opcoes" onchange="mudarConteudo()">
+                <select class="selectOpcoes" id="opcoes" onchange="mudarConteudo()">
                     <option value="Cesar">Cesar - Projeto</option>
                     <option value="Temperatura">Temperatura</option>
                     <option value="Geolocalizacao">Geolocalização</option>

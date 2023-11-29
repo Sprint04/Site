@@ -25,7 +25,16 @@
                 <button onclick="btnUsuario()">Usuário</button>
                 <button onclick="btnFuncionarios()" class="button_selecionado">Funcionários</button>
                 <button onclick="btnPlanos()">Planos</button>
-                <button>Monitoramento</button>
+
+                <select class="selectOpcoes" id="opcoes" onchange="mudarConteudo()">
+                    <option selected value="0">Monitoramentos</option>
+                    <option value="Cesar">Cesar - Projeto</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option value="Geolocalizacao">Geolocalização</option>
+                    <option value="GPU">GPU</option>
+                    <option value="Processos">Processos</option>
+                  </select>
+
                 <button>Alertas</button>
                 <button onclick="btnChamado()">Chamados</button>
                 <button onclick="btnHistorico()">Históricos</button>
@@ -160,8 +169,110 @@
 
 </div>
 
+    <div class="popupCerto" id="popupCerto">
+      <img src="../assets/v.png" alt="">
+      <h2>Cadastro Realizado!</h2>
+      <p>Cadastro foi feito com sucesso!</p>
+      <button type="button" onclick="closePopupCerto()">OK</button>
+    </div>  
+  </div>
+
+    <div class="popupErro" id="popupErro">
+      <img src="../assets/x.png" alt="">
+      <h2>Erro ao cadastrar!</h2>
+      <p>Houve um erro ao cadastrar, Por favor tente novamente!</p>
+      <button type="button" onclick="closePopupErro()">OK</button>
+    </div>  
+  </div>
+
+  <div class="popupCerto" id="popupCertoRemover">
+    <img src="../assets/v.png" alt="">
+    <h2>Funcionário Removido!</h2>
+    <p>Funcionário foi removido com sucesso!</p>
+    <button type="button" onclick="closePopupCertoRemover()">OK</button>
+  </div>  
+</div>
+
+  <div class="popupErro" id="popupErroRemover">
+    <img src="../assets/x.png" alt="">
+    <h2>Erro ao remover o Funcionário!</h2>
+    <p>Houve um erro ao remover, Por favor tente novamente!</p>
+    <button type="button" onclick="closePopupErroRemover()">OK</button>
+  </div>  
+</div>
+
 </html>
+
+<!-- SCRIPT PARA ALTERAR A ABA MONITORAMENTO PARA OS INDIVIDUAIS -->
 <script>
+    function mudarConteudo() {
+      // Obtenha o valor da opção selecionada
+      var opcaoSelecionada = document.getElementById("opcoes").value;
+  
+      switch (opcaoSelecionada) {
+          case "Cesar":
+          window.location = "dashboard.html"
+          break;
+          case "Temperatura":
+          window.location = "dashboard.html"
+          break;
+        case "Geolocalizacao":
+          window.location = "giovanna.html"
+          break;
+        case "GPU":
+        window.location = "dashboard.html"
+          break;
+        case "Processos":
+        window.location = "nathan.html"
+          break;
+      //   default:
+      //   window.location = "dashboard.html"
+      //     break;
+      }
+    }
+  </script>
+
+<script>
+
+let popupCerto = document.getElementById('popupCerto')
+let popupErro = document.getElementById('popupErro')
+
+let popupCertoRemover = document.getElementById('popupCertoRemover')
+let popupErroRemover = document.getElementById('popupErroRemover')
+
+function openPopupCerto(){
+    popupCerto.classList.add('open-popupCerto')
+}
+
+function openPopupErro(){
+    popupErro.classList.add('open-popupErro')
+}
+
+function openPopupCertoRemover(){
+    popupCertoRemover.classList.add('open-popupCerto')
+}
+
+function openPopupErroRemover(){
+    popupErroRemover.classList.add('open-popupErro')
+}
+
+
+function closePopupCerto(){
+    popupCerto.classList.remove('open-popupCerto')
+}
+
+function closePopupErro(){
+    popupErro.classList.remove('open-popupErro')
+}
+
+function closePopupCertoRemover(){
+    popupCertoRemover.classList.remove('open-popupCerto')
+}
+
+function closePopupErroRemover(){
+    popupErroRemover.classList.remove('open-popupErro')
+}
+
 
 var modalC = document.getElementById("modelCargo");
 
@@ -206,24 +317,8 @@ window.onclick = function(event) {
   }
 }
 
-    // var card = 0
-    // var funcionario = document.getElementById('funcionario');
-    // var divCargo = document.getElementById('cargoDiv');
-
-    // divCargo.style.display = "none"
-
-    // function trocarCard(){
-    //     if(card == 0){
-    //         card += 1
-    //         funcionario.style.display = "none"
-    //         divCargo.style.display = "block"
-    //     } else{
-    //         card = 0
-    //         funcionario.style.display = "block"
-    //         divCargo.style.display = "none"
-    //     }
-    // }
 </script>
+
 <script>
  
  function btnPlanos() {
@@ -372,9 +467,13 @@ window.onclick = function(event) {
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+                    openPopupCerto()
                     listarFuncionario()
+                    modalF.style.display = "none";
                 });
             } else {
+                openPopupErro()
+                modalF.style.display = "none";
                 console.log("Houve um erro ao tentar cadastrar o usuario!");
 
                 resposta.text().then(texto => {
@@ -397,10 +496,14 @@ window.onclick = function(event) {
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    openPopupCertoRemover()
                     listarFuncionario()
+                    modalF.style.display = "none";
                 });
 
             } else {
+                openPopupErroRemover()
+                modalF.style.display = "none";
 
                 console.log("Houve um erro ao tentar realizar o remover!");
 
@@ -444,10 +547,14 @@ window.onclick = function(event) {
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+                    openPopupCerto()
                     listarFuncionario()
                     listarCargo()
+                    modalC.style.display = "none";
                 });
             } else {
+                openPopupErro()
+                modalC.style.display = "none";
                 console.log("Houve um erro ao tentar cadastrar o usuario!");
 
                 resposta.text().then(texto => {
