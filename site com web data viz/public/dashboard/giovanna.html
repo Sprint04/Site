@@ -27,7 +27,15 @@
                 <button>Usuário</button>
                 <button onclick="btnFuncionarios()">Funcionários</button>
                 <button onclick="btnPlanos()">Planos</button>
-                <button onclick="btnGeo()" class="button_selecionado">Monitoramento</button>
+
+                <select id="opcoes" onchange="mudarConteudo()">
+                    <option value="Cesar">Cesar - Projeto</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option selected value="Geolocalizacao">Geolocalização</option>
+                    <option value="GPU">GPU</option>
+                    <option value="Processos">Processos</option>
+                  </select>
+
                 <button>Alertas</button>
                 <button onclick="btnChamado()">Chamados</button>
                 <button onclick="btnHistorico()">Históricos</button>
@@ -118,6 +126,35 @@
         </div>
     </div>
 </body>
+
+<!-- SCRIPT PARA ALTERAR A ABA MONITORAMENTO PARA OS INDIVIDUAIS -->
+<script>
+    function mudarConteudo() {
+      // Obtenha o valor da opção selecionada
+      var opcaoSelecionada = document.getElementById("opcoes").value;
+  
+      switch (opcaoSelecionada) {
+        case "Cesar":
+        window.location = "dashboard.html"
+        break;
+        case "Temperatura":
+        window.location = "dashboard.html"
+        break;
+      case "Geolocalizacao":
+        window.location = "giovanna.html"
+        break;
+      case "GPU":
+      window.location = "dashboard.html"
+        break;
+      case "Processos":
+      window.location = "nathan.html"
+        break;
+    //   default:
+    //   window.location = "dashboard.html"
+    //     break;
+    }
+    }
+  </script>
 
 </html>
 <!-- parte do GU -->
