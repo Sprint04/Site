@@ -259,18 +259,22 @@ function openPopupErroRemover(){
 
 function closePopupCerto(){
     popupCerto.classList.remove('open-popupCerto')
+    window.location.reload();
 }
 
 function closePopupErro(){
     popupErro.classList.remove('open-popupErro')
+    window.location.reload();
 }
 
 function closePopupCertoRemover(){
     popupCertoRemover.classList.remove('open-popupCerto')
+    window.location.reload();
 }
 
 function closePopupErroRemover(){
     popupErroRemover.classList.remove('open-popupErro')
+    window.location.reload();
 }
 
 
@@ -464,12 +468,13 @@ window.onclick = function(event) {
             if (resposta.ok) {
                 console.log(resposta);
 
+                openPopupCerto()
+                modalF.style.display = "none";
+
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    openPopupCerto()
                     listarFuncionario()
-                    modalF.style.display = "none";
                 });
             } else {
                 openPopupErro()
@@ -493,12 +498,13 @@ window.onclick = function(event) {
 
             if (resposta.ok) {
                 console.log(resposta);
+                
+                openPopupCertoRemover()
+                modalF.style.display = "none";
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    openPopupCertoRemover()
                     listarFuncionario()
-                    modalF.style.display = "none";
                 });
 
             } else {
@@ -544,13 +550,14 @@ window.onclick = function(event) {
             if (resposta.ok) {
                 console.log(resposta);
 
+                openPopupCerto()
+                modalC.style.display = "none";
+
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    openPopupCerto()
                     listarFuncionario()
                     listarCargo()
-                    modalC.style.display = "none";
                 });
             } else {
                 openPopupErro()

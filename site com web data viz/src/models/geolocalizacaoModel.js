@@ -10,7 +10,7 @@ function buscarUltimasMedidasGEO() {
 	latitude,
 	longitude
 FROM geolocalizacao 
-WHERE fkDispositivo = 1;
+WHERE fkDispositivo = 4;
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
