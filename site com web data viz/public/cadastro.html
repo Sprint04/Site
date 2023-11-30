@@ -177,10 +177,83 @@
     </div>
   </div>
 
+  <div class="popupCerto" id="popupCerto">
+    <img src="./assets/v.png" alt="">
+    <h2>Cadastro Realizado!</h2>
+    <p style="color: black;">Cadastro foi feito com sucesso!</p>
+  </div>  
+</div>
+
+  <div class="popupErro" id="popupErro">
+    <img src="./assets/x.png" alt="">
+    <h2>Erro ao cadastrar!</h2>
+    <p style="color: black;">Houve um erro ao cadastrar, Por favor tente novamente!</p>
+  </div>  
+</div>
+
+<div class="popupCerto" id="popupCertoLogin">
+  <img src="./assets/v.png" alt="">
+  <h2>Login Realizado!</h2>
+  <p style="color: black;">Login foi feito com sucesso!</p>
+</div>  
+</div>
+
+<div class="popupErro" id="popupErroLogin">
+  <img src="./assets/x.png" alt="">
+  <h2>Erro ao fazer login!</h2>
+  <p style="color: black;">Houve um erro ao Logar, Por favor tente novamente!</p>
+</div>  
+</div>
 
 </body>
 
 </html>
+
+<script>
+  let popupCerto = document.getElementById('popupCerto')
+  let popupErro = document.getElementById('popupErro')
+
+  let popupCertoLogin = document.getElementById('popupCertoLogin')
+  let popupErroLogin = document.getElementById('popupErroLogin')
+
+function openPopupCerto(){
+    popupCerto.classList.add('open-popupCerto')
+    setTimeout(closePopupCerto, 2000)
+  }
+  
+  function openPopupErro(){
+    popupErro.classList.add('open-popupErro')
+    setTimeout(closePopupErro, 2000)
+}
+
+function openPopupCertoLogin(){
+    popupCertoLogin.classList.add('open-popupCertoLogin')
+    setTimeout(closePopupCertoLogin, 2000)
+}
+
+function openPopupErroLogin(){
+    popupErroLogin.classList.add('open-popupErroLogin')
+    setTimeout(closePopupErroLogin, 2000)
+}
+
+function closePopupCerto(){
+    popupCerto.classList.remove('open-popupCerto')
+}
+
+function closePopupErro(){
+    popupErro.classList.remove('open-popupErro')
+}
+
+function closePopupCertoLogin(){
+    popupCertoLogin.classList.remove('open-popupCertoLogin')
+}
+
+function closePopupErroLogin(){
+    popupErroLogin.classList.remove('open-popupErroLogin')
+}
+
+
+</script>
 
 <script>
 
@@ -237,12 +310,17 @@
             sessionStorage.NOME_EMPRESA = json.nomeEmpresa
             sessionStorage.ID_CARGO = json.idCargo;
             sessionStorage.NOME_CARGO = json.nomeCargo
-
+            
+            openPopupCertoLogin()
             setTimeout(function () {
+
+
               window.location = "./dashboard/dashboard.html";
-            }, 2000);
+            }, 2200);
           });
         } else {
+
+          openPopupErroLogin()
           console.log("Houve ao efetuar o login!");
 
           resposta.text().then(texto => {
@@ -271,7 +349,6 @@
     setTimeout(cadastrarEmpresa, 1000)
     setTimeout(cadastrarUsuario, 2000)
     setTimeout(cadastrarTelefone, 2500)
-    setTimeout(alert('O cadastro foi realizado, faça seu login!!!'), 4000)
   }
   function sumirMensagem() {
     cardErro.style.display = "none";
@@ -716,10 +793,13 @@
         resposta.json().then(json => {
           console.log(json);
           console.log(JSON.stringify(json));
+          openPopupCerto()
+          setTimeout(signInLogin,3000)
         });
       } else {
+        openPopupErro()
         console.log("Houve um erro ao tentar cadastrar o usuario!");
-
+        
         resposta.text().then(texto => {
           console.error(texto);
         })
@@ -796,6 +876,7 @@
           console.log(JSON.stringify(json));
         });
       } else {
+        openPopupErro()
         console.log("Houve um erro ao tentar cadastrar o telefone!");
 
         resposta.text().then(texto => {
