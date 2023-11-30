@@ -72,35 +72,34 @@
 
 
 </html>
-
 <!-- SCRIPT PARA ALTERAR A ABA MONITORAMENTO PARA OS INDIVIDUAIS -->
 <script>
-    function mudarConteudo() {
-      // Obtenha o valor da opção selecionada
-      var opcaoSelecionada = document.getElementById("opcoes").value;
-  
-      switch (opcaoSelecionada) {
-          case "Cesar":
-          window.location = "dashboard.html"
-          break;
-          case "Temperatura":
-          window.location = "dashboard.html"
-          break;
-        case "Geolocalizacao":
-          window.location = "giovanna.html"
-          break;
-        case "GPU":
+  function mudarConteudo() {
+    // Obtenha o valor da opção selecionada
+    var opcaoSelecionada = document.getElementById("opcoes").value;
+
+    switch (opcaoSelecionada) {
+        case "Cesar":
         window.location = "dashboard.html"
-          break;
-        case "Processos":
-        window.location = "nathan.html"
-          break;
-      //   default:
-      //   window.location = "dashboard.html"
-      //     break;
-      }
+        break;
+        case "Temperatura":
+        window.location = "dashboard.html"
+        break;
+      case "Geolocalizacao":
+        window.location = "giovanna.html"
+        break;
+      case "GPU":
+      window.location = "dashboard.html"
+        break;
+      case "Processos":
+      window.location = "nathan.html"
+        break;
+    //   default:
+    //   window.location = "dashboard.html"
+    //     break;
     }
-  </script>
+  }
+</script>
 
 <script>
 
