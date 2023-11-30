@@ -31,7 +31,7 @@
                     <option value="Geolocalizacao">Geolocalização</option>
                     <option value="GPU">GPU</option>
                     <option value="Processos">Processos</option>
-                  </select>
+                </select>
 
                 <button>Alertas</button>
                 <button onclick="btnChamado()">Chamados</button>
@@ -53,8 +53,8 @@
 
                 <div class="container_botao_maquinas">
                     <div class="botao_maquina">
-                        <select name="" id="">
-                            <option value="">Máquina 1</option>
+                        <select name="" id="select_maquinas">
+                            <option value="">Selecionar Máquina:</option>
                         </select>
                     </div>
                 </div>
@@ -151,33 +151,69 @@
 
 <!-- SCRIPT PARA ALTERAR A ABA MONITORAMENTO PARA OS INDIVIDUAIS -->
 <script>
-  function mudarConteudo() {
-    // Obtenha o valor da opção selecionada
-    var opcaoSelecionada = document.getElementById("opcoes").value;
+    function mudarConteudo() {
+        // Obtenha o valor da opção selecionada
+        var opcaoSelecionada = document.getElementById("opcoes").value;
 
-    switch (opcaoSelecionada) {
-        case "Cesar":
-        window.location = "dashboard.html"
-        break;
-        case "Temperatura":
-        window.location = "dashboard.html"
-        break;
-      case "Geolocalizacao":
-        window.location = "giovanna.html"
-        break;
-      case "GPU":
-      window.location = "dashboard.html"
-        break;
-      case "Processos":
-      window.location = "nathan.html"
-        break;
-    //   default:
-    //   window.location = "dashboard.html"
-    //     break;
+        switch (opcaoSelecionada) {
+            case "Cesar":
+                window.location = "dashboard.html"
+                break;
+            case "Temperatura":
+                window.location = "dashboard.html"
+                break;
+            case "Geolocalizacao":
+                window.location = "giovanna.html"
+                break;
+            case "GPU":
+                window.location = "dashboard.html"
+                break;
+            case "Processos":
+                window.location = "nathan.html"
+                break;
+            //   default:
+            //   window.location = "dashboard.html"
+            //     break;
+        }
     }
-  }
 </script>
 
+
+<script>
+    window.onload = recuperarDispositivos()
+
+    function recuperarDispositivos() {
+        var idEmpresa = sessionStorage.ID_EMPRESA
+
+        fetch(`/dashboard/buscarDispositivos/${idEmpresa}`, { cache: 'no-store' }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados Recebidos: ", JSON.stringify(resposta));
+                    //Limpar as opções existentes
+
+                    select_maquinas.innerHTML = '<option selected> Selecionar Máquina </option>';
+
+                    //Navegar pela resposta retornada e acrescentar na máquina as opções 
+
+                    resposta.forEach(function (dispositivo) {
+                        select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.IP}</option>`;
+                    });
+                });
+            } else {
+                console.log("Houve um erro ao listar os dispositivos no select");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+        return false;
+    }
+</script>
 
 <!-- parte do GU -->
 <script>
@@ -528,38 +564,38 @@
 
         let labels_rede = [];
         let dados_rede = {
-        labels: labels_rede,
-        datasets: [
-            {
-                label: 'KiloBytes recebidos pela Rede (Enviada)',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(69, 255, 0)',
-                tension: 0.1
-            },
-            {
-                label: 'KiloBytes recebidos pela Rede (Recebida)',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(0, 69, 255)',
-                tension: 0.1
-            }
-        ]
-    };
+            labels: labels_rede,
+            datasets: [
+                {
+                    label: 'KiloBytes recebidos pela Rede (Enviada)',
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgb(69, 255, 0)',
+                    tension: 0.1
+                },
+                {
+                    label: 'KiloBytes recebidos pela Rede (Recebida)',
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgb(0, 69, 255)',
+                    tension: 0.1
+                }
+            ]
+        };
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela função "obter_dados_rede()" e passados para "plotarGrafico_rede()":')
         console.log(resposta)
 
         for (let i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        let dataHora = new Date(registro.dtHora);
-        let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
-        labels_rede.push(dataFormatada);
+            var registro = resposta[i];
+            let dataHora = new Date(registro.dtHora);
+            let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
+            labels_rede.push(dataFormatada);
 
-        dados_rede.datasets[0].data.push(registro.dadoCapturado2);
-        dados_rede.datasets[1].data.push(registro.dadoCapturado);
-    }
+            dados_rede.datasets[0].data.push(registro.dadoCapturado2);
+            dados_rede.datasets[1].data.push(registro.dadoCapturado);
+        }
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -690,7 +726,7 @@
                         dados_disco.labels.shift();
                         let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
                         let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
-                        
+
                         dados_disco.labels.push(dataFormatada);
 
                         dados_disco.datasets[0].data.shift();
@@ -720,7 +756,7 @@
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados_rede);
-                    
+
                     let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
                     let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
 
@@ -736,7 +772,7 @@
                         dados_rede.labels.shift();
                         let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
                         let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
-                        
+
                         dados_rede.labels.push(dataFormatada);
 
                         dados_rede.datasets[0].data.shift();
@@ -896,7 +932,7 @@
                 console.log(erro);
             })
     }
-    
+
     function atualizarValores() {
         Promise.all([recuperarCpu(), recuperarDisco(), recuperarRam(), recuperarRede()])
             .then(resultados => {
@@ -904,7 +940,7 @@
                 const dado__DISCO = resultados[1][0].dadoCapturado;
                 const dado__RAM = resultados[2][0].dadoCapturado;
                 const dado__REDE = resultados[3][0].dadoCapturado;
-                
+
                 console.log("CPU Utilizada Recuperada: " + dado__CPU);
                 console.log("DISCO Utilizado Recuperada: " + dado__DISCO);
                 console.log("RAM Utilizada Recuperada: " + dado__RAM);

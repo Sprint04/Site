@@ -79,4 +79,8 @@ router.post("/ultimosRede", function (req, res){
     dashboardController.recuperarRede(req, res);
 });
 
+router.get("/buscarDispositivos/:idEmpresa", function (req, res){
+    dashboardController.buscarDispositivo(req, res);
+});
+
 module.exports = router;

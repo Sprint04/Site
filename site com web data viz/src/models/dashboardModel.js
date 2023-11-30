@@ -157,7 +157,7 @@ ORDER BY dtHoraAgrupada DESC;
     return database.executar(instrucao);
 }
 
-function buscar_dados_cpu(limite_linhas){
+function buscar_dados_cpu(limite_linhas) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_cpu(): ")
     var instrucao = `
     select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
@@ -168,7 +168,7 @@ function buscar_dados_cpu(limite_linhas){
     return database.executar(instrucao);
 }
 
-function buscar_dados_ram(limite_linhas){
+function buscar_dados_ram(limite_linhas) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_cpu(): ")
     var instrucao = `
     select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
@@ -179,7 +179,7 @@ function buscar_dados_ram(limite_linhas){
     return database.executar(instrucao);
 }
 
-function buscar_dados_disco(limite_linhas){
+function buscar_dados_disco(limite_linhas) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_disco(): ")
     var instrucao = `
     select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
@@ -221,7 +221,7 @@ function tempo_real_ram() {
 
 }
 
-function tempo_real_cpu(){
+function tempo_real_cpu() {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_cpu(): ")
     var instrucao = `
     select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
@@ -232,7 +232,7 @@ function tempo_real_cpu(){
     return database.executar(instrucao);
 }
 
-function tempo_real_disco(){
+function tempo_real_disco() {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_disco(): ")
     var instrucao = `
     select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
@@ -314,6 +314,18 @@ function recuperarRede() {
     return database.executar(instrucao);
 }
 
+function buscarDispositivo(idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscarDispositivo(): ")
+
+    var instrucao = `
+    select idDispositivo, IP, nome FROM dispositivo JOIN empresa on fkEmpresa = idEmpresa where idEmpresa = ${idEmpresa};
+`;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarUltimasMedidasCPU,
     buscarUltimasMedidasRAM,
@@ -333,5 +345,6 @@ module.exports = {
     recuperarCpu,
     recuperarRam,
     recuperarDisco,
-    recuperarRede
+    recuperarRede,
+    buscarDispositivo
 };

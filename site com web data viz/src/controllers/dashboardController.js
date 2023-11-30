@@ -325,6 +325,22 @@ function recuperarRede(req, res){
         );
 }
 
+function buscarDispositivo(req, res){
+    var idEmpresa = req.params.idEmpresa;
+
+    dashboardModel.buscarDispositivo(idEmpresa).then(function(resultado){
+        console.log(`\n Resultados encontrados: ${resultado.length}`);
+        console.log(`Resultados: ${JSON.stringify(resultado)}`); // Transforma JSON em string
+    
+        if(resultado.length >= 1){
+            console.log(resultado);
+            res.json(resultado);
+        } else {
+            res.status(403).send("Dispositivos não existem!")
+        }
+    })
+}
+
 module.exports = {
     buscarUltimasMedidasCPU,
     buscarUltimasMedidasRAM,
@@ -344,6 +360,7 @@ module.exports = {
     recuperarCpu,
     recuperarRam,
     recuperarDisco,
-    recuperarRede
+    recuperarRede,
+    buscarDispositivo
 
 }
