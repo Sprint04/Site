@@ -283,8 +283,8 @@
             let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
             labels_rede.push(dataFormatada);
 
-            dados_rede.datasets[0].data.push(registro.dadoCapturado2);
-            dados_rede.datasets[1].data.push(registro.dadoCapturado);
+            dados_rede.datasets[0].data.push(registro.dadoCpu);
+            dados_rede.datasets[1].data.push(registro.dadoMemoria);
         }
 
         console.log('----------------------------------------------')
@@ -336,10 +336,10 @@
                         dados_rede.labels.push(dataFormatada);
 
                         dados_rede.datasets[0].data.shift();
-                        dados_rede.datasets[0].data.push(novoRegistro[0].dadoCapturado2);
+                        dados_rede.datasets[0].data.push(novoRegistro[0].dadoCpu);
 
                         dados_rede.datasets[1].data.shift();
-                        dados_rede.datasets[1].data.push(novoRegistro[0].dadoCapturado);
+                        dados_rede.datasets[1].data.push(novoRegistro[0].dadoMemoria);
 
                         Grafico_Rede.update();
                     }

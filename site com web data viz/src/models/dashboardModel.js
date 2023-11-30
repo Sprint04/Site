@@ -330,15 +330,17 @@ function tempo_real_cesar() {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_rede(): ")
     var instrucao = `
     SELECT top 1
-    MAX(CASE WHEN tc.nome = 'Rede(enviada)' THEN m.dadoCapturado ELSE NULL END) AS dadoCapturado2,
-    MAX(CASE WHEN tc.nome = 'Rede(recebida)' THEN m.dadoCapturado ELSE NULL END) AS dadoCapturado,
-    FORMAT(DATEADD(minute, DATEDIFF(minute, 0, m.dtHora), 0), 'dd/MM/yyyy HH:mm:ss') AS dtHoraAgrupada,
-    MAX(m.dtHora) AS dtHora
-FROM monitoramento m
-INNER JOIN tipoComponente tc ON m.fkComponente = tc.idTipoComponente
-WHERE tc.nome IN ('Rede(enviada)', 'Rede(recebida)')
-GROUP BY DATEADD(minute, DATEDIFF(minute, 0, m.dtHora), 0)
-ORDER BY dtHoraAgrupada DESC;`;
+    m_cpu.dadoCapturado AS dadoCpu,
+    m_memoria.dadoCapturado AS dadoMemoria,
+    m_cpu.dtHora AS dtHora
+FROM
+    (SELECT * FROM monitoramento WHERE fkComponente = 1) AS m_cpu
+JOIN
+    (SELECT * FROM monitoramento WHERE fkComponente = 2) AS m_memoria
+ON
+    ABS(DATEDIFF(SECOND, m_cpu.dtHora, m_memoria.dtHora)) <= 5;
+;
+   `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -348,15 +350,16 @@ function buscar_dados_cesar(limite_linhas) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_rede(): ")
     var instrucao = `
     SELECT top ${limite_linhas}
-    MAX(CASE WHEN tc.nome = 'Rede(enviada)' THEN m.dadoCapturado ELSE NULL END) AS dadoCapturado2,
-    MAX(CASE WHEN tc.nome = 'Rede(recebida)' THEN m.dadoCapturado ELSE NULL END) AS dadoCapturado,
-    FORMAT(DATEADD(minute, DATEDIFF(minute, 0, m.dtHora), 0), 'dd/MM/yyyy HH:mm:ss') AS dtHoraAgrupada,
-    MAX(m.dtHora) AS dtHora
-FROM monitoramento m
-INNER JOIN tipoComponente tc ON m.fkComponente = tc.idTipoComponente
-WHERE tc.nome IN ('Rede(enviada)', 'Rede(recebida)')
-GROUP BY DATEADD(minute, DATEDIFF(minute, 0, m.dtHora), 0)
-ORDER BY dtHoraAgrupada DESC;
+    m_cpu.dadoCapturado AS dadoCpu,
+    m_memoria.dadoCapturado AS dadoMemoria,
+    m_cpu.dtHora AS dtHora
+FROM
+    (SELECT * FROM monitoramento WHERE fkComponente = 1) AS m_cpu
+JOIN
+    (SELECT * FROM monitoramento WHERE fkComponente = 2) AS m_memoria
+ON
+    ABS(DATEDIFF(SECOND, m_cpu.dtHora, m_memoria.dtHora)) <= 5;
+;
     `;
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
