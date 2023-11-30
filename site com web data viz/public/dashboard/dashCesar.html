@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="imagex/png" href="../assets/logo-icon.png">
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <title>Trackware - Cesar</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container_pagina">
+        <div class="menu_dashboard">
+            <div class="container_logo_menu_dashboard">
+                <div class="logo_menu_dashboard">
+                    <img src="../assets/logo-icon.png" alt="logo_menu">
+                </div>
+            </div>
+            <div class="opcoes_menu_dashboard">
+                <button onclick="btnDashboard()" class="button_selecionado">Dashboards</button>
+                <button onclick="btnUsuario()">Usuário</button>
+                <button onclick="btnFuncionarios()">Funcionários</button>
+                <button onclick="btnPlanos()">Planos</button>
+
+                <select class="selectOpcoes" id="opcoes" onchange="mudarConteudo()">
+                    <option selected value="0">Monitoramentos</option>
+                    <option value="Cesar">Cesar - Projeto</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option value="Geolocalizacao">Geolocalização</option>
+                    <option value="GPU">GPU</option>
+                    <option value="Processos">Processos</option>
+                </select>
+
+                <button>Alertas</button>
+                <button onclick="btnChamado()">Chamados</button>
+                <button onclick="btnHistorico()">Históricos</button>
+            </div>
+        </div>
+        <div class="tela_dashboard">
+            <div class="container_mensagem_botao">
+                <div class="container_mensagem_usuario">
+                    <div class="img_usuario">
+                        <img src="../assets/perfil.png" alt="">
+                    </div>
+                    <div class="mensagem_usuario">
+                        Bem-vindo(a) <span id="usuarioNome"></span>!
+                        <br>
+                        Empresa: <span id="empresaNome"></span>
+                    </div>
+                </div>
+
+                <div class="container_botao_maquinas">
+                    <div class="botao_maquina">
+                        <select name="" id="select_maquinas">
+                            <option value="">Selecionar Máquina:</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container_cards_monitoramento">
+                <button class="card" onclick="chamarGrafico('REDE')">
+                    <div class="container_dados_botao">
+                        <span class="tipo_componente">REDE</span>
+                        <div class="dado_monitoramento">
+                            <span id="dado_REDE">0</span>
+                            <span class="tipo_utilizacao">KiloBytes Recebidos</span>
+                        </div>
+                    </div>
+                </button>
+                <!-- <button class="card">
+                    <div class="container_dados_botao">
+                        <span class="tipo_componente">REDE</span>
+                        <div class="dado_monitoramento">
+                            <span class="dado">0</span>
+                            <span class="tipo_utilizacao">Bytes</span>
+                        </div>
+                    </div>
+                </button> -->
+            </div>
+            <!-- gráfico abaixo !!! -->
+            <div class="container_grafico">
+                <div class="grafico">
+                    </div>
+                    <canvas id="Grafico_Rede"S></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!-- SCRIPT PARA ALTERAR A ABA MONITORAMENTO PARA OS INDIVIDUAIS -->
+<script>
+    function mudarConteudo() {
+        // Obtenha o valor da opção selecionada
+        var opcaoSelecionada = document.getElementById("opcoes").value;
+
+        switch (opcaoSelecionada) {
+            case "Cesar":
+                window.location = "dashboard.html"
+                break;
+            case "Temperatura":
+                window.location = "dashboard.html"
+                break;
+            case "Geolocalizacao":
+                window.location = "giovanna.html"
+                break;
+            case "GPU":
+                window.location = "dashboard.html"
+                break;
+            case "Processos":
+                window.location = "nathan.html"
+                break;
+            //   default:
+            //   window.location = "dashboard.html"
+            //     break;
+        }
+    }
+</script>
+
+
+<script>
+    window.onload = recuperarDispositivos()
+
+    function recuperarDispositivos() {
+        var idEmpresa = sessionStorage.ID_EMPRESA
+
+        fetch(`/dashboard/buscarDispositivos/${idEmpresa}`, { cache: 'no-store' }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados Recebidos: ", JSON.stringify(resposta));
+                    //Limpar as opções existentes
+
+                    select_maquinas.innerHTML = '<option selected> Selecionar Máquina </option>';
+
+                    //Navegar pela resposta retornada e acrescentar na máquina as opções 
+
+                    resposta.forEach(function (dispositivo) {
+                        select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.IP}</option>`;
+                    });
+                });
+            } else {
+                console.log("Houve um erro ao listar os dispositivos no select");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+        return false;
+    }
+</script>
+
+<!-- parte do GU -->
+<script>
+    var idEmpresa = sessionStorage.ID_EMPRESA
+
+    usuarioNome.innerHTML = sessionStorage.NOME_USUARIO
+    empresaNome.innerHTML = sessionStorage.NOME_EMPRESA
+
+    function btnPlanos() {
+        var adm = sessionStorage.getItem('ADM')
+        if (sessionStorage.getItem('ADM') == 'true') {
+            window.location = "../planos.html"
+        } else {
+            alert("Você não ter permissão para entrar ai")
+        }
+
+    }
+
+    function btnChamado() {
+        window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
+    }
+    function btnHistorico() {
+        var hist = sessionStorage.getItem('Hist')
+        console.log(hist)
+        if (hist == 'true') {
+            window.location = "historico.html"
+        } else {
+            alert("Você não ter permissão para entrar ai")
+        }
+    }
+
+    function btnFuncionarios() {
+        var add = sessionStorage.getItem('Add')
+        if (add == 'true') {
+            window.location = "funcionario.html"
+        } else {
+            alert("Você não ter permissão para entrar ai")
+        }
+    }
+    function btnDashboard() {
+        window.location = "dashboard.html"
+    }
+    function btnUsuario() {
+        window.location = "usuario.html"
+    }
+
+</script>
+
+<script>
+
+    let proximaAtualizacaoRede;
+    let proximaAtualizacaoValores;
+
+    var dadoREDE = 0;
+
+    window.onload = obter_dados_rede()
+
+    var graficos = {
+        rede: { ativado: 0, element: document.getElementById('Grafico_Rede') }
+    };
+
+    function chamarGrafico(tipo) {
+        for (const key in graficos) {
+            graficos[key].ativado = 0;
+            graficos[key].element.style.display = "none";
+        }
+
+        graficos[tipo.toLowerCase()].ativado = 1;
+        graficos[tipo.toLowerCase()].element.style.display = "block";
+    }
+
+    function obter_dados_rede() {
+        if (proximaAtualizacaoRede != undefined) {
+            clearTimeout(proximaAtualizacaoRede);
+        }
+
+        fetch(`/dashboard/obter_dados_cesar`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    
+                    plotarGrafico_rede(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+    }
+
+
+    function plotarGrafico_rede(resposta) {
+        console.log('Iniciando plotagem do gráfico de rede...');
+
+        let labels_rede = [];
+        let dados_rede = {
+            labels: labels_rede,
+            datasets: [
+                {
+                    label: 'KiloBytes recebidos pela Rede (Enviada)',
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgb(69, 255, 0)',
+                    tension: 0.1
+                },
+                {
+                    label: 'KiloBytes recebidos pela Rede (Recebida)',
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgb(0, 69, 255)',
+                    tension: 0.1
+                }
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela função "obter_dados_rede()" e passados para "plotarGrafico_rede()":')
+        console.log(resposta)
+
+        for (let i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            let dataHora = new Date(registro.dtHora);
+            let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
+            labels_rede.push(dataFormatada);
+
+            dados_rede.datasets[0].data.push(registro.dadoCapturado2);
+            dados_rede.datasets[1].data.push(registro.dadoCapturado);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels_rede)
+        console.log('Dados:')
+        console.log(dados_rede.datasets)
+        console.log('----------------------------------------------')
+
+        const config = {
+            type: 'line',
+            data: dados_rede
+        };
+
+        let Grafico_Rede = new Chart(
+            document.getElementById(`Grafico_Rede`),
+            config
+        );
+
+        setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+    }
+
+    function atualizar_grafico_rede(dados_rede, Grafico_Rede) {
+
+        fetch(`/dashboard/tempo_real_cesar`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados_rede);
+
+                    let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
+                    let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
+
+                    if (dataFormatada == dados_rede.labels[dados_rede.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].dtHora)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados_rede.labels[dados_rede.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        dados_rede.labels.shift();
+                        let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
+                        let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
+
+                        dados_rede.labels.push(dataFormatada);
+
+                        dados_rede.datasets[0].data.shift();
+                        dados_rede.datasets[0].data.push(novoRegistro[0].dadoCapturado2);
+
+                        dados_rede.datasets[1].data.shift();
+                        dados_rede.datasets[1].data.push(novoRegistro[0].dadoCapturado);
+
+                        Grafico_Rede.update();
+                    }
+
+                    proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+                proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+</script>

@@ -82,5 +82,11 @@ router.post("/ultimosRede", function (req, res){
 router.get("/buscarDispositivos/:idEmpresa", function (req, res){
     dashboardController.buscarDispositivo(req, res);
 });
+router.get("/tempo_real_cesar", function (req, res) {
+    dashboardController.tempo_real_cesar(req, res);
+});
+router.get("/obter_dados_cesar", function (req, res) {
+    dashboardController.buscar_dados_cesar(req, res);
+});
 
 module.exports = router;

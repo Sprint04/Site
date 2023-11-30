@@ -340,6 +340,38 @@ function buscarDispositivo(req, res){
         }
     })
 }
+function tempo_real_cesar(req, res){
+    console.log(`Recuperando medidas da rede em tempo real`);
+
+    dashboardModel.tempo_real_cesar().then(function (resultado){
+        if(resultado.length > 0){
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro)
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+function buscar_dados_cesar(req, res){
+    const limite_linhas = 5;
+
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas da rede`);
+
+    dashboardModel.buscar_dados_cesar(limite_linhas).then(function (resultado) {
+        if (resultado.length > 0){
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as últimas medidas da rede.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 module.exports = {
     buscarUltimasMedidasCPU,
@@ -361,6 +393,8 @@ module.exports = {
     recuperarRam,
     recuperarDisco,
     recuperarRede,
-    buscarDispositivo
+    buscarDispositivo,
+    tempo_real_cesar,
+    buscar_dados_cesar
 
 }
