@@ -66,6 +66,7 @@ body{
 }
 
 .container_logs {
+    font-size: 28px;
     top: 17%;
     margin-top: -1%;
     position: relative;
@@ -81,6 +82,7 @@ body{
 
 .container_logs span {
     color: #ffffff;
+    margin-top: 5%;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 30px;
 }
