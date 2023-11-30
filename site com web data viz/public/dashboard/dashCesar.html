@@ -63,10 +63,10 @@
             <div class="container_cards_monitoramento">
                 <button class="card" onclick="chamarGrafico('REDE')">
                     <div class="container_dados_botao">
-                        <span class="tipo_componente">REDE</span>
+                        <span class="tipo_componente">CPU vs RAM</span>
                         <div class="dado_monitoramento">
-                            <span id="dado_REDE">0</span>
-                            <span class="tipo_utilizacao">KiloBytes Recebidos</span>
+                            <span id="dado_REDE"></span>
+                            <span class="tipo_utilizacao"></span>
                         </div>
                     </div>
                 </button>
@@ -257,17 +257,17 @@
             labels: labels_rede,
             datasets: [
                 {
-                    label: 'KiloBytes recebidos pela Rede (Enviada)',
+                    label: 'Uso de cpu',
                     data: [],
                     fill: false,
-                    borderColor: 'rgb(69, 255, 0)',
+                    borderColor: 'rgb(300,100,100)',
                     tension: 0.1
                 },
                 {
-                    label: 'KiloBytes recebidos pela Rede (Recebida)',
+                    label: 'Uso de ram',
                     data: [],
                     fill: false,
-                    borderColor: 'rgb(0, 69, 255)',
+                    borderColor: 'rgb(100,100,300)',
                     tension: 0.1
                 }
             ]
