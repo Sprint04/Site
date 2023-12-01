@@ -133,13 +133,13 @@ function buscarUltimasMedidasNathan(id) {
     var instrucao = `
     SELECT TOP 12 count(idOcorrencias) as ocorrencia, CAST(dtHora as DATE) as data from ocorrencia 
         join dispositivo on fkDispositivo = idDispositivo 
-            where fkEmpresa = 1 group by CAST(dtHora as DATE) order by CAST(dtHora as DATE) desc;
+            where fkEmpresa = ${id} group by CAST(dtHora as DATE) order by CAST(dtHora as DATE) desc;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function buscar_dados_rede(limite_linhas) {
+function buscar_dados_rede(limite_linhas, id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_rede(): ")
     var instrucao = `
     SELECT top ${limite_linhas}
@@ -149,7 +149,7 @@ function buscar_dados_rede(limite_linhas) {
     MAX(m.dtHora) AS dtHora
 FROM monitoramento m
 INNER JOIN tipoComponente tc ON m.fkComponente = tc.idTipoComponente
-WHERE tc.nome IN ('Rede(enviada)', 'Rede(recebida)')
+WHERE tc.nome IN ('Rede(enviada)', 'Rede(recebida)') and m.fkDispositivo = ${id}
 GROUP BY DATEADD(minute, DATEDIFF(minute, 0, m.dtHora), 0)
 ORDER BY dtHoraAgrupada DESC;
     `;
@@ -157,40 +157,40 @@ ORDER BY dtHoraAgrupada DESC;
     return database.executar(instrucao);
 }
 
-function buscar_dados_cpu(limite_linhas) {
+function buscar_dados_cpu(limite_linhas, id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_cpu(): ")
     var instrucao = `
     select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'CPU' ORDER BY idDado DESC;
+		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'CPU' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC;
     `
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function buscar_dados_ram(limite_linhas) {
+function buscar_dados_ram(limite_linhas, id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_cpu(): ")
     var instrucao = `
     select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Memória' ORDER BY idDado DESC;
+		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Memória' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC;
     `
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function buscar_dados_disco(limite_linhas) {
+function buscar_dados_disco(limite_linhas, id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_disco(): ")
     var instrucao = `
     select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Disco' ORDER BY idDado DESC;
+		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Disco' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC;
     `
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function tempo_real_rede() {
+function tempo_real_rede(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_rede(): ")
     var instrucao = `
     SELECT top 1
@@ -200,7 +200,7 @@ function tempo_real_rede() {
     MAX(m.dtHora) AS dtHora
 FROM monitoramento m
 INNER JOIN tipoComponente tc ON m.fkComponente = tc.idTipoComponente
-WHERE tc.nome IN ('Rede(enviada)', 'Rede(recebida)')
+WHERE tc.nome IN ('Rede(enviada)', 'Rede(recebida)') and m.fkDispositivo = ${id}
 GROUP BY DATEADD(minute, DATEDIFF(minute, 0, m.dtHora), 0)
 ORDER BY dtHoraAgrupada DESC;`;
 
@@ -210,41 +210,41 @@ ORDER BY dtHoraAgrupada DESC;`;
 }
 
 
-function tempo_real_ram() {
+function tempo_real_ram(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_rede(): ")
     var instrucao = `
     select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Memória' ORDER BY idDado DESC;`;
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Memória' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC;`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 
 }
 
-function tempo_real_cpu() {
+function tempo_real_cpu(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_cpu(): ")
     var instrucao = `
     select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'CPU' ORDER BY idDado DESC ;`;
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'CPU' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC ;`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function tempo_real_disco() {
+function tempo_real_disco(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_disco(): ")
     var instrucao = `
     select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
 	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
-		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Disco' ORDER BY idDado DESC ;`;
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'Disco' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC ;`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function recuperarCpu() {
+function recuperarCpu(id) {
     console.log("Recuperando CPU...");
 
     var instrucao = `
@@ -252,7 +252,7 @@ function recuperarCpu() {
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = 'CPU'
+        WHERE nome = 'CPU' and monitoramento.fkDispositivo = ${id}
         ORDER BY idDado DESC
         
     `;
@@ -262,7 +262,7 @@ function recuperarCpu() {
     return database.executar(instrucao);
 }
 
-function recuperarRam() {
+function recuperarRam(id) {
     console.log("Recuperando RAM...");
 
     var instrucao = `
@@ -270,7 +270,7 @@ function recuperarRam() {
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = 'Memória'
+        WHERE nome = 'Memória' and monitoramento.fkDispositivo = ${id}
         ORDER BY idDado DESC
         
     `;
@@ -280,7 +280,7 @@ function recuperarRam() {
     return database.executar(instrucao);
 }
 
-function recuperarDisco() {
+function recuperarDisco(id) {
     console.log("Recuperando Disco...");
 
     var instrucao = `
@@ -288,7 +288,7 @@ function recuperarDisco() {
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = 'Disco'
+        WHERE nome = 'Disco' and monitoramento.fkDispositivo = ${id}
         ORDER BY idDado DESC
         
     `;
@@ -298,7 +298,7 @@ function recuperarDisco() {
     return database.executar(instrucao);
 }
 
-function recuperarRede() {
+function recuperarRede(id) {
     console.log("Recuperando Rede...");
 
     var instrucao = `
@@ -306,7 +306,7 @@ function recuperarRede() {
         FROM monitoramento
         JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
         JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
-        WHERE nome = 'Rede(recebida)'
+        WHERE nome = 'Rede(recebida)' and monitoramento.fkDispositivo = ${id}
         ORDER BY idDado DESC
     `;
 
