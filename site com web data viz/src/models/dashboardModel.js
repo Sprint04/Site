@@ -364,6 +364,25 @@ ON
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+function buscar_dados_kpi() {
+    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function kpic cesar aqui aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa(): ")
+    var instrucao = `
+    SELECT
+    MAX(CASE WHEN fkComponente = 1 THEN dadoCapturado END) AS maior_dado_cpu,
+    MIN(CASE WHEN fkComponente = 1 THEN dadoCapturado END) AS menor_dado_cpu,
+    MAX(CASE WHEN fkComponente = 2 THEN dadoCapturado END) AS maior_dado_ram,
+    MIN(CASE WHEN fkComponente = 2 THEN dadoCapturado END) AS menor_dado_ram,
+    ROUND(AVG(CASE WHEN fkComponente = 1 THEN dadoCapturado END), 2) AS media_dado_cpu,
+    ROUND(STDEV(CASE WHEN fkComponente = 1 THEN dadoCapturado END), 2) AS desvio_padrao_cpu,
+    ROUND(AVG(CASE WHEN fkComponente = 2 THEN dadoCapturado END), 2) AS media_dado_ram,
+    ROUND(STDEV(CASE WHEN fkComponente = 2 THEN dadoCapturado END), 2) AS desvio_padrao_ram,
+FROM Monitoramento 
+WHERE fkComponente IN (1, 2) AND (dtHora) = '2023-11-29'
+and fkDispositivo = 4;
+    `;
+    console.log("Executando a ins   trucao SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
     buscarUltimasMedidasCPU,
@@ -387,5 +406,6 @@ module.exports = {
     recuperarRede,
     buscarDispositivo,
     tempo_real_cesar,
-    buscar_dados_cesar
+    buscar_dados_cesar,
+    buscar_dados_kpi
 };

@@ -101,7 +101,7 @@
 
         switch (opcaoSelecionada) {
             case "Cesar":
-                window.location = "dashboard.html"
+                window.location = "dashCesar.html"
                 break;
             case "Temperatura":
                 window.location = "dashboard.html"
@@ -213,8 +213,10 @@
 
     var dadoREDE = 0;
 
-    window.onload = obter_dados_rede()
+    
 
+    window.onload = obter_dados_rede()
+        
     var graficos = {
         rede: { ativado: 0, element: document.getElementById('Grafico_Rede') }
     };
@@ -227,6 +229,37 @@
 
         graficos[tipo.toLowerCase()].ativado = 1;
         graficos[tipo.toLowerCase()].element.style.display = "block";
+    }
+
+    function chamarKpi() {
+        var dtHoje = new Date()
+        console.log(dtHoje)
+        console.log("datadeagora")
+
+
+        
+        console.log("entrei no chamarKpi")
+        fetch(`/dashboard/obter_dados_kpi`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                   // resposta.json()
+                    console.log(resposta)
+                    cesarKpi(resposta);
+                    
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+    }
+
+    function cesarKpi(){
+        
+        //console.log("aquiaqui")
+      //  console.log(resposta)
+        
     }
 
     function obter_dados_rede() {
@@ -344,17 +377,18 @@
                         Grafico_Rede.update();
                     }
 
-                    proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+               //     proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
 
-                proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+             //   proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
-
+    
+    chamarKpi()
 </script>
