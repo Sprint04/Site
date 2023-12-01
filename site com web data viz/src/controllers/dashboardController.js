@@ -119,10 +119,11 @@ function buscarUltimasMedidasNathan(req, res) {
 
 function buscar_dados_rede(req, res){
     const limite_linhas = 5;
+    var id = req.params.idDispositivo;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas da rede`);
 
-    dashboardModel.buscar_dados_rede(limite_linhas).then(function (resultado) {
+    dashboardModel.buscar_dados_rede(limite_linhas, id).then(function (resultado) {
         if (resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -137,10 +138,11 @@ function buscar_dados_rede(req, res){
 
 function buscar_dados_cpu(req, res){
     const limite_linhas = 5;
+    var id = req.params.idDispositivo;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas da cpu`);
 
-    dashboardModel.buscar_dados_cpu(limite_linhas).then(function (resultado) {
+    dashboardModel.buscar_dados_cpu(limite_linhas, id).then(function (resultado) {
         if (resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -155,10 +157,11 @@ function buscar_dados_cpu(req, res){
 
 function buscar_dados_ram(req, res){
     const limite_linhas = 5;
+    var id = req.params.idDispositivo;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas da ram`);
 
-    dashboardModel.buscar_dados_ram(limite_linhas).then(function (resultado) {
+    dashboardModel.buscar_dados_ram(limite_linhas, id).then(function (resultado) {
         if (resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -173,10 +176,11 @@ function buscar_dados_ram(req, res){
 
 function buscar_dados_disco(req, res){
     const limite_linhas = 5;
+    var id = req.params.idDispositivo;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas do disco`);
 
-    dashboardModel.buscar_dados_disco(limite_linhas).then(function (resultado) {
+    dashboardModel.buscar_dados_disco(limite_linhas, id).then(function (resultado) {
         if (resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -191,8 +195,9 @@ function buscar_dados_disco(req, res){
 
 function tempo_real_rede(req, res){
     console.log(`Recuperando medidas da rede em tempo real`);
+    var id = req.params.idDispositivo;
 
-    dashboardModel.tempo_real_rede().then(function (resultado){
+    dashboardModel.tempo_real_rede(id).then(function (resultado){
         if(resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -207,8 +212,9 @@ function tempo_real_rede(req, res){
 
 function tempo_real_ram(req, res){
     console.log(`Recuperando medidas da ram em tempo real`);
+    var id = req.params.idDispositivo;
 
-    dashboardModel.tempo_real_ram().then(function (resultado){
+    dashboardModel.tempo_real_ram(id).then(function (resultado){
         if(resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -223,8 +229,9 @@ function tempo_real_ram(req, res){
 
 function tempo_real_cpu(req, res){
     console.log(`Recuperando medidas da cpu em tempo real`);
+    var id = req.params.idDispositivo;
 
-    dashboardModel.tempo_real_cpu().then(function (resultado){
+    dashboardModel.tempo_real_cpu(id).then(function (resultado){
         if(resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -239,8 +246,9 @@ function tempo_real_cpu(req, res){
 
 function tempo_real_disco(req, res){
     console.log(`Recuperando medidas do disco em tempo real`);
+    var id = req.params.idDispositivo;
 
-    dashboardModel.tempo_real_disco().then(function (resultado){
+    dashboardModel.tempo_real_disco(id).then(function (resultado){
         if(resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -254,7 +262,8 @@ function tempo_real_disco(req, res){
 }
 
 function recuperarCpu(req, res){
-    dashboardModel.recuperarCpu()
+    var id = req.params.idDispositivo;
+    dashboardModel.recuperarCpu(id)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -272,7 +281,8 @@ function recuperarCpu(req, res){
 }
 
 function recuperarRam(req, res){
-    dashboardModel.recuperarRam()
+    var id = req.params.idDispositivo;
+    dashboardModel.recuperarRam(id)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -290,7 +300,8 @@ function recuperarRam(req, res){
 }
 
 function recuperarDisco(req, res){
-    dashboardModel.recuperarDisco()
+    var id = req.params.idDispositivo;
+    dashboardModel.recuperarDisco(id)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -308,7 +319,9 @@ function recuperarDisco(req, res){
 }
 
 function recuperarRede(req, res){
-    dashboardModel.recuperarRede()
+    var id = req.params.idDispositivo;
+    
+    dashboardModel.recuperarRede(id)
         .then(
             function (resultado) {
                 res.json(resultado);
