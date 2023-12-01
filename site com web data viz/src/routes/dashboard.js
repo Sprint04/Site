@@ -88,5 +88,7 @@ router.get("/tempo_real_cesar", function (req, res) {
 router.get("/obter_dados_cesar", function (req, res) {
     dashboardController.buscar_dados_cesar(req, res);
 });
-
+router.get("/obter_dados_kpi", function (req, res) {
+    dashboardController.buscar_dados_kpi(req, res);
+});
 module.exports = router;
