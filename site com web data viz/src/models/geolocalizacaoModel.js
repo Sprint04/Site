@@ -9,8 +9,9 @@ function buscarUltimasMedidasGEO() {
 	RIGHT(endereco, CHARINDEX(',', REVERSE(endereco)) - 1) as Pais,
 	latitude,
 	longitude
-FROM geolocalizacao 
-WHERE fkDispositivo = 4;
+FROM geolocalizacao
+	join dispositivo on fkDispositivo = idDispositivo
+WHERE fkEmpresa = 1;
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
