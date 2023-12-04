@@ -319,7 +319,7 @@ function buscarDispositivo(idEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscarDispositivo(): ")
 
     var instrucao = `
-    select idDispositivo, IP, nome FROM dispositivo JOIN empresa on fkEmpresa = idEmpresa where idEmpresa = ${idEmpresa};
+    select idDispositivo, alias, IP, nome FROM dispositivo JOIN empresa on fkEmpresa = idEmpresa where idEmpresa = ${idEmpresa} order by alias asc;
 `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);

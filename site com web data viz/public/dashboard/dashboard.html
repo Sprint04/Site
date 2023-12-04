@@ -196,7 +196,7 @@
                     //Navegar pela resposta retornada e acrescentar na máquina as opções 
 
                     resposta.forEach(function (dispositivo) {
-                        select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.IP}</option>`;
+                        select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.alias}</option>`;
                     });
                 });
             } else {
