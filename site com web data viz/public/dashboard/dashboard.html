@@ -54,7 +54,6 @@
                 <div class="container_botao_maquinas">
                     <div class="botao_maquina">
                         <select name="" id="select_maquinas">
-                            <option value="4">Selecionar Máquina:</option>
                         </select>
                     </div>
                 </div>
@@ -191,13 +190,18 @@
                     console.log("Dados Recebidos: ", JSON.stringify(resposta));
                     //Limpar as opções existentes
 
-                    select_maquinas.innerHTML = '<option selected> Selecionar Máquina </option>';
+                    select_maquinas.innerHTML = '';
 
                     //Navegar pela resposta retornada e acrescentar na máquina as opções 
 
                     resposta.forEach(function (dispositivo) {
                         select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.alias}</option>`;
                     });
+                    obter_dados_cpu()
+                    obter_dados_rede()
+                    obter_dados_ram()
+                    obter_dados_disco()
+                    atualizarValores()
                 });
             } else {
                 console.log("Houve um erro ao listar os dispositivos no select");
@@ -316,7 +320,7 @@
     // plotar_grafico_ram()
     // plotar_grafico_disco()
 
-    window.onload = obter_dados_cpu(), obter_dados_rede(), obter_dados_ram(), obter_dados_disco(), atualizarValores()
+    
 
     var graficos = {
         principal: { ativado: 1, element: document.getElementById('Grafico_Principal') },
