@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="imagex/png" href="./assets/logo-icon.png">
+    <link rel="stylesheet" href="../css/css_everton.css">
+    <title>Trackware - Dashboards</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container_pagina">
+        <div class="menu_dashboard">
+            <div class="container_logo_menu_dashboard">
+                <div class="logo_menu_dashboard">
+                    <img src="./assets/logo-icon.png" alt="logo_menu">
+                </div>
+            </div>
+            <div class="opcoes_menu_dashboard">
+                <button onclick="btnDashboard()">Dashboards</button>
+                <button>Usuário</button>
+                <button onclick="btnFuncionarios()">Funcionários</button>
+                <button onclick="btnPlanos()">Planos</button>
+                <button class="button_selecionado">Monitoramento</button>
+                <button>Alertas</button>
+                <button onclick="btnChamado()">Chamados</button>
+                <button onclick="btnHistorico()">Históricos</button>
+            </div>
+        </div>
+        <div class="tela_dashboard">
+            <h1> <span>Monitoração de Temperatura da CPU</span></h1>
+            <!-- <div class="idDispositivoRecuperado">Digite o id do Dispositivo a ser monitorado: <input
+                    id="input_idDispositivo" type="number"> <button onclick="recuperarProcessos()">Buscar</button>
+            </div> -->
+            <div class="container_informacoes">
+                <div class="container_processos">
+                    Processos: <span id="qtdProcessos">0</span>
+                </div>
+                <div class="container_cpu">
+                    CPU: <span id="cpuUtilizada">0</span>%
+                </div>
+                <div class="btnMetricas">
+                    <button>Consultar Metricas</button>
+                </div>
+            </div>
+            <div class="container_Grafico">
+                <canvas id="Grafico_Temperatura">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<!-- parte do GU -->
+<script>
+    function btnPlanos() {
+        window.location.href = "../planos.html"
+    }
+
+    function btnChamado() {
+        window.location.href = "https://track-ware-help.atlassian.net/servicedesk/customer/portals"
+    }
+    function btnHistorico() {
+        window.location.href = "historico.html"
+    }
+
+    function btnFuncionarios() {
+        window.location.href = "funcionario.html"
+    }
+
+    function btnDashboard() {
+        window.location.href = "dashboard.html"
+    }
+</script>
+
+<script>
+
+    // Isto aqui é para criar variáveis para atualizar o gráfico
+
+    let proximaAtualizacao;
+
+    // este você não precisa colocar
+    let proximaAtualizacaoValores;
+
+
+    // este aqui é para quando recarregar a página executa estas funções, você vai precisar somente do obterDadosGrafico()
+    window.onload = obterDadosGrafico(), atualizarValores();
+
+    // esta função é para obter dados das ultimas temperaturas armazenadas no banco de dados, aí você substitui para a sua regra de negócio do sistema
+    function obterDadosGrafico() {
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`medidas/ultimas_temperatura`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    // aqui quando executar o select no model, os dados serão armazenados no "resposta" que é um json, e passará ele como parâmetro para plotar os gráficos
+                    plotarGrafico_temperatura(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        });
+    }
+
+    // A função irá plotar o gráfico com os dados recuperados na função obterDadosGrafico()
+    function plotarGrafico_temperatura(resposta, idSensor) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels_temperatura = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados_temperatura = {
+            labels: labels_temperatura,
+            datasets: [{
+                label: 'Temperatura',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(255, 69, 0)',
+                tension: 0.6
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels_temperatura.push(registro.dtHora);
+            dados_temperatura.datasets[0].data.push(registro.dadoCapturado);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels_temperatura)
+        console.log('Dados:')
+        console.log(dados_temperatura.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados_temperatura
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let Grafico_Temperatura = new Chart(
+            document.getElementById(`Grafico_Temperatura`),
+            config
+        );
+
+        // chamando a função para atualizar o gráfico da temperatura passando os dados e o grafico como paramentros
+        setTimeout(() => atualizarGrafico_temperatura(dados_temperatura, Grafico_Temperatura), 2000);
+    }
+
+
+    // A função irá atualizar o grafico em tempo real
+    function atualizarGrafico_temperatura(dados_temperatura, Grafico_Temperatura) {
+
+        // este fetch irá fazer um select onde pega o ultimo dado inserido no banco e colocará na dashboard, excluindo o dado mais antigo inserido na tela
+        fetch(`/medidas/tempo-real_temperatura`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados_temperatura);
+
+                    if (novoRegistro[0].dtHora == dados_temperatura.labels[dados_temperatura.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].dtHora)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados_temperatura.labels[dados_temperatura.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados_temperatura.labels.shift(); // apagar o primeiro
+                        dados_temperatura.labels.push(novoRegistro[0].dtHora); // incluir um novo momento
+
+                        dados_temperatura.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                        dados_temperatura.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+                        Grafico_Temperatura.update();
+                    }
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico_temperatura(dados_temperatura, Grafico_Temperatura), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico_temperatura(dados_temperatura, Grafico_Temperatura), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function recuperarProcessos() {
+        // var idDispositivo = input_idDispositivo.value
+        var qtdProcessosRecuperados = 0
+
+        fetch(`medidas/ultimosProcessos`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            })
+        }).then(function (resposta) {
+            console.log("Efetuando a recuperação de processos")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json)
+                    console.log(JSON.stringify(json));
+
+                    qtdProcessosRecuperados = json[0].dadoCapturado
+                    qtdProcessos.innerHTML = `${qtdProcessosRecuperados}`
+                    console.log(qtdProcessosRecuperados)
+                });
+            } else {
+                console.log("Houve um erro ao recuperar a qtd de processos")
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    }
+
+    function recuperarCpu() {
+        var cpuUtilizadaRecuperada = 0
+
+        fetch(`medidas/ultimosCpu`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            })
+        }).then(function (resposta) {
+            console.log("Efetuando a recuperação de processos")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json)
+                    console.log(JSON.stringify(json));
+
+                    cpuUtilizadaRecuperada = json[0].dadoCapturado
+                    cpuUtilizada.innerHTML = `${cpuUtilizadaRecuperada}`
+                    console.log(cpuUtilizadaRecuperada)
+                });
+            } else {
+                console.log("Houve um erro ao recuperar a qtd de processos")
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    }
+
+    function atualizarValores() {
+        Promise.all([recuperarProcessos(), recuperarCpu()])
+            .then(resultados => {
+                const qtdProcessosRecuperados = resultados[0][0].dadoCapturado;
+                const cpuUtilizadaRecuperada = resultados[1][0].dadoCapturado;
+
+                console.log("Quantidade de Processos Recuperados: " + qtdProcessosRecuperados);
+                console.log("CPU Utilizada Recuperada: " + cpuUtilizadaRecuperada);
+
+                qtdProcessos.innerHTML = qtdProcessosRecuperados;
+                cpuUtilizada.innerHTML = cpuUtilizadaRecuperada;
+            })
+            .catch(erro => {
+                console.error("Erro ao recuperar dados:", erro);
+            });
+
+        proximaAtualizacaoValores = setTimeout(() => atualizarValores(), 2000);
+    }
+
+    // function atualizarProcessos(qtdProcessosRecuperados) {
+    //     fetch(`medidas/tempo-real_processos`, { cache: 'no-store' }).then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (novoRegistro) {
+    //                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+    //                 console.log(`Dados atuais dos processos:`);
+    //                 console.log(qtdProcessosRecuperados);
+
+    //                 if (novoRegistro[0].dadoCapturado == qtdProcessos) {
+    //                     console.log("---------------------------------------------------------------")
+    //                     console.log("Como não há quantidade de processos novos, os valores não atualizará.")
+    //                 } else {
+    //                     qtdProcessosRecuperadosNovos = json[0].dadoCapturado
+    //                     qtdProcessos.innerHTML = `${qtdProcessosRecuperadosNovos}`
+    //                 }
+    //             })
+    //         } else {
+    //             console.error('Nenhum dado encontrado ou erro na API');
+    //             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+    //             proximaAtualizacaoProcessos = setTimeout(() => atualizarProcessos(qtdProcessosRecuperados), 2000);
+    //         }
+    //     })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    //         });
+    // }
+
+</script>
