@@ -287,7 +287,8 @@
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: center;;
+  flex-direction: column;
+  align-items: center;
 }
 
 .grafico{
@@ -354,4 +355,62 @@ canvas{
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.sumario{
+  display: flex;
+  flex-direction: column;
+  width: 27.8vw;
+    height: 50vh; /* Aumenta a altura */
+    padding: 20px;
+    margin-top: 70px; /* Adiciona espaçamento na parte superior */
+    margin-bottom: 70px;
+    border-radius: 15px; /* Borda arredondada */
+    background-color: #000; /* Cor de fundo preto */
+    color: #fff; /* Cor do texto branco */
+    text-align: center;
+}
+
+.sumario h1{
+  padding-top: 2px;
+  padding-bottom: 7px;
+}
+
+.abinhas{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:550px;
+  height: 45vh;
+}
+
+.cpuAbinha, .ramAbinha{
+ font-size:x-large;
+ background-color: rgb(74, 74, 74);
+}
+
+.abinhas span{
+  padding-top: 7px;
+  padding-left: 13px;
+  
+}
+
+.cpuAbinha{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width:250px;
+  height: 45vh;
+  border-radius: 15px;
+}
+
+.ramAbinha{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width:250px;
+  height: 45vh;
+  border-radius: 15px;
 }

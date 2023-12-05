@@ -326,7 +326,7 @@ function buscarDispositivo(idEmpresa) {
 
     return database.executar(instrucao);
 }
-function tempo_real_cesar() {
+function tempo_real_cesar(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_rede(): ")
     var instrucao = `
     SELECT top 1
@@ -338,7 +338,8 @@ FROM
 JOIN
     (SELECT * FROM monitoramento WHERE fkComponente = 2) AS m_memoria
 ON
-    ABS(DATEDIFF(SECOND, m_cpu.dtHora, m_memoria.dtHora)) <= 5;
+    ABS(DATEDIFF(SECOND, m_cpu.dtHora, m_memoria.dtHora)) <= 5
+WHERE m_cpu.fkDispositivo = ${id};
 ;
    `;
 
@@ -346,7 +347,7 @@ ON
     return database.executar(instrucao);
 
 }
-function buscar_dados_cesar(limite_linhas) {
+function buscar_dados_cesar(limite_linhas, id) {
     console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_rede(): ")
     var instrucao = `
     SELECT top ${limite_linhas}
@@ -358,14 +359,18 @@ FROM
 JOIN
     (SELECT * FROM monitoramento WHERE fkComponente = 2) AS m_memoria
 ON
-    ABS(DATEDIFF(SECOND, m_cpu.dtHora, m_memoria.dtHora)) <= 5;
+    ABS(DATEDIFF(SECOND, m_cpu.dtHora, m_memoria.dtHora)) <= 5
+WHERE m_cpu.fkDispositivo = ${id};
 ;
     `;
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
-function buscar_dados_kpi() {
-    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function kpic cesar aqui aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa(): ")
+function buscar_dados_kpi(dataFormatada, id) {
+
+
+    console.log(dataFormatada)
+    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function kpic cesar aqu to maluco i aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa(): ")
     var instrucao = `
     SELECT
     MAX(CASE WHEN fkComponente = 1 THEN dadoCapturado END) AS maior_dado_cpu,
@@ -375,10 +380,11 @@ function buscar_dados_kpi() {
     ROUND(AVG(CASE WHEN fkComponente = 1 THEN dadoCapturado END), 2) AS media_dado_cpu,
     ROUND(STDEV(CASE WHEN fkComponente = 1 THEN dadoCapturado END), 2) AS desvio_padrao_cpu,
     ROUND(AVG(CASE WHEN fkComponente = 2 THEN dadoCapturado END), 2) AS media_dado_ram,
-    ROUND(STDEV(CASE WHEN fkComponente = 2 THEN dadoCapturado END), 2) AS desvio_padrao_ram,
-FROM Monitoramento 
-WHERE fkComponente IN (1, 2) AND (dtHora) = '2023-11-29'
-and fkDispositivo = 4;
+    ROUND(STDEV(CASE WHEN fkComponente = 2 THEN dadoCapturado END), 2) AS desvio_padrao_ram
+FROM Monitoramento
+    WHERE fkDispositivo = ${id}
+    AND dtHora BETWEEN '${dataFormatada} 00:01:01' AND '${dataFormatada} 23:59:59'
+;
     `;
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
     return database.executar(instrucao);

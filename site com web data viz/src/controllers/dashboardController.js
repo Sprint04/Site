@@ -354,9 +354,10 @@ function buscarDispositivo(req, res){
     })
 }
 function tempo_real_cesar(req, res){
+    var id = req.params.idDispositivo;
     console.log(`Recuperando medidas da rede em tempo real`);
 
-    dashboardModel.tempo_real_cesar().then(function (resultado){
+    dashboardModel.tempo_real_cesar(id).then(function (resultado){
         if(resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -369,11 +370,13 @@ function tempo_real_cesar(req, res){
     });
 }
 function buscar_dados_cesar(req, res){
+    var id = req.params.idDispositivo;
     const limite_linhas = 5;
+   
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas da rede`);
 
-    dashboardModel.buscar_dados_cesar(limite_linhas).then(function (resultado) {
+    dashboardModel.buscar_dados_cesar(limite_linhas, id).then(function (resultado) {
         if (resultado.length > 0){
             res.status(200).json(resultado);
         } else {
@@ -387,8 +390,10 @@ function buscar_dados_cesar(req, res){
 }
 function buscar_dados_kpi(req, res){
    // const limite_linhas = 5;
+   var dataFormatada = req.params.dataFormatada;
+   var id = req.params.idDispositivo;
 
-    dashboardModel.buscar_dados_kpi().then(function (resultado) {
+    dashboardModel.buscar_dados_kpi(dataFormatada, id).then(function (resultado) {
         if (resultado.length > 0){
             res.status(200).json(resultado);
         } else {

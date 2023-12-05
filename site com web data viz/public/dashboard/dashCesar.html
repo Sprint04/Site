@@ -54,7 +54,6 @@
                 <div class="container_botao_maquinas">
                     <div class="botao_maquina">
                         <select name="" id="select_maquinas">
-                            <option value="">Selecionar Máquina:</option>
                         </select>
                     </div>
                 </div>
@@ -83,11 +82,30 @@
             <!-- gráfico abaixo !!! -->
             <div class="container_grafico">
                 <div class="grafico">
+                </div>
+                <canvas id="Grafico_Rede" S></canvas>
+                <!-- colocar a classe sumario na div abaixo -->
+                <div class="sumario">
+                    <h1>Sumário de hoje</h1>
+                    <div class="abinhas">
+                        <div class="cpuAbinha">
+                            <span>MAX CPU: </span>
+                            <span>MIN CPU: </span>
+                            <span>MEAN CPU: </span>
+                            <span>DP CPU: </span>
+                        </div>
+                        <div class="ramAbinha">
+                            <span>MAX RAM: </span>
+                            <span>MIN RAM: </span>
+                            <span>MEAN RAM: </span>
+                            <span>DP RAM: </span>
+                        </div>
                     </div>
-                    <canvas id="Grafico_Rede"S></canvas>
                 </div>
             </div>
         </div>
+
+    </div>
     </div>
 </body>
 
@@ -104,7 +122,7 @@
                 window.location = "dashCesar.html"
                 break;
             case "Temperatura":
-                window.location = "tom.html"
+                window.location = "dashboard.html"
                 break;
             case "Geolocalizacao":
                 window.location = "giovanna.html"
@@ -122,7 +140,7 @@
     }
 </script>
 
-
+<!-- Encontrar dispositivo -->
 <script>
     window.onload = recuperarDispositivos()
 
@@ -135,13 +153,15 @@
                     console.log("Dados Recebidos: ", JSON.stringify(resposta));
                     //Limpar as opções existentes
 
-                    select_maquinas.innerHTML = '<option selected> Selecionar Máquina </option>';
+                    select_maquinas.innerHTML = '';
 
                     //Navegar pela resposta retornada e acrescentar na máquina as opções 
 
                     resposta.forEach(function (dispositivo) {
-                        select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.IP}</option>`;
+                        select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.alias}</option>`;
                     });
+                    obter_dados_rede()
+                    chamarKpi()
                 });
             } else {
                 console.log("Houve um erro ao listar os dispositivos no select");
@@ -206,6 +226,7 @@
 
 </script>
 
+<!-- individual cesar -->
 <script>
 
     let proximaAtualizacaoRede;
@@ -213,10 +234,6 @@
 
     var dadoREDE = 0;
 
-    
-
-    window.onload = obter_dados_rede()
-        
     var graficos = {
         rede: { ativado: 0, element: document.getElementById('Grafico_Rede') }
     };
@@ -232,47 +249,94 @@
     }
 
     function chamarKpi() {
-        var dtHoje = new Date()
-        console.log(dtHoje)
-        console.log("datadeagora")
+        var hoje = new Date();
+        var ano = hoje.getFullYear();
+        var mes = hoje.getMonth() + 1; // Lembre-se que os meses em JavaScript começam do zero, então adicionamos 1
+        var dia = hoje.getDate();
 
 
-        
+        var dataFormatada = ano + '-' + (mes < 10 ? '0' : '') + mes + '-' + (dia < 10 ? '0' : '') + dia;
+
+        console.log(dataFormatada);
+
+
         console.log("entrei no chamarKpi")
-        fetch(`/dashboard/obter_dados_kpi`, { cache: 'no-store' }).then(function (response) {
+        let idDispositivo = document.getElementById("select_maquinas").value
+        console.log(idDispositivo)
+        fetch(`/dashboard/obter_dados_kpi/${dataFormatada}/${idDispositivo}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                   // resposta.json()
+                    // resposta.json()
                     console.log(resposta)
-                    cesarKpi(resposta);
-                    
+                    cesarKpi(resposta)
+
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
             }
         })
+
+        function cesarKpi(resposta) {
+            // Verifique se a resposta possui dados
+            if (resposta && resposta.length > 0) {
+                // Extrair os dados do primeiro item da resposta (supondo que seja um array)
+                const dados = resposta[0];
+
+                // Extrair os valores desejados
+                const maiorDadoCPU = dados.maior_dado_cpu;
+                const menorDadoCPU = dados.menor_dado_cpu;
+                const maiorDadoRAM = dados.maior_dado_ram;
+                const menorDadoRAM = dados.menor_dado_ram;
+                const mediaDadoCPU = dados.media_dado_cpu;
+                const desvioPadraoCPU = dados.desvio_padrao_cpu;
+                const mediaDadoRAM = dados.media_dado_ram;
+                const desvioPadraoRAM = dados.desvio_padrao_ram;
+
+                // Agora você pode usar essas variáveis como quiser
+                console.log("Maior Dado CPU:", maiorDadoCPU);
+                console.log("Menor Dado CPU:", menorDadoCPU);
+                console.log("Maior Dado RAM:", maiorDadoRAM);
+                console.log("Menor Dado RAM:", menorDadoRAM);
+                console.log("Média Dado CPU:", mediaDadoCPU);
+                console.log("Desvio Padrão CPU:", desvioPadraoCPU);
+                console.log("Média Dado RAM:", mediaDadoRAM);
+                console.log("Desvio Padrão RAM:", desvioPadraoRAM);
+
+                // Aqui estou inserindo os dados nas spans das classes cpuAbinha e ramAbinha
+                document.querySelector('.cpuAbinha span:nth-child(1)').textContent = `MAX CPU: ${maiorDadoCPU}%`;
+                document.querySelector('.cpuAbinha span:nth-child(2)').textContent = `MIN CPU: ${menorDadoCPU}%`;
+                document.querySelector('.cpuAbinha span:nth-child(3)').textContent = `MEAN CPU: ${mediaDadoCPU}%`;
+                document.querySelector('.cpuAbinha span:nth-child(4)').textContent = `DP CPU: ${desvioPadraoCPU}%`;
+
+                document.querySelector('.ramAbinha span:nth-child(1)').textContent = `MAX RAM: ${maiorDadoRAM}%`;
+                document.querySelector('.ramAbinha span:nth-child(2)').textContent = `MIN RAM: ${menorDadoRAM}%`;
+                document.querySelector('.ramAbinha span:nth-child(3)').textContent = `MEAN RAM: ${mediaDadoRAM}%`;
+                document.querySelector('.ramAbinha span:nth-child(4)').textContent = `DP RAM: ${desvioPadraoRAM}%`;
+
+                // Você pode fazer mais coisas com essas variáveis aqui...
+            } else {
+                console.error('Resposta vazia ou formato inesperado.');
+            }
+        }
+
     }
 
-    function cesarKpi(){
-        
-        //console.log("aquiaqui")
-      //  console.log(resposta)
-        
-    }
+
 
     function obter_dados_rede() {
         if (proximaAtualizacaoRede != undefined) {
             clearTimeout(proximaAtualizacaoRede);
         }
-
-        fetch(`/dashboard/obter_dados_cesar`, { cache: 'no-store' }).then(function (response) {
+        let idDispositivo = document.getElementById("select_maquinas").value
+        console.log(idDispositivo)
+        fetch(`/dashboard/obter_dados_cesar/${idDispositivo}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    
+
                     plotarGrafico_rede(resposta);
                 });
             } else {
@@ -342,8 +406,9 @@
     }
 
     function atualizar_grafico_rede(dados_rede, Grafico_Rede) {
-
-        fetch(`/dashboard/tempo_real_cesar`, { cache: 'no-store' }).then(function (response) {
+        let idDispositivo = document.getElementById("select_maquinas").value
+        console.log(idDispositivo)
+        fetch(`/dashboard/tempo_real_cesar/${idDispositivo}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
@@ -377,18 +442,16 @@
                         Grafico_Rede.update();
                     }
 
-               //     proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+                         proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
 
-             //   proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
+                   proximaAtualizacaoRede = setTimeout(() => atualizar_grafico_rede(dados_rede, Grafico_Rede), 2000);
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
-    
-    chamarKpi()
 </script>
