@@ -19,18 +19,17 @@
                 </div>
             </div>
             <div class="opcoes_menu_dashboard">
-                <button onclick="btnDashboard()" class="button_selecionado">Dashboards</button>
+                <button onclick="btnDashboard()">Dashboards</button>
                 <button onclick="btnUsuario()">Usuário</button>
                 <button onclick="btnFuncionarios()">Funcionários</button>
                 <button onclick="btnPlanos()">Planos</button>
 
                 <select class="selectOpcoes" id="opcoes" onchange="mudarConteudo()">
-                    <option selected value="0">Monitoramentos</option>
-                    <option value="Cesar">Cesar - Projeto</option>
-                    <option value="Temperatura">Temperatura</option>
-                    <option value="Geolocalizacao">Geolocalização</option>
+                    <option selected value="Cesar">CPUxRAM</option>
                     <option value="GPU">GPU</option>
+                    <option value="Temperatura">Temperatura</option>
                     <option value="Processos">Processos</option>
+                    <option value="Geolocalizacao">Geolocalização</option>
                 </select>
 
                 <button>Alertas</button>
@@ -122,13 +121,13 @@
                 window.location = "dashCesar.html"
                 break;
             case "Temperatura":
-                window.location = "dashboard.html"
+                window.location = "tom.html"
                 break;
             case "Geolocalizacao":
                 window.location = "giovanna.html"
                 break;
             case "GPU":
-                window.location = "dashboard.html"
+                window.location = "gustavo.html"
                 break;
             case "Processos":
                 window.location = "nathan.html"

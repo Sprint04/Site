@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="imagex/png" href="./assets/logo-icon.png" />
+    <!-- <link rel="stylesheet" href="../css/dashboards.css"> -->
+    <link rel="stylesheet" href="../css/gustavo.css" />
+    <title>Trackware - Dashboards</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <div class="container_pagina">
+      <div class="menu_dashboard">
+        <div class="container_logo_menu_dashboard">
+          <div class="logo_menu_dashboard">
+            <img src="../assets/logo-icon.png" alt="logo_menu" />
+          </div>
+        </div>
+        
+        <div class="opcoes_menu_dashboard">
+          <button onclick="btnDashboard()">Dashboards</button>
+          <button>Usuário</button>
+          <button onclick="btnFuncionarios()">Funcionários</button>
+          <button onclick="btnPlanos()">Planos</button>
+
+          <select class="selectOpcoes" id="opcoes" onchange="mudarConteudo()">
+            <option value="Cesar">CPUxRAM</option>
+            <option selected value="GPU">GPU</option>
+            <option value="Temperatura">Temperatura</option>
+            <option value="Processos">Processos</option>
+            <option value="Geolocalizacao">Geolocalização</option>
+          </select>
+
+          <button>Alertas</button>
+          <button onclick="btnChamado()">Chamados</button>
+          <button onclick="btnHistorico()">Históricos</button>
+        </div>
+      </div>
+
+      <div class="tela_dashboard">
+        <div class="container_mensagem_botao">
+          <div class="container_mensagem_usuario">
+            <div class="img_usuario">
+              <img src="../assets/perfil.png" alt="" />
+            </div>
+            <div class="mensagem_usuario">
+              Bem-vindo(a) <span id="usuarioNome"></span>!
+              <br />
+              Empresa: <span id="empresaNome"></span>
+            </div>
+          </div>
+
+          <div class="container_botao_maquinas">
+            <div class="botao_maquina">
+              <select name="" id="select_maquinas"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="container_cards_monitoramento">
+          <button class="card" onclick="chamarGrafico('GPU')">
+            <div class="container_dados_botao">
+              <span class="tipo_componente">GPU</span>
+              <div class="dado_monitoramento">
+                <div class="valor_dado"><span id="dado_GPU">0</span>%</div>
+                <span class="tipo_utilizacao">Utilizado</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="card" onclick="chamarGrafico('RAM')">
+            <div class="container_dados_botao">
+              <span class="tipo_componente">RAM</span>
+              <div class="dado_monitoramento">
+                <div class="valor_dado"><span id="dado_RAM">0</span>%</div>
+                <span class="tipo_utilizacao">Utilizada</span>
+              </div>
+            </div>
+          </button>
+        </div>
+        <!-- gráfico abaixo !!! -->
+        <div class="container_grafico">
+          <div class="grafico">
+            <div id="Grafico_Principal">
+              <div class="img_informacao">
+                <img src="../assets/gpu (1).png" />
+                <img src="../assets/ram (2).png" />
+              </div>
+              <div class="informacao">
+                <h1><span>INFORMAÇÕES DOS DADOS</span></h1>
+                <div class="texto_informacao">
+                  <p>
+                    Monitorar a RAM (Memória de Acesso Aleatório) e a GPU
+                    (Unidade de Processamento Gráfico) de um sistema é crucial
+                    para otimizar o desempenho e garantir uma experiência
+                    computacional eficiente e sem contratempos.
+                  </p>
+                </div>
+                <div class="texto_informacao">
+                  <p>
+                    O acompanhamento constante desses recursos permite uma
+                    gestão proativa dos recursos do sistema, evitando problemas
+                    de desempenho antes que impactem a experiência do usuário.
+                    Além disso, a monitorização facilita a identificação de
+                    possíveis upgrades necessários, proporcionando a
+                    oportunidade de otimizar ainda mais o sistema e garantir que
+                    ele atenda às demandas cada vez mais exigentes dos
+                    aplicativos modernos.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <canvas id="Grafico_GPU" style="display: none"></canvas>
+            <canvas id="Grafico_Ram" style="display: none"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<!-- parte do GU -->
+<script>
+  function mudarConteudo() {
+    // Obtenha o valor da opção selecionada
+    var opcaoSelecionada = document.getElementById("opcoes").value;
+
+    switch (opcaoSelecionada) {
+      case "Cesar":
+        window.location = "dashCesar.html";
+        break;
+      case "Temperatura":
+        window.location = "tom.html";
+        break;
+      case "Geolocalizacao":
+        window.location = "giovanna.html";
+        break;
+      case "GPU":
+        window.location = "gustavo.html";
+        break;
+      case "Processos":
+        window.location = "nathan.html";
+        break;
+      //   default:
+      //   window.location = "dashboard.html"
+      //     break;
+    }
+  }
+</script>
+
+<!-- parte do GU -->
+<script>
+  window.onload = recuperarDispositivos();
+
+  function recuperarDispositivos() {
+    var idEmpresa = sessionStorage.ID_EMPRESA;
+
+    fetch(`/dashboard/buscarDispositivos/${idEmpresa}`, { cache: "no-store" })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (resposta) {
+            console.log("Dados Recebidos: ", JSON.stringify(resposta));
+            //Limpar as opções existentes
+
+            select_maquinas.innerHTML = "";
+
+            //Navegar pela resposta retornada e acrescentar na máquina as opções
+
+            resposta.forEach(function (dispositivo) {
+              select_maquinas.innerHTML += `<option value="${dispositivo.idDispositivo}">${dispositivo.alias}</option>`;
+            });
+            obter_dados_GPU();
+            obter_dados_ram();
+            atualizarValores();
+          });
+        } else {
+          console.log("Houve um erro ao listar os dispositivos no select");
+
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+
+    return false;
+  }
+
+  var idEmpresa = sessionStorage.ID_EMPRESA;
+
+  usuarioNome.innerHTML = sessionStorage.NOME_USUARIO;
+  empresaNome.innerHTML = sessionStorage.NOME_EMPRESA;
+
+  function buscarCargo() {
+    var idCargo = sessionStorage.getItem("ID_CARGO");
+    fetch(`/empresas/buscarCargo/${idCargo}`)
+      .then(function (resposta) {
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+            sessionStorage.setItem("Add", JSON.stringify(resposta[0].add));
+            sessionStorage.setItem("Hist", JSON.stringify(resposta[0].hist));
+            sessionStorage.setItem("ADM", JSON.stringify(resposta[0].adm));
+            console.log(sessionStorage.getItem("Add"));
+            console.log(sessionStorage.getItem("Hist"));
+            console.log(sessionStorage.getItem("ADM"));
+          });
+        } else {
+          console.log("Houve um erro ao tentar realizar o listar!");
+
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+
+    return false;
+  }
+
+  window.onload = buscarCargo();
+
+  function btnPlanos() {
+    var adm = sessionStorage.getItem("ADM");
+    if (sessionStorage.getItem("ADM") == "true") {
+      window.location = "../planos.html";
+    } else {
+      alert("Você não ter permissão para entrar ai");
+    }
+  }
+
+  function btnChamado() {
+    window.location.href =
+      "https://track-ware-help.atlassian.net/servicedesk/customer/portals";
+  }
+  function btnHistorico() {
+    var hist = sessionStorage.getItem("Hist");
+    console.log(hist);
+    if (hist == "true") {
+      window.location = "historico.html";
+    } else {
+      alert("Você não ter permissão para entrar ai");
+    }
+  }
+
+  function btnFuncionarios() {
+    var add = sessionStorage.getItem("Add");
+    if (add == "true") {
+      window.location = "funcionario.html";
+    } else {
+      alert("Você não ter permissão para entrar ai");
+    }
+  }
+  function btnDashboard() {
+    window.location = "dashboard.html";
+  }
+  function btnUsuario() {
+    window.location = "usuario.html";
+  }
+</script>
+
+<script>
+  let proximaAtualizacaoGPU;
+  let proximaAtualizaçãoRam;
+
+  var dadoGPU = 0;
+  var dadoRAM = 0;
+
+  window.onload = obter_dados_GPU(), obter_dados_ram();
+
+  var graficos = {
+    principal: {
+      ativado: 1,
+      element: document.getElementById("Grafico_Principal"),
+    },
+    gpu: { ativado: 0, element: document.getElementById("Grafico_GPU") },
+    ram: { ativado: 0, element: document.getElementById("Grafico_Ram") },
+  };
+
+  function chamarGrafico(tipo) {
+    for (const key in graficos) {
+      graficos[key].ativado = 0;
+      graficos[key].element.style.display = "none";
+    }
+
+    graficos[tipo.toLowerCase()].ativado = 1;
+    graficos[tipo.toLowerCase()].element.style.display = "block";
+  }
+
+  function obter_dados_GPU() {
+    if (proximaAtualizacaoGPU != undefined) {
+      clearTimeout(proximaAtualizacaoGPU);
+    }
+
+    let idDispositivo = document.getElementById("select_maquinas").value;
+
+    fetch(`/dashboard/obter_dados_GPU/${idDispositivo}`, { cache: "no-store" }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+            plotarGrafico_GPU(resposta);
+          });
+        } else {
+          console.error("Erro na resposta da API:", response.statusText);
+        }
+      })
+      .catch(function (error) {
+        console.error("Erro na requisição Fetch:", error);
+      });
+  }
+
+  function obter_dados_ram() {
+    if (proximaAtualizaçãoRam != undefined) {
+      clearTimeout(proximaAtualizaçãoRam);
+    }
+    let idDispositivo = document.getElementById("select_maquinas").value;
+
+    fetch(`/dashboard/obter_dados_ram/${idDispositivo}`, {
+      cache: "no-store",
+    }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          plotarGrafico_ram(resposta);
+        });
+      } else {
+        console.error("Nenhum dado encontrado ou erro na API");
+      }
+    });
+  }
+
+  function plotarGrafico_GPU(resposta) {
+    console.log("Iniciando plotagem do gráfico de rede...");
+
+    let labels_GPU = [];
+
+    let dados_GPU = {
+      labels: labels_GPU,
+      datasets: [
+        {
+          label: "Utilização da GPU em %",
+          data: [],
+          fill: false,
+          borderColor: "rgb(255, 255, 0)",
+          tension: 0.6,
+        },
+      ],
+    };
+
+    console.log("----------------------------------------------");
+    console.log(
+      'Estes dados foram recebidos pela função "obter_dados_gpu()" e passados para "plotarGrafico_gpu()":'
+    );
+    console.log(resposta);
+
+    for (let i = 0; i < resposta.length; i++) {
+      var registroGPU = resposta[i];
+      let dataHora = new Date(registroGPU.dtHora);
+      let dataFormatada = `${dataHora.getDate().toString().padStart(2, "0")}/${(
+        dataHora.getMonth() + 1
+      )
+        .toString()
+        .padStart(2, "0")}/${dataHora.getFullYear()} ${dataHora
+        .getHours()
+        .toString()
+        .padStart(2, "0")}:${dataHora
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${dataHora
+        .getSeconds()
+        .toString()
+        .padStart(2, "0")}`;
+      labels_GPU.push(dataFormatada);
+      dados_GPU.datasets[0].data.push(registroGPU.dadoCapturado);
+    }
+
+    //     for (let i = 0; i < resposta.length; i++) {
+    //     var registroGPU = resposta[i];
+    //     let dataHora = new Date(registroGPU.dtHora);
+    //     let dataFormatada = `${(dataHora.getDate()).toString().padStart(2, '0')}/${(dataHora.getMonth() + 1).toString().padStart(2, '0')}/${dataHora.getFullYear()} ${dataHora.getHours().toString().padStart(2, '0')}:${dataHora.getMinutes().toString().padStart(2, '0')}:${dataHora.getSeconds().toString().padStart(2, '0')}`;
+    //     labels_GPU.push(dataFormatada);
+    //     // Formatando o valor com duas casas decimais
+    //     let valorFormatado = registroGPU.dadoCapturado.toFixed(2);
+    //     dados_GPU.datasets[0].data.push(registroGPU.valorFormatado);
+    // }
+
+    console.log("----------------------------------------------");
+    console.log("O gráfico será plotado com os respectivos valores:");
+    console.log("Labels:");
+    console.log(labels_GPU);
+    console.log("Dados:");
+    console.log(dados_GPU.datasets);
+    console.log("----------------------------------------------");
+
+    const config = {
+      type: "line",
+      data: dados_GPU,
+    };
+
+    let Grafico_GPU = new Chart(document.getElementById(`Grafico_GPU`), config);
+
+    setTimeout(() => atualizar_grafico_GPU(dados_GPU, Grafico_GPU), 2000);
+  }
+
+  function plotarGrafico_ram(resposta) {
+    console.log("Iniciando plotagem do gráfico de ram...");
+
+    let labels_ram = [];
+
+    let dados_ram = {
+      labels: labels_ram,
+      datasets: [
+        {
+          label: "Utilização da RAM em %",
+          data: [],
+          fill: false,
+          borderColor: "rgb(0, 100, 255)",
+          tension: 0.6,
+        },
+      ],
+    };
+
+    console.log("----------------------------------------------");
+    console.log(
+      'Estes dados foram recebidos pela função "obter_dados_ram()" e passados para "plotarGrafico_ram()":'
+    );
+    console.log(resposta);
+
+    for (let i = 0; i < resposta.length; i++) {
+      var registroRAM = resposta[i];
+      let dataHora = new Date(registroRAM.dtHora);
+      let dataFormatada = `${dataHora.getDate().toString().padStart(2, "0")}/${(
+        dataHora.getMonth() + 1
+      )
+        .toString()
+        .padStart(2, "0")}/${dataHora.getFullYear()} ${dataHora
+        .getHours()
+        .toString()
+        .padStart(2, "0")}:${dataHora
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${dataHora
+        .getSeconds()
+        .toString()
+        .padStart(2, "0")}`;
+      labels_ram.push(dataFormatada);
+      dados_ram.datasets[0].data.push(registroRAM.dadoCapturado);
+    }
+
+    console.log("----------------------------------------------");
+    console.log("O gráfico será plotado com os respectivos valores:");
+    console.log("Labels:");
+    console.log(labels_ram);
+    console.log("Dados:");
+    console.log(dados_ram.datasets);
+    console.log("----------------------------------------------");
+
+    const config = {
+      type: "line",
+      data: dados_ram,
+    };
+
+    let Grafico_Ram = new Chart(document.getElementById(`Grafico_Ram`), config);
+
+    setTimeout(() => atualizar_grafico_ram(dados_ram, Grafico_Ram), 2000);
+  }
+
+  function atualizar_grafico_GPU(dados_gpu, Grafico_GPU) {
+    let idDispositivo = document.getElementById("select_maquinas").value;
+
+    fetch(`/dashboard/tempo_real_GPU/${idDispositivo}`, { cache: "no-store" })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (novoRegistro) {
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados_GPU);
+            let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
+            let dataFormatada = `${dataHora
+              .getDate()
+              .toString()
+              .padStart(2, "0")}/${(dataHora.getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}/${dataHora.getFullYear()} ${dataHora
+              .getHours()
+              .toString()
+              .padStart(2, "0")}:${dataHora
+              .getMinutes()
+              .toString()
+              .padStart(2, "0")}:${dataHora
+              .getSeconds()
+              .toString()
+              .padStart(2, "0")}`;
+
+            if (
+              dataFormatada == dados_GPU.labels[dados_GPU.labels.length - 1]
+            ) {
+              console.log(
+                "---------------------------------------------------------------"
+              );
+              console.log(
+                "Como não há dados novos para captura, o gráfico não atualizará."
+              );
+              console.log("Horário do novo dado capturado:");
+              console.log(novoRegistro[0].dtHora);
+              console.log("Horário do último dado capturado:");
+              console.log(dados_GPU.labels[dados_GPU.labels.length - 1]);
+              console.log(
+                "---------------------------------------------------------------"
+              );
+            } else {
+              dados_GPU.labels.shift();
+              let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
+              let dataFormatada = `${dataHora
+                .getDate()
+                .toString()
+                .padStart(2, "0")}/${(dataHora.getMonth() + 1)
+                .toString()
+                .padStart(2, "0")}/${dataHora.getFullYear()} ${dataHora
+                .getHours()
+                .toString()
+                .padStart(2, "0")}:${dataHora
+                .getMinutes()
+                .toString()
+                .padStart(2, "0")}:${dataHora
+                .getSeconds()
+                .toString()
+                .padStart(2, "0")}`;
+              dados_GPU.labels.push(dataFormatada);
+
+              dados_GPU.datasets[0].data.shift();
+              dados_GPU.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+              Grafico_GPU.update();
+            }
+
+            proximaAtualizacaoGPU = setTimeout(
+              () => atualizar_grafico_GPU(dados_GPU, Grafico_GPU),
+              2000
+            );
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+
+          proximaAtualizacaoGPU = setTimeout(
+            () => atualizar_grafico_GPU(dados_GPU, Grafico_GPU),
+            2000
+          );
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+        );
+      });
+  }
+
+  function atualizar_grafico_ram(dados_ram, Grafico_Ram) {
+    let idDispositivo = document.getElementById("select_maquinas").value;
+
+    fetch(`/dashboard/tempo_real_ram/${idDispositivo}`, { cache: "no-store" })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (novoRegistro) {
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados_ram);
+            let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
+            let dataFormatada = `${dataHora
+              .getDate()
+              .toString()
+              .padStart(2, "0")}/${(dataHora.getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}/${dataHora.getFullYear()} ${dataHora
+              .getHours()
+              .toString()
+              .padStart(2, "0")}:${dataHora
+              .getMinutes()
+              .toString()
+              .padStart(2, "0")}:${dataHora
+              .getSeconds()
+              .toString()
+              .padStart(2, "0")}`;
+
+            if (
+              dataFormatada == dados_ram.labels[dados_ram.labels.length - 1]
+            ) {
+              console.log(
+                "---------------------------------------------------------------"
+              );
+              console.log(
+                "Como não há dados novos para captura, o gráfico não atualizará."
+              );
+              console.log("Horário do novo dado capturado:");
+              console.log(novoRegistro[0].dtHora);
+              console.log("Horário do último dado capturado:");
+              console.log(dados_ram.labels[dados_ram.labels.length - 1]);
+              console.log(
+                "---------------------------------------------------------------"
+              );
+            } else {
+              dados_ram.labels.shift();
+              let dataHora = new Date(novoRegistro[0].dtHora); // Convertendo para objeto Date
+              let dataFormatada = `${dataHora
+                .getDate()
+                .toString()
+                .padStart(2, "0")}/${(dataHora.getMonth() + 1)
+                .toString()
+                .padStart(2, "0")}/${dataHora.getFullYear()} ${dataHora
+                .getHours()
+                .toString()
+                .padStart(2, "0")}:${dataHora
+                .getMinutes()
+                .toString()
+                .padStart(2, "0")}:${dataHora
+                .getSeconds()
+                .toString()
+                .padStart(2, "0")}`;
+              dados_ram.labels.push(dataFormatada);
+
+              dados_ram.datasets[0].data.shift();
+              dados_ram.datasets[0].data.push(novoRegistro[0].dadoCapturado);
+
+              Grafico_Ram.update();
+            }
+
+            proximaAtualizaçãoRam = setTimeout(
+              () => atualizar_grafico_ram(dados_ram, Grafico_Ram),
+              2000
+            );
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+
+          proximaAtualizaçãoRam = setTimeout(
+            () => atualizar_grafico_ram(dados_ram, Grafico_Ram),
+            2000
+          );
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+        );
+      });
+  }
+
+  function recuperarGPU() {
+    let idDispositivo = document.getElementById("select_maquinas").value;
+    fetch(`/dashboard/ultimosGPU/${idDispositivo}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    })
+      .then(function (resposta) {
+        console.log("Efetuando a recuperação de cpu");
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then((json) => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            dadoGPU = json[0].dadoCapturado;
+            dado_GPU.innerHTML = `${dadoGPU}`;
+            console.log(dadoGPU);
+          });
+        } else {
+          console.log("Houve um erro ao recuperar a qtd de processos");
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+  }
+
+  function recuperarRam() {
+    let idDispositivo = document.getElementById("select_maquinas").value;
+    fetch(`/dashboard/ultimosRam/${idDispositivo}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    })
+      .then(function (resposta) {
+        console.log("Efetuando a recuperação de Ram");
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then((json) => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            dadoRAM = json[0].dadoCapturado;
+            dado_RAM.innerHTML = `${dadoRAM}`;
+            console.log(dadoRAM);
+          });
+        } else {
+          console.log("Houve um erro ao recuperar a qtd de processos");
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+  }
+
+  function atualizarValores() {
+    Promise.all([recuperarGPU(), recuperarRam()])
+      .then((resultados) => {
+        const dado__GPU = resultados[0][0].dadoCapturado;
+        const dado__RAM = resultados[1][0].dadoCapturado;
+
+        console.log("GPU Utilizada Recuperada: " + dado__GPU);
+        console.log("RAM Utilizada Recuperada: " + dado__RAM);
+
+        dado_GPU.innerHTML = dado__GPU;
+        dado_RAM.innerHTML = dado__RAM;
+      })
+      .catch((erro) => {
+        console.error("Erro ao recuperar dados:", erro);
+      });
+
+    proximaAtualizacaoValores = setTimeout(() => atualizarValores(), 2000);
+  }
+</script>

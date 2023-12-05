@@ -390,6 +390,46 @@ FROM Monitoramento
     return database.executar(instrucao);
 }
 
+function buscar_dados_GPU(limite_linhas, id) {
+    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function buscar_dados_cpu(): ")
+    var instrucao = `
+    select top ${limite_linhas} monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+	JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
+		JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'GPU' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC;
+    `
+    console.log("Executando a ins   trucao SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function tempo_real_GPU(id) {
+    console.log("ACESSEI O USUARIO MODEL \n \n \t \t >> Se aqui der erro de 'Error: connect ECONNREFUSED', \n \t \t >> verifique suas credenciais de acesso ao banco \n \t \t >> e se o servidor de seu BD está rodando corretamente. \n \n function tempo_real_cpu(): ")
+    var instrucao = `
+    select top 1 monitoramento.idDado, monitoramento.dtHora, monitoramento.dadoCapturado, tipoComponente.nome FROM monitoramento
+	        JOIN Componentes on Componentes.idComponente = monitoramento.fkComponente
+		        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente where nome = 'GPU' and monitoramento.fkDispositivo = ${id} ORDER BY idDado DESC ;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function recuperarGPU(id) {
+    console.log("Recuperando GPU...");
+
+    var instrucao = `
+        SELECT top 1 monitoramento.idDado, monitoramento.dadoCapturado, tipoComponente.nome
+        FROM monitoramento
+        JOIN Componentes ON Componentes.idComponente = monitoramento.fkComponente
+        JOIN tipoComponente ON tipoComponente.idTipoComponente = Componentes.fkTipoComponente
+        WHERE nome = 'GPU' and monitoramento.fkDispositivo = ${id}
+        ORDER BY idDado DESC
+        
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarUltimasMedidasCPU,
     buscarUltimasMedidasRAM,
@@ -413,5 +453,8 @@ module.exports = {
     buscarDispositivo,
     tempo_real_cesar,
     buscar_dados_cesar,
-    buscar_dados_kpi
+    buscar_dados_kpi,
+    buscar_dados_GPU,
+    tempo_real_GPU,
+    recuperarGPU
 };

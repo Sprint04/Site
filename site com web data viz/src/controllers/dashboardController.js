@@ -406,6 +406,64 @@ function buscar_dados_kpi(req, res){
     });
 }
 
+function buscar_dados_GPU(req, res){
+    const limite_linhas = 5;
+    var id = req.params.idDispositivo;
+
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas da cpu`);
+
+    dashboardModel.buscar_dados_GPU(limite_linhas, id).then(function (resultado) {
+        if (resultado.length > 0){
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as últimas medidas da cpu.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function tempo_real_GPU(req, res){
+    console.log(`Recuperando medidas da cpu em tempo real`);
+    var id = req.params.idDispositivo;
+
+    dashboardModel.tempo_real_GPU(id).then(function (resultado){
+        if(resultado.length > 0){
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro)
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+function recuperarGPU(req, res){
+
+    var id = req.params.idDispositivo;
+
+    dashboardModel.recuperarGPU(id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar a recuperação da cpu! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     buscarUltimasMedidasCPU,
     buscarUltimasMedidasRAM,
@@ -429,5 +487,8 @@ module.exports = {
     buscarDispositivo,
     tempo_real_cesar,
     buscar_dados_cesar,
-    buscar_dados_kpi
+    buscar_dados_kpi,
+    buscar_dados_GPU,
+    tempo_real_GPU,
+    recuperarGPU
 }

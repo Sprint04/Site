@@ -91,4 +91,24 @@ router.get("/obter_dados_cesar/:idDispositivo", function (req, res) {
 router.get("/obter_dados_kpi/:dataFormatada/:idDispositivo", function (req, res) {
     dashboardController.buscar_dados_kpi(req, res);
 });
+
+// DADOS DA DASHBOARD INDIVIDUAL GUSTAVO
+
+router.get("/obter_dados_GPU/:idDispositivo", function (req, res) {
+    dashboardController.buscar_dados_GPU(req, res);
+});
+
+// DADOS EM TEMPO REAL
+
+router.get("/tempo_real_GPU/:idDispositivo", function (req, res) {
+    dashboardController.tempo_real_GPU(req, res);
+});
+
+// RECUPERAR OS ULTIMOS DADOS
+
+router.post("/ultimosGPU/:idDispositivo", function (req, res){
+    dashboardController.recuperarGPU(req, res);
+});
+
+
 module.exports = router;

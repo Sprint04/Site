@@ -19,4 +19,12 @@ router.get("/tempo-real_temperatura", function (req, res) {
     medidaController.buscarMedidasEmTempoReal_temperatura(req, res);
 });
 
+router.get("/ultimas_gpu", function (req, res) {
+    medidaController.buscarUltimasMedidas_GPU(req, res);
+});
+
+router.get("/tempo-real_gpu", function (req, res) {
+    medidaController.buscarMedidasEmTempoReal_GPU(req, res);
+});
+
 module.exports = router;
