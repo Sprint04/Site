@@ -383,7 +383,7 @@ function buscar_dados_kpi(dataFormatada, id) {
     ROUND(STDEV(CASE WHEN fkComponente = 2 THEN dadoCapturado END), 2) AS desvio_padrao_ram
 FROM Monitoramento
     WHERE fkDispositivo = ${id}
-    AND dtHora BETWEEN '${dataFormatada} 00:01:01' AND '${dataFormatada} 23:59:59'
+    AND dtHora BETWEEN '2023-12-01 00:01:01' AND '${dataFormatada} 23:59:59'
 ;
     `;
     console.log("Executando a ins   trucao SQL: \n" + instrucao);
