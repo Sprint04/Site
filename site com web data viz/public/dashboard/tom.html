@@ -132,7 +132,7 @@
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`medidas/ultimas_temperatura`, { cache: 'no-store' }).then(function (response) {
+        fetch(`../medidas/ultimas_temperatura`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -207,7 +207,7 @@
     function atualizarGrafico_temperatura(dados_temperatura, Grafico_Temperatura) {
 
         // este fetch irá fazer um select onde pega o ultimo dado inserido no banco e colocará na dashboard, excluindo o dado mais antigo inserido na tela
-        fetch(`/medidas/tempo-real_temperatura`, { cache: 'no-store' }).then(function (response) {
+        fetch(`../medidas/tempo-real_temperatura`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
@@ -253,7 +253,7 @@
         // var idDispositivo = input_idDispositivo.value
         var qtdProcessosRecuperados = 0
 
-        fetch(`medidas/ultimosProcessos`, {
+        fetch(`../medidas/ultimosProcessos`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -288,7 +288,7 @@
     function recuperarCpu() {
         var cpuUtilizadaRecuperada = 0
 
-        fetch(`medidas/ultimosCpu`, {
+        fetch(`../medidas/ultimosCpu`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
