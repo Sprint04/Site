@@ -20,6 +20,11 @@
   --select-bg: var(--arrow-bg);
 }
 
+::-webkit-scrollbar-thumb {
+    background-color: #4a4750;
+    border-radius: 0px 5px 5px 0px ;
+}
+
 .selectOpcoes {
   /* Personalize */
   margin-bottom: 10%;
@@ -129,17 +134,27 @@
                 
             </div>
 
-            <div style="border: solid 1px black; width: 10.9%; position: absolute; top: 22%; left: 20.5%; padding: .3%;">
-                <span>Processos:</span><button class="help-button" onclick="botaoAjuda()">💡<span class="texto_ajuda">
-                    Insira o processo aqui para adicionar ou remover da lista de bloqueados</span></button>
-                <input id="processo_input" placeholder="Nome do Processo"><br><button onclick="adicionarProcesso()">Adicionar</button><button onclick="removerProcesso()">Remover</button>
+            <div style="border: solid 1px black; width: 10.9%; position: absolute; top: 22%; left: 20.5%; padding: .3%; background-color: #808080; color: white; border-radius: 10px;">
+                <span style="font-weight: bold;">Processos:</span>
+                <button class="help-button" onclick="botaoAjuda()" style="background-color: black; color: white; border: none; border-radius: 5px; cursor: pointer;">💡<span class="texto_ajuda" style="padding: .2%;">Insira o processo aqui para adicionar ou remover da lista de bloqueados</span></button>
+                <input id="processo_input" placeholder="Nome do Processo" style="padding: 5px; margin: 5px; border-radius: 5px; border: 1px solid black;">
+                <br>
+                <button onclick="adicionarProcesso()" style="background-color: black; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Adicionar</button>
+                <button onclick="removerProcesso()" style="background-color: black; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Remover</button>
             </div>
-            <div style="border: solid 1px black; width: 10.5%; height: 19%; position: absolute; top: 30%; left: 20.5%; text-align: center; padding: .5%; overflow-y: auto;">
-                <span style="position: fixed; left: 21.5%; background-color: black; color: white; padding: .2%;">Processos Bloqueados:</span>
-                <br><br><span id="lista_processos"></span></div>
-            <div style="border: solid 1px black; width: 10.5%; height: 30%; position: absolute; top: 52%; left: 20.5%; text-align: start; padding: .5%; overflow-y: auto;">
-                <span style="position: fixed; left: 21.5%; background-color: black; color: white; padding: .2%;">Lista de Ocorrencias:</span>
-                <br><br><span id="lista_ocorrencias"></span></div>
+            
+            <div style="border: solid 1px black; width: 10.5%; height: 19%; position: absolute; top: 32.5%; left: 20.5%; text-align: center; padding: .5%; overflow-y: auto; background-color: #808080; color: white; border-radius: 10px;">
+                <span style="background-color: black; color: white; padding: .5%; border-radius: 5px;">Processos Bloqueados:</span>
+                <br><br>
+                <span id="lista_processos"></span>
+            </div>
+            
+            <div style="border: solid 1px black; width: 10.5%; height: 30%; position: absolute; top: 54.5%; left: 20.5%; text-align: start; padding: .5%; overflow-y: auto; background-color: #808080; color: white; border-radius: 10px;">
+                <span style="background-color: black; color: white; padding: .5%; border-radius: 5px;">Lista de Ocorrencias:</span>
+                <br><br>
+                <span id="lista_ocorrencias"></span>
+            </div>
+            
 
             <div class="container_grafico">
                 <div class="grafico">
