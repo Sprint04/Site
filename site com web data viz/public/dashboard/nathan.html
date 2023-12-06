@@ -280,7 +280,7 @@ function btnUsuario() {
 
                     for (i = 0; i < resposta.length; i++) {
                         var oco = resposta[i];
-                        lista_ocorrencias.innerHTML += `<p>${i + 1} - ${oco.nomeProcesso}<br><b>MAC Dispositivo:</b> ${oco.IP}<br><b>Data e Hora do acesso:</b> ${oco.dtHoraFormat}</p><br>`
+                        lista_ocorrencias.innerHTML += `<p>${i + 1} - ${oco.nomeProcesso}<br><b>Nome Dispositivo:</b><br> ${oco.alias}<br><b>Data e Hora do acesso:</b> ${oco.dtHoraFormat}</p><br>`
                     }
                 });
 
@@ -380,14 +380,13 @@ const Grafico_Cpu = new Chart(
             // Inserindo valores recebidos em estrutura para plotar o gráfico
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
-                // labels.push(registro.Novo_Testamento);
+                
                 let date = new Date(registro.data)
                 date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
                 let dataFormatada = date.toLocaleDateString()
                 labels.push(dataFormatada);
-                data.datasets[0].data.push(registro.ocorrencia); // dadoCapturado é o nome da coluna do mySQL
-                // dados.datasets[0].data.push(registro.Novo_Testamento);
-                // dados.datasets[1].data.push(registro.temperatura);
+                data.datasets[0].data.push(registro.ocorrencia);
+                
             }
             
 

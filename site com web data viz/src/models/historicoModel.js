@@ -67,7 +67,7 @@ function recuperarProcesso(id) {
 function recuperarOcorrencia(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function recuperarHistorico()", id);
     var instrucao = `
-        select top 100 idOcorrencias, fkProcesso, fkDispositivo, cpu, memoria, FORMAT(dtHora, 'dd/MM/yyyy  HH:mm:ss') AS dtHoraFormat, processosBloqueados.nome as nomeProcesso, IP from ocorrencia join dispositivo on fkDispositivo = idDispositivo join processosBloqueados on fkProcesso = idProcesso where dispositivo.fkEmpresa = ${id} order by idOcorrencias desc;
+        select top 100 idOcorrencias, fkProcesso, fkDispositivo, cpu, FORMAT(dtHora, 'dd/MM/yyyy  HH:mm:ss') AS dtHoraFormat, processosBloqueados.nome as nomeProcesso, alias from ocorrencias join dispositivo on fkDispositivo = idDispositivo join processosBloqueados on fkProcesso = idProcesso where dispositivo.fkEmpresa = ${id} order by idOcorrencias desc;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

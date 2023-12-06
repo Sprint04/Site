@@ -131,7 +131,7 @@ ORDER BY
 function buscarUltimasMedidasNathan(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ")
     var instrucao = `
-    SELECT TOP 12 count(idOcorrencias) as ocorrencia, CAST(dtHora as DATE) as data from ocorrencia 
+    SELECT TOP 12 count(idOcorrencias) as ocorrencia, CAST(dtHora as DATE) as data from ocorrencias 
         join dispositivo on fkDispositivo = idDispositivo 
             where fkEmpresa = ${id} group by CAST(dtHora as DATE) order by CAST(dtHora as DATE) desc;
     `;
